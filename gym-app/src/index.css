@@ -3,3 +3,14 @@
 *{
     font-family: 'Barlow';
 }
+
+.box{
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 1px 5px #FFD8D8
+;
+}
+
+.box:hover{
+    transform: scale(1.05);
+    cursor: pointer ;
+}
