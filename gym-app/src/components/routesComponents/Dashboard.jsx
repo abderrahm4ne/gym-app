@@ -6,102 +6,28 @@ import PersonIcon from '@mui/icons-material/Person';
 import PlusOneIcon from '@mui/icons-material/PlusOne';
 import AddIcon from '@mui/icons-material/Add';
 import BlockIcon from '@mui/icons-material/Block';
+import { NavLink } from 'react-router';
 
 export default function Dashboard(){
 
     return(
-        <div className="w-full h-[100vh] py-2 bg-[#383636] mt-2">
+        <div className="w-full h-full flex flex-col mt-4 gap-3">
 
-                
-                <div className='grid grid-cols-5 p-4 '>
+                <NavLink to="/view-all-member" className="w-full py-4 px-20 flex flex-row justify-between items-center box-nav font-bold" style={{border:"1px solid #2A3042", borderRadius:"10px"}}>
+                <p className='text-[#2A3042] text-2xl'>VIEW ALL MEMBERS</p>
+                <GroupIcon className='text-[#2A3042]' style={{fontSize:"2.5rem"}} />
+                </NavLink>
 
-                        <div className='bg-[#1f1e1e] box text-[#FFF287] flex flex-col items-center justify-center rounded-lg border-1 border-black m-2 h-[280px]' style={{borderShadow:"20px 20px 20px white"}}>
+                <NavLink to="/add-member" className="w-full py-4 px-20 flex flex-row justify-between items-center box-nav font-bold" style={{border:"1px solid #2A3042", borderRadius:"10px"}}>
+                <p className='text-[#2A3042] text-2xl'>ADD NEW MEMBER</p>
+                <PersonAddAlt1Icon className='text-[#2A3042]' style={{fontSize:"2.5rem"}} />
+                </NavLink>
 
-                            <GroupIcon sx={{fontSize:"10rem", height:"60%"}} />
-
-                            <div className='height-[40%]'>
-                                <p className='text-2xl'>VIEW ALL MEMBERS</p>
-                            </div>
-                            
-                        </div>
-
-                        <div className='bg-[#1f1e1e] box height-[30%] text-[#FFF287] flex flex-col items-center justify-center rounded-lg m-2 h-[280px]'>
-                            <PersonAddAlt1Icon className='relative left-5' sx={{fontSize:"10rem", height:"60%",}} />
-                            <div className='height-[40%]'>
-                                <p className='text-2xl'>ADD NEW MEMBER</p>
-                            </div>
-                            
-                        </div>
-
-                        <div className='bg-[#1f1e1e] box height-[30%] text-[#FFF287] flex flex-col items-center justify-center rounded-lg m-2 h-[280px]'>
-                            <div className='relative h-[60%]'>
-                                <PersonIcon sx={{fontSize:"10rem"}} />
-                                <PlusOneIcon sx={{fontSize:"5.5rem", position:"absolute", top:"25px", right:"-25px", color:"#FFF287", zIndex:"1"}} />
-                            </div>
-                            <div className='height-[40%]'>
-                                <p className='text-2xl'>ADDED TODAY</p>
-                            </div>
-
-                        </div>
-
-                        <div className='bg-[#1f1e1e] box height-[30%] text-[#FFF287] flex flex-col items-center justify-center rounded-lg m-2 h-[280px]'>
-                            <div className='relative h-[60%]'>
-                                <PersonIcon sx={{fontSize:"10rem"}} />
-                                <AddIcon sx={{fontSize:"5.5rem", position:"absolute", top:"25px", right:"-25px", color:"#FFF287", zIndex:"1"}} />
-                            </div>
-                            <div className='height-[40%]'>
-                                <p className='text-2xl'>ADDED LAST 7 DAYS</p>
-                            </div>
-
-                        </div>
-
-                        <div className='bg-[#1f1e1e] box height-[30%] text-[#FFF287] flex flex-col items-center justify-center rounded-lg m-2 h-[280px]'>
-                            <div className='relative h-[60%]'>
-                                <PersonIcon sx={{fontSize:"10rem"}} />
-                                <AutorenewIcon sx={{fontSize:"5.5rem", position:"absolute", top:"25px", right:"-25px", color:"#FFF287", zIndex:"1"}} />
-                            </div>
-                            <div className='height-[40%]'>
-                                <p className='text-2xl'>RENEW MEMBERSHIP</p>
-                            </div>
-
-                        </div>
-
-                        <div className='bg-[#1f1e1e] box height-[30%] text-[#610404] flex flex-col items-center justify-center rounded-lg m-2 h-[280px]'>
-                            <div className='relative h-[60%]'>
-                                <PersonIcon sx={{fontSize:"10rem"}} />
-                                <AutorenewIcon sx={{fontSize:"5.5rem", position:"absolute", top:"25px", right:"-25px", color:"#610404", zIndex:"1"}} />
-                            </div>
-                            <div className='height-[40%]'>
-                                <p className='text-2xl'>SUBSCRIPTIONS ENDS TODAY</p>
-                            </div>
-
-                        </div>
-
-                        <div className='bg-[#1f1e1e] box height-[30%] text-[#610404] flex flex-col items-center justify-center rounded-lg m-2 h-[280px]'>
-                            <div className='relative h-[60%]'>
-                                <PersonIcon sx={{fontSize:"10rem"}} />
-                                <AutorenewIcon sx={{fontSize:"5.5rem", position:"absolute", top:"25px", right:"-25px", color:"#610404", zIndex:"1"}} />
-                            </div>
-                            <div className='height-[40%]'>
-                                <p className='text-2xl'>ENDS THIS 3 DAYS</p>
-                            </div>
-
-                        </div>
-
-                        <div className='bg-[#1f1e1e] box height-[30%] text-[#610404] flex flex-col items-center justify-center rounded-lg m-2 h-[280px]'>
-                            <div className='relative h-[60%]'>
-                                <PersonIcon sx={{fontSize:"10rem"}} />
-                                <BlockIcon sx={{fontSize:"5.5rem", position:"absolute", top:"25px", right:"-30px", color:"#610404", zIndex:"1"}} />
-                            </div>
-                            <div className='height-[40%]'>
-                                <p className='text-2xl'>BANNED MEMBERS</p>
-                            </div>
-
-                        </div>
-
-                </div>
+                <NavLink to="/renew-membership" className="w-full py-4 px-20 flex flex-row justify-between items-center box-nav font-bold" style={{border:"1px solid #2A3042", borderRadius:"10px"}}>
+                <p className='text-[#2A3042] text-2xl'>RENEW MEMBERSHIP</p>
+                <AutorenewIcon className='text-[#2A3042]' style={{fontSize:"2.5rem"}} />
+                </NavLink>
             
-                        
         </div>
     )
 }

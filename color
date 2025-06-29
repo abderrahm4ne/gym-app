@@ -1,7 +1,18 @@
-#2b2a2a
-#FFA673
-#FFD8D8
-#FFF287
-#8CCDEB
-#07b335
-#383636
+background :
+#1a1f2e
+
+panel background color :
+#2A3042
+
+data :
+#00C4FF
+#FF6B6B
+#4CAF50
+
+texts and icons :
+#FFFFFF
+#B0B7C4
+
+buttons : 
+#00E676
+#FF9800
