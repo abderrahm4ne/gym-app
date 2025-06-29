@@ -1,7 +1,12 @@
 @import "tailwindcss";
 
 *{
-    font-family: 'Barlow';
+    font-family: 'Roboto';
+    word-spacing: -1px;
+}
+
+body{
+    background-color: #383636;
 }
 
 .box{
@@ -12,5 +17,14 @@
 
 .box:hover{
     transform: scale(1.05);
+    cursor: pointer ;
+}
+
+.dashboard{
+    transition: all 0.3s ease-in-out;
+}
+
+.dashboard:hover{
+    transform: scale(1.1);
     cursor: pointer ;
 }

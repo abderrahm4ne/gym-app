@@ -1,5 +1,5 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
-import SideBar from './components/SideBar';
+import NavBar from './components/NavBar';
 import Dashboard from './components/routesComponents/Dashboard';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
           const router = createBrowserRouter(
             createRoutesFromElements(
             
-              <Route path='/' element={<SideBar />}>
+              <Route path='/' element={<NavBar />}>
                 <Route index path='/' element={<Dashboard />} />
               </Route>
             
