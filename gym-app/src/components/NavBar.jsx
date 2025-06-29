@@ -1,41 +1,49 @@
 import { NavLink } from "react-router"
 import { Outlet } from "react-router"
+import Dashboard from "./routesComponents/Dashboard";
 
 // mui imports
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import GroupIcon from '@mui/icons-material/Group';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 
 
 export default function NavBar(){
 
     return(
-        <div className="h-[100vh] w-[100vw] flex flex-col">
+        <div className="h-[100vh] w-[100vw] p-4">
             
+            
+            <div className="flex flex-row justify-between items-center mb-6 px-5">
 
-                <div className="navbar flex flex-row w-full bg-[#1f1e1e] py-5.5 px-30 relative items-center" style={{ borderBottomLeftRadius: "60px", borderBottomRightRadius: "60px" }}>
-  
-                    <div className="flex flex-row items-center gap-4 flex-1">
-                        <p className="text-[#8CCDEB] text-2xl">ADMIN SALIM</p>
-                        <div className="w-[8px] h-[8px] rounded-2xl bg-[#07b335]" />
-                    </div>
+                        <div className="flex flex-row gap-3 items-center ">
+                            <AdminPanelSettingsIcon className="text-[#B0B7C4]" style={{fontSize:"2.5rem"}} />
+                            <p className="text-[#FFFFFF] text-xl">ADMIN SALIM</p>
+                            <div className="bg-[#4CAF50] w-[10px] h-[10px] rounded-2xl"></div>
+                        </div>
 
-                    <div className="flex justify-center flex-1">
-                        <p className="text-[#8CCDEB] text-2xl" >
-                        GYM SYSTEM MANAGEMENT
-                        </p>
-                    </div>
+                        <div className="flex flex-row gap-3 items-center pr-4">
+                            <FitnessCenterIcon className="text-[#B0B7C4]" style={{fontSize:"2.5rem"}} />
+                            <div className="felx flex-col items-start">
+                                <p className="text-[#FFFFFF] text-2xl" >GYM </p>
+                                <p className="text-[#FFFFFF] text-sm relative bottom-2 left-4">SYSTEM MANAGEMENT</p>                    
+                                <p className="text-[#00E676] text-[10px] relative bottom-2 left-8">SALIM GYM</p>   
+                            </div>
+                        </div>
+            </div>
 
-                    <div className="flex justify-end flex-1">
-                        <NavLink to="/" className="text-[#8CCDEB] dashboard">
-                        <DashboardIcon style={{ fontSize: "2rem" }} />
-                        </NavLink>
-                    </div>
+            <div className="grid grid-cols-3 gap-4">
+                <div style={{backgroundImage: "linear-gradient(to bottom, #00C4FF, #FFFFFF)", position:"sticky"}} className="rounded-lg flex flex-col p-4">
+                    <NavLink to="/" className=" box flex flex-col items-center justify-center self-center w-[20%] h-[100px] rounded-lg ">
+                        <DashboardIcon className="text-[#1a1f2e]" style={{fontSize:"2rem"}} />
+                        <p className="text-[#1a1f2e] text-lg">DASHBOARD</p>
+                    </NavLink>
 
+                    <Dashboard />
                 </div>
-
-                    <Outlet />
-                
-
+            </div>
+            
         </div>
     )
 }
