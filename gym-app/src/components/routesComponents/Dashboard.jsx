@@ -6,28 +6,48 @@ import PersonIcon from '@mui/icons-material/Person';
 import PlusOneIcon from '@mui/icons-material/PlusOne';
 import AddIcon from '@mui/icons-material/Add';
 import BlockIcon from '@mui/icons-material/Block';
+import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
+
+
 import { NavLink } from 'react-router';
 
 export default function Dashboard(){
 
     return(
-        <div className="w-full h-full flex flex-col mt-4 gap-3">
+        <div className="w-full h-full flex flex-col mt-4 gap-3 overflow-y-scroll px-4">
 
-                <NavLink to="/view-all-member" className="w-full py-4 px-20 flex flex-row justify-between items-center box-nav font-bold" style={{border:"1px solid #2A3042", borderRadius:"10px"}}>
-                <p className='text-[#2A3042] text-2xl'>VIEW ALL MEMBERS</p>
-                <GroupIcon className='text-[#2A3042]' style={{fontSize:"2.5rem"}} />
+                <NavLink to="/view-all-member" className="w-full py-4 px-20 flex flex-row justify-between items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
+                <p className='text-[#FFFFFF] text-2xl'>VIEW ALL MEMBERS</p>
+                <GroupIcon className='text-[#FFFFFF]' style={{fontSize:"2.5rem"}} />
                 </NavLink>
 
-                <NavLink to="/add-member" className="w-full py-4 px-20 flex flex-row justify-between items-center box-nav font-bold" style={{border:"1px solid #2A3042", borderRadius:"10px"}}>
-                <p className='text-[#2A3042] text-2xl'>ADD NEW MEMBER</p>
-                <PersonAddAlt1Icon className='text-[#2A3042]' style={{fontSize:"2.5rem"}} />
+                <NavLink to="/add-member" className="w-full py-4 px-20 flex flex-row justify-between items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
+                <p className='text-[#FFFFFF] text-2xl'>ADD NEW MEMBER</p>
+                <PersonAddAlt1Icon className='text-[#FFFFFF]' style={{fontSize:"2.5rem"}} />
                 </NavLink>
 
-                <NavLink to="/renew-membership" className="w-full py-4 px-20 flex flex-row justify-between items-center box-nav font-bold" style={{border:"1px solid #2A3042", borderRadius:"10px"}}>
-                <p className='text-[#2A3042] text-2xl'>RENEW MEMBERSHIP</p>
-                <AutorenewIcon className='text-[#2A3042]' style={{fontSize:"2.5rem"}} />
+                <NavLink to="/renew-membership" className="w-full py-4 px-20 flex flex-row justify-between items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
+                <p className='text-[#FFFFFF] text-2xl'>RENEW MEMBERSHIP</p>
+                <AutorenewIcon className='text-[#FFFFFF]' style={{fontSize:"2.5rem"}} />
                 </NavLink>
-            
+
+                <NavLink to="/membership-ends-today" className="w-full py-4 px-20 flex flex-row justify-between items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
+                <p className='text-[#FFFFFF] text-2xl'>MEMBERSHIPS ENDS TODAY</p>
+                <GroupRemoveIcon className='text-[#FFFFFF]' style={{fontSize:"2.5rem"}} />
+                </NavLink>
+
+                <NavLink to="/membership-ended" className="w-full py-4 px-20 flex flex-row justify-between items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
+                <p className='text-[#FFFFFF] text-2xl'>MEMBERSHIPS HAS ENDED</p>
+                <GroupRemoveIcon className='text-[#FFFFFF]' style={{fontSize:"2.5rem"}} />
+                </NavLink>
+
+
+                <NavLink to="/membership-ends-today" className="w-full py-4 px-20 flex flex-row justify-between items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
+                <p className='text-[#FFFFFF] text-2xl'>MEMBERSHIP ENDS TODAY</p>
+                <GroupRemoveIcon className='text-[#FFFFFF]' style={{fontSize:"2.5rem"}} />
+                </NavLink>
+
+                
         </div>
     )
 }
