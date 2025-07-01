@@ -34,7 +34,7 @@ export default function NavBar(){
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-                <div style={{backgroundImage: "linear-gradient(to bottom, #1a1f2e, #131621)", position:"sticky", boxShadow:"0px 2px 5px #00C4FF"}} className="rounded-lg flex flex-col p-4 w-[70%] h-[70vh] overflow-hidden">
+                <div style={{backgroundImage: "linear-gradient(to bottom, #1a1f2e, #131621)", position:"sticky", boxShadow:"0px 2px 5px rgba(0, 0, 0, 0.2)"}} className="rounded-lg flex flex-col p-4 w-[70%] h-[70vh] overflow-hidden">
                     <NavLink to="/" className=" box flex flex-col items-center justify-center self-center w-[20%] h-[100px] rounded-lg ">
                         <DashboardIcon className="text-[#00C4FF]" style={{fontSize:"2rem"}} />
                         <p className="text-[#00C4FF] text-lg">DASHBOARD</p>
