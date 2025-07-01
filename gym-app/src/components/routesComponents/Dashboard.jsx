@@ -17,7 +17,7 @@ import { NavLink } from 'react-router';
 export default function Dashboard(){
 
     return(
-        <div className="w-full h-full grid grid-cols-2 py-5 mt-3 gap-3 overflow-y-scroll px-4">
+        <div className="w-full h-full grid grid-cols-2 py-5 mt-3 gap-3 px-4">
 
                 <NavLink to="/view-all-member" className="w-full py-4 px-20 flex flex-col justify-between items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
                 <p className='text-[#FFFFFF] text-2xl text-center'>VIEW ALL MEMBERS</p>
