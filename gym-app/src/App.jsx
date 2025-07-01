@@ -2,6 +2,15 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import NavBar from './components/NavBar';
 import Dashboard from './components/routesComponents/Dashboard';
 
+import MembershipsEndsToday from './Admin/MembershipsEndsToday';
+import BasicStatistics from './Admin/BasicStatistics';
+import MembershipsEnded from './Admin/MembershipsEnded';
+import AddMember from './Admin/AddMember';
+import EditMember from './Admin/EditMember';
+import RenewMemberships from './Admin/RenewMemberships';
+import ViewAllMembers from './Admin/ViewAllMembers';
+import Notes from './Admin/Notes';
+
 function App() {
 
   {/*==== ROUTER ====*/} 
@@ -9,7 +18,18 @@ function App() {
             createRoutesFromElements(
             
               <Route path='/' element={<NavBar />}>
-                <Route index path='/' element={<Dashboard />} />
+                <Route path='/' element={<Dashboard />}>
+
+                      <Route index path='/view-all-member' element={<ViewAllMembers />} />
+                      <Route path='/add-member' element={<AddMember />} />
+                      <Route path='/edit-member' element={<EditMember />} />
+                      <Route path='/renew-membership' element={<RenewMemberships />} />
+                      <Route path='/membership-ends-today' element={<MembershipsEndsToday />} />
+                      <Route path='/membership-ended' element={<MembershipsEnded />} />
+                      <Route path='/basic-statistics' element={<BasicStatistics />} />
+                      <Route path='/note' element={<Notes />} />
+
+                </Route>
               </Route>
             
             )
