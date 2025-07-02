@@ -1,8 +1,11 @@
 background :
 #1a1f2e
-
+#111624 darker
 panel background color :
 #2A3042
+#16213e
+
+#33334a
 
 data :
 #00C4FF
@@ -14,5 +17,6 @@ texts and icons :
 #B0B7C4
 
 buttons : 
+#377339
 #00E676
 #FF9800

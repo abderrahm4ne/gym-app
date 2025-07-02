@@ -17,69 +17,70 @@ import { NavLink, Outlet } from 'react-router';
 export default function Dashboard(){
 
     return(
-        <div className="rounded-2xl p-4 w-[100%] flex flex-row gap-3">
+        <div className="p-4 w-[100%] h-[90vh] flex flex-row gap-3">
 
-            <div className='w-[30%] flex flex-col rounded-2xl ' style={{backgroundImage:"linear-gradient(to bottom, rgba(0, 196, 255, 0.1) 0%, rgba(0, 196, 255, 0.1) 100%)", boxShadow:"0px 5px 5px rgba(0, 0, 0, 0.2)", border:"1px solid #00C4FF"}}>
+            <div className='w-[25%] h-[100%] px-4 py-5 rounded-2xl flex flex-col gap-1' style={{backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)', boxShadow:"1px 4px 5px rgba(0, 0, 0, 0.3)"}}>
 
-                <NavLink to="/" className="box flex flex-col items-center justify-center self-center w-[20%] h-[100px] rounded-lg pt-3 mt-1">
-                    <DashboardIcon className=" text-[#000000]" style={{fontSize:"3rem"}} />
-                        <p className="text-[#000000] text-lg">DASHBOARD</p>
+                <NavLink to="/dashboard" className='text-xl flex flex-row items-center rounded-2xl px-3 py-2.5 bg-[#4CAF50] text-white w-fit'>
+                    <DashboardIcon style={{fontSize:"1.5rem"}} />
+                    <p className='ml-2'>Dashboard</p>
                 </NavLink>
 
+                <div className='flex flex-col gap-2 mt-4'>
 
-                <div className="w-full h-full grid grid-cols-2 py-5 gap-x-3 gap-y-1.5 px-4">
+                    <NavLink to="/view-all-member" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
+                    <GroupIcon style={{fontSize:"1.5rem"}} />
+                    <p className="text-lg">View All Members</p>
+                </NavLink>
 
-                    <NavLink to="/view-all-member" className="w-full h-[17vh] py-4 px-20 flex flex-col justify-center items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
-                    <p className='text-[#B0B7C4] text-2xl  text-center'>VIEW ALL MEMBERS</p>
-                    <GroupIcon className='text-[#B0B7C4]' style={{fontSize:"2.5rem"}} />
-                    </NavLink>
+                <NavLink to="/add-member" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
+                    <PersonAddAlt1Icon style={{fontSize:"1.5rem"}} />
+                    <p className="text-lg">Add Member</p>
+                </NavLink>
 
-                    <NavLink to="/add-member" className="w-full h-[17vh] py-4 px-20 flex flex-col justify-center items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
-                    <p className='text-[#B0B7C4] text-2xl text-center'>ADD NEW MEMBER</p>
-                    <PersonAddAlt1Icon className='text-[#B0B7C4]' style={{fontSize:"2.5rem"}} />
-                    </NavLink>
+                <NavLink to="/edit-member" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
+                    <CreateIcon style={{fontSize:"1.5rem"}} />
+                    <p className="text-lg">Edit Member Informations</p>
+                </NavLink>
 
-                    <NavLink to="/edit-member" className="w-full h-[17vh] py-4 px-20 flex flex-col justify-center items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
-                    <p className='text-[#B0B7C4] text-2xl text-center'>EDIT MEMBER INFORMATIONS</p>
-                    <div style={{fontSize:"2.5rem"}} className='flex items-center justify-center relative left-3'>
-                        <PersonIcon className='text-[#B0B7C4]' style={{fontSize:"2.5rem"}} />
-                        <CreateIcon className='text-[#B0B7C4] relative bottom-2 right-2.5' style={{fontSize:"1.5rem"}} />
-                    </div>
-                    
-                    </NavLink>
+                <NavLink to="/renew-membership" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
+                    <AutorenewIcon style={{fontSize:"1.5rem"}} />
+                    <p className="text-lg">Renew Membership</p>
+                </NavLink>
 
-                    <NavLink to="/renew-membership" className="w-full h-[17vh] py-4 px-20 flex flex-col justify-center items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
-                    <p className='text-[#B0B7C4] text-2xl text-center'>RENEW MEMBERSHIP</p>
-                    <AutorenewIcon className='text-[#B0B7C4]' style={{fontSize:"2.5rem"}} />
-                    </NavLink>
+                <NavLink to="/remove-member" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
+                    <GroupRemoveIcon style={{fontSize:"1.5rem"}} />
+                    <p className="text-lg">Ends Membership</p>
+                </NavLink>
 
-                    <NavLink to="/membership-ends-today" className="w-full h-[17vh] py-4 px-20 flex flex-col justify-center items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
-                    <p className='text-[#B0B7C4] text-2xl text-center'>MEMBERSHIPS ENDS TODAY</p>
-                    <GroupRemoveIcon className='text-[#B0B7C4]' style={{fontSize:"2.5rem"}} />
-                    </NavLink>
+                <NavLink to="/memberships-ends-today" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
+                    <BlockIcon style={{fontSize:"1.5rem"}} />
+                    <p className="text-lg">Memberships Ends Today</p>
+                </NavLink>
 
-                    <NavLink to="/membership-ended" className="w-full h-[17vh] py-4 px-20 flex flex-col justify-center items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
-                    <p className='text-[#B0B7C4] text-2xl text-center'>MEMBERSHIPS HAS ENDED</p>
-                    <GroupRemoveIcon className='text-[#B0B7C4]' style={{fontSize:"2.5rem"}} />
-                    </NavLink>
+                <NavLink to="/memberships-ended" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
+                    <BlockIcon style={{fontSize:"1.5rem"}} />
+                    <p className="text-lg">Memberships Ended</p>
+                </NavLink>
+
+                <NavLink to="/basic-statistics" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
+                    <SignalCellularAltIcon style={{fontSize:"1.5rem"}} />
+                    <p className="text-lg">Basic Statistics</p>
+                </NavLink>
+
+                <NavLink to="/take-note" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
+                    <NotesIcon style={{fontSize:"1.5rem"}} />
+                    <p className="text-lg">Take Note</p>
+                </NavLink>
+
+                </div>
 
 
-                    <NavLink to="/basic-statistics" className="w-full h-[17vh] py-4 px-20 flex flex-col justify-center items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
-                    <p className='text-[#B0B7C4] text-2xl text-center'>BASIC STATISTICS</p>
-                    <SignalCellularAltIcon className='text-[#B0B7C4]' style={{fontSize:"2.5rem"}} />
-                    </NavLink>
-
-                    <NavLink to="/take-note" className="w-full h-[17vh] py-4 px-20 flex flex-col justify-center items-center box-nav " style={{border:"1px solid #00C4FF", borderRadius:"10px"}}>
-                    <p className='text-[#B0B7C4] text-2xl text-center'>TAKE A NOTE</p>
-                    <NotesIcon className='text-[#B0B7C4]' style={{fontSize:"2.5rem"}} />
-                    </NavLink>
-
-                
-                 </div>
 
             </div>
-            
-            <div className='w-[70%] rounded-2xl p-4' style={{backgroundImage:"linear-gradient(to bottom, rgba(0, 196, 255, 0.1) 0%, rgba(0, 196, 255, 0.1) 100%)", boxShadow:"0px 5px 5px rgba(0, 0, 0, 0.2)", border:"1px solid #00C4FF"}}>
+
+
+            <div className='w-[75%] h-[100%] px-4 py-5 rounded-2xl flex flex-col gap-1' style={{backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)', boxShadow:"1px 4px 5px rgba(0, 0, 0, 0.3)"}}>
                 <Outlet />
             </div>
 
