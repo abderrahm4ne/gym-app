@@ -6,7 +6,7 @@
 }
 
 body{
-    background-image: linear-gradient(to bottom, #1a1f2e, #2A3042);
+    background-image: linear-gradient(to bottom, #1a1f2e, #111624);
 }
 .box{
     transition: all 0.3s ease-in-out;
