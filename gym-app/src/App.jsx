@@ -19,12 +19,13 @@ function App() {
             
               <Route path='' element={<NavBar />}>
                   <Route path='/' element={<Dashboard />}>
-                    <Route path='view-all-member' element={<ViewAllMembers />} />
+                    <Route index path='view-all-member' element={<ViewAllMembers />} />
                     <Route path='add-member' element={<AddMember />} />
                     <Route path='edit-member' element={<EditMember />} />
                     <Route path='renew-membership' element={<RenewMemberships />} />
-                    <Route path='membership-ends-today' element={<MembershipsEndsToday />} />
-                    <Route path='membership-ended' element={<MembershipsEnded />} />
+                    <Route path='remove-member' element={<EditMember />} />
+                    <Route path='memberships-ends-today' element={<MembershipsEndsToday />} />
+                    <Route path='memberships-ended' element={<MembershipsEnded />} />
                     <Route path='basic-statistics' element={<BasicStatistics />} />
                     <Route path='take-note' element={<Notes />} />
                   </Route>

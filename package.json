@@ -17,6 +17,7 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
-    "electron": "^37.0.0"
+    "electron": "^37.0.0",
+    "nedb": "^1.8.0"
   }
 }
