@@ -32,8 +32,6 @@ function App() {
                   </Route>
                 </Route>
 
-
-            
             )
           )
    {/*==== ROUTER ====*/}   
