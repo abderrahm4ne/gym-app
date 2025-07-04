@@ -28,7 +28,7 @@ export default function Dashboard(){
 
                 <div className='flex flex-col gap-2 mt-4'>
 
-                    <NavLink to="/view-all-member" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
+                    <NavLink to="/view-all-members" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
                     <GroupIcon style={{fontSize:"1.5rem"}} />
                     <p className="text-lg">View All Members</p>
                 </NavLink>

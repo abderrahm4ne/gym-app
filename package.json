@@ -17,7 +17,9 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
+    "dotenv": "^17.0.1",
     "electron": "^37.0.0",
+    "mongoose": "^8.16.1",
     "nedb": "^1.8.0"
   }
 }

@@ -2,6 +2,7 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import NavBar from './components/NavBar';
 import Dashboard from './components/routesComponents/Dashboard';
 
+// icons 
 import MembershipsEndsToday from './Admin/MembershipsEndsToday';
 import BasicStatistics from './Admin/BasicStatistics';
 import MembershipsEnded from './Admin/MembershipsEnded';
@@ -19,7 +20,7 @@ function App() {
             
               <Route path='' element={<NavBar />}>
                   <Route path='/' element={<Dashboard />}>
-                    <Route index path='view-all-member' element={<ViewAllMembers />} />
+                    <Route index path='view-all-members' element={<ViewAllMembers />} />
                     <Route path='add-member' element={<AddMember />} />
                     <Route path='edit-member' element={<EditMember />} />
                     <Route path='renew-membership' element={<RenewMemberships />} />
