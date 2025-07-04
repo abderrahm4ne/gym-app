@@ -4,7 +4,7 @@ import url from 'url';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { ipcMain } from 'electron';
-
+import { memberHandlers } from './handlers/memberHandlers.js';
 
 // apis
 import connectToDatabase from './backend/mongo.js';
@@ -37,6 +37,7 @@ function createMainWindow() {
 
 app.whenReady().then(async () => {
   await connectToDatabase();
+  memberHandlers();
   createMainWindow();
   
 });
