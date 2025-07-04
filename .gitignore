@@ -5,4 +5,3 @@ backend/mongo.js
 backend/config.json
 backend/ipc/memberHandlers.js
 backend/models/mongoSchema.js
-backend/.env
