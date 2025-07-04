@@ -1,15 +1,15 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow} from 'electron';
 import path from 'path';
 import url from 'url';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import db from './gym-app/db/member.js';
+import { ipcMain } from 'electron';
 
-db.count({}, (err, count) => {
-  if (count === 0) {
-    db.insert({ name: "John Doe", membership: "Premium" });
-  }
-});
+
+// apis
+import connectToDatabase from './backend/mongo.js';
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -35,16 +35,8 @@ function createMainWindow() {
     mainWindow.loadURL('http://localhost:5173');
 }
 
-app.whenReady().then(createMainWindow);
-
-ipcMain.handle('get-members', async () => {
-    return new Promise((resolve, reject) => {
-        db.find({}, (err, docs) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(docs);
-            }
-        });
-    });
+app.whenReady().then(async () => {
+  await connectToDatabase();
+  createMainWindow();
+  
 });
