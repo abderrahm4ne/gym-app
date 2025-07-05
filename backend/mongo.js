@@ -16,7 +16,6 @@ async function connectToDatabase() {
     console.error("Mongo URI is missing in config.json");
     return;
   }
-  console.log('uri is here ', uri);
   try {
     await mongoose.connect(uri);
     console.log("Connected to MongoDB");
