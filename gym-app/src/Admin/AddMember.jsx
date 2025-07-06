@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 import Modal from '@mui/material/Modal';
 
-
 export default function AddMember(){
 
       const [infos, setInfos] = useState({
@@ -53,39 +52,79 @@ export default function AddMember(){
     },[infos.monthsOfMemberShips]);
 
     const [fieldsErr, setFieldsErr ] = useState(false);
+    const [phoneNum, setPhoneNum] = useState(false);
+    const [monthsField, setMonthsField] = useState(false);
 
     const handleAddMember = async () => {
+    const {
+      firstname,
+      lastname,
+      monthsOfMemberShips,
+      membership,
+      phonenumber,
+      startDate,
+      endDate,
+    } = infos;
 
-      if((infos.firstname).trim() === "" || (infos.lastname).trim() === "" || (infos.monthsOfMemberShips).trim() === "" || (infos.membership).trim() === "" || (infos.phonenumber).trim() === "" || (infos.startDate).trim() === "" || (infos.endDate).trim === "" )
-      {
-        setFieldsErr(true);
-        return
-      }
+    const isEmpty = (str) => String(str).trim() === "";
 
-    const result = await window.electron.ipcRenderer.invoke('add-member', infos);
+    setFieldsErr(false);
+    setPhoneNum(false);
+    setMonthsField(false);
+
+    if (
+      isEmpty(firstname) ||
+      isEmpty(lastname) ||
+      isEmpty(monthsOfMemberShips) ||
+      isEmpty(membership) ||
+      isEmpty(phonenumber) ||
+      isEmpty(startDate) ||
+      isEmpty(endDate)
+    ) {
+      setFieldsErr(true);
+      return;
+    }
+
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phonenumber)) {
+      setPhoneNum(true);
+      return;
+    }
+
+    const months = parseInt(monthsOfMemberShips);
+    if (isNaN(months) || months < 1) {
+      setMonthsField(true);
+      return;
+    }
+
+    const result = await window.electron.ipcRenderer.invoke("add-member", infos);
 
     if (result.success) {
       alert(result.message);
       setInfos({
-        firstname:"",
-        lastname:"",
-        membership:"",
-        phonenumber:"",
-        monthsOfMemberShips:"",
-        startDate:"",
-        endDate:""
-      })
+        firstname: "",
+        lastname: "",
+        membership: "",
+        phonenumber: "",
+        monthsOfMemberShips: "",
+        startDate: "",
+        endDate: "",
+      });
     } else {
-      console.error('Failed to add member:', result.error);
+      console.error("Failed to add member:", result.error);
     }
+  };
 
-    };
+
 
    ///==== dialog logic ====///
 
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
+      setFieldsErr(false);
+      setPhoneNum(false);
+      setMonthsField(false);
       setOpen(true);
     };
 
@@ -163,7 +202,7 @@ export default function AddMember(){
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
           <label htmlFor="monthsOfMemberShips" className="w-[20%] text-2xl text-[#FFFFFF]">Months Of Memberships</label>
           <input
-            type="text"
+            type="number"
             id="monthsOfMemberShips"
             className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
             value={infos.monthsOfMemberShips}
@@ -179,7 +218,7 @@ export default function AddMember(){
           <input
             type="date"
             id="startDate"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-3 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
             value={infos.startDate}
             onChange={handleChange}
 
@@ -213,7 +252,7 @@ export default function AddMember(){
             Add Member
           </button>
 
-          {fieldsErr && 'You must fill all the fields'}
+          
         
         <Modal
             open={open}
@@ -260,6 +299,26 @@ export default function AddMember(){
           </Modal>
 
         </div>
+
+        {fieldsErr && (
+          <div className="text-red-500 text-lg font-semibold mt-2 px-4">
+            You must fill all the fields
+          </div>
+        )}
+
+        {phoneNum && (
+          <div className="text-red-500 text-lg font-semibold mt-2 px-4">
+            You must enter a valid phone number
+          </div>
+        )}
+
+        {monthsField && (
+          <div className="text-red-500 text-lg font-semibold mt-2 px-4">
+            Months of membership can't be zero
+          </div>
+        )}
+
+
       </div>
     </div>
     )
