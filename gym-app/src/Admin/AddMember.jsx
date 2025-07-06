@@ -55,8 +55,8 @@ export default function AddMember(){
     const [phoneNum, setPhoneNum] = useState(false);
     const [monthsField, setMonthsField] = useState(false);
 
-    const handleAddMember = async () => {
-    const {
+    const validation = () =>{
+      const {
       firstname,
       lastname,
       monthsOfMemberShips,
@@ -96,6 +96,17 @@ export default function AddMember(){
       setMonthsField(true);
       return;
     }
+
+    return true
+    }
+
+    const handleAddMember = async () => {
+      
+      const validated = validation();
+
+      if(!validated){
+        return
+      }
 
     const result = await window.electron.ipcRenderer.invoke("add-member", infos);
 
@@ -285,12 +296,20 @@ export default function AddMember(){
 
             <div className='flex flex-row gap-2' style={{alignSelf:"end"}}>
                 <button className='bg-[#FF6B6B] text-[white] py-3 px-4.5 rounded-md text-xl btn' onClick={handleClose}>CANCEL</button>
-                <button className='bg-[#4CAF50] text-[white] py-3 px-4.5 rounded-md text-xl btn' onClick={() => {
-                  handleAddMember();
-                  setTimeout(() => {
-                    handleClose();
-                  }, 200)
-                }}>CONFIRM</button>
+                <button
+                  className="bg-[#4CAF50] text-[white] py-3 px-4.5 rounded-md text-xl btn"
+                  onClick={() => {
+                    if (validation()) {
+                      handleAddMember();
+                      setTimeout(() => {
+                        handleClose();
+                      }, 200);
+                    }
+                  }}
+                >
+                  CONFIRM
+                </button>
+
             </div>
            
 
