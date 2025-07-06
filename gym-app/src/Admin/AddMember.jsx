@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 
+import Modal from '@mui/material/Modal';
+
+
 export default function AddMember(){
 
       const [infos, setInfos] = useState({
@@ -47,9 +50,17 @@ export default function AddMember(){
         endDate : enddate
       }))
 
-    },[infos.monthsOfMemberShips])
+    },[infos.monthsOfMemberShips]);
+
+    const [fieldsErr, setFieldsErr ] = useState(false);
 
     const handleAddMember = async () => {
+
+      if((infos.firstname).trim() === "" || (infos.lastname).trim() === "" || (infos.monthsOfMemberShips).trim() === "" || (infos.membership).trim() === "" || (infos.phonenumber).trim() === "" || (infos.startDate).trim() === "" || (infos.endDate).trim === "" )
+      {
+        setFieldsErr(true);
+        return
+      }
 
     const result = await window.electron.ipcRenderer.invoke('add-member', infos);
 
@@ -70,15 +81,25 @@ export default function AddMember(){
 
     };
 
-   
+   ///==== dialog logic ====///
 
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+
+    const handleClose = () => {
+      setOpen(false);
+    };
     
+   ///==== dialog logic ====///
 
     return(
         <div className="p-4">
       <h1 className="text-4xl text-[#FFFFFF] mb-4 px-4">Add New Member</h1>
 
-      <div className="flex flex-col w-full space-y-4">
+      <div className="flex flex-col w-full space-y-4 mt-6">
 
 
         {/* First Name */}
@@ -87,7 +108,7 @@ export default function AddMember(){
           <input
             type="text"
             id="firstname"
-            className="border-1 border-[#00C4FF] rounded-md w-[70%] px-2 py-1 text-2xl text-[#FFFFFF] outline-none bg-transparent "
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-2xl text-[#FFFFFF] outline-none bg-transparent"
             value={infos.firstname}
             onChange={handleChange}
           />
@@ -101,7 +122,7 @@ export default function AddMember(){
           <input
             type="text"
             id="lastname"
-            className="border-1 border-[#00C4FF] rounded-md w-[70%] px-2 py-1 text-2xl text-[#FFFFFF] outline-none bg-transparent "
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-2xl text-[#FFFFFF] outline-none bg-transparent"
             value={infos.lastname}
             onChange={handleChange}
           />
@@ -112,17 +133,17 @@ export default function AddMember(){
         {/* Membership */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
           <label htmlFor="membership" className="w-[20%] text-2xl text-[#FFFFFF]">Membership</label>
-          <input
-            type="text"
+          <select
             id="membership"
-            className="border-1 border-[#00C4FF] rounded-md w-[70%] px-2 py-1 text-2xl text-[#FFFFFF] outline-none bg-transparent "
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-2xl text-[#FFFFFF] outline-none bg-transparent field"
             value={infos.membership}
             onChange={handleChange}
-          />
+          >
+            <option className='bg-[#2A3042] px-4 outline-none rounded-md border-none' value="">Select a type</option>
+            <option className='bg-[#2A3042] px-4 outline-none rounded-md border-none' value="Normal">Normal</option>
+            <option className='bg-[#2A3042] px-4 outline-none rounded-md border-none' value="Premium">Premium</option>
+          </select>
         </div>
-
-
-
 
         {/* Phone Number */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
@@ -130,7 +151,7 @@ export default function AddMember(){
           <input
             type="text"
             id="phonenumber"
-            className="border-1 border-[#00C4FF] rounded-md w-[70%] px-2 py-1 text-2xl text-[#FFFFFF] outline-none bg-transparent "
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-2xl text-[#FFFFFF] outline-none bg-transparent "
             value={infos.phonenumber}
             onChange={handleChange}
           />
@@ -144,7 +165,7 @@ export default function AddMember(){
           <input
             type="text"
             id="monthsOfMemberShips"
-            className="border-1 border-[#00C4FF] rounded-md w-[70%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
             value={infos.monthsOfMemberShips}
             onChange={handleChange}
             min={1}
@@ -158,7 +179,7 @@ export default function AddMember(){
           <input
             type="date"
             id="startDate"
-            className="border-1 border-[#00C4FF] rounded-md w-[70%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
             value={infos.startDate}
             onChange={handleChange}
 
@@ -172,7 +193,7 @@ export default function AddMember(){
           <input
             type="date"
             id="endDate"
-            className="border-1 border-[#00C4FF] rounded-md w-[70%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent field"
             value={infos.endDate}
             onChange={handleChange}
             disabled={true}
@@ -186,12 +207,58 @@ export default function AddMember(){
         <div className="px-5 py-4">
 
           <button
-            onClick={handleAddMember}
-            className="bg-[#00C4FF] text-black py-2 px-6 text-xl rounded-md hover:bg-[#0099cc] transition hover:cursor-pointer"
+           onClick={handleClickOpen}
+            className="bg-[#00C4FF] text-black py-2 px-6 text-xl rounded-md hover:bg-[#0099cc] transition hover:cursor-pointer btn"
           >
             Add Member
           </button>
+
+          {fieldsErr && 'You must fill all the fields'}
         
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            sx={{justifySelf:"center", alignSelf:"center"}}
+            
+          >
+
+          <div className='flex flex-col rounded-xl h-[35vh] w-[33vw] py-7 px-5 gap-3 justify-between' style={{backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)'}}>
+            
+            <div className='flex flex-col gap-1 text-white item'>
+                <div className='text-3xl text-white'>Confirm Adding this member</div>
+                <div className='flex flex-col gap-0.5 mt-2'>
+                      <div className='text-xl'>{infos.lastname} {infos.firstname}</div>
+                      <div className='text-xl'>Membership type and period : {infos.membership}, {infos.monthsOfMemberShips} {infos.monthsOfMemberShips == 1 ? 'Month' : 'Months'}</div>
+                      <div className='text-xl'>Phone number : {infos.phonenumber}</div>
+                      <div className='text-xl flex flex-row gap-4'>
+                        <div>
+                          START AT :{infos.startDate},
+                        </div>
+                        <div>
+                          END BY {infos.endDate}
+                        </div>
+                      </div>
+                </div>
+                
+            </div>
+
+            <div className='flex flex-row gap-2' style={{alignSelf:"end"}}>
+                <button className='bg-[#FF6B6B] text-[white] py-3 px-4.5 rounded-md text-xl btn' onClick={handleClose}>CANCEL</button>
+                <button className='bg-[#4CAF50] text-[white] py-3 px-4.5 rounded-md text-xl btn' onClick={() => {
+                  handleAddMember();
+                  setTimeout(() => {
+                    handleClose();
+                  }, 200)
+                }}>CONFIRM</button>
+            </div>
+           
+
+          </div>
+
+          </Modal>
+
         </div>
       </div>
     </div>

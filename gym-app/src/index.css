@@ -27,6 +27,27 @@ body{
     cursor: pointer ;
 }
 
+.btn{
+    transition : all 0.3s ease-in-out;
+}
+
+.btn:hover{
+    transform: scale(1.01);
+    cursor: pointer;
+}
+
+.btn:active{
+    transform: scale(0.98);
+}
+
+.field{
+    transform: all 0.3s ease-in-out;
+}
+
+.field:hover{
+    cursor: pointer;
+}
+
 .dashboard{
     transition: all 0.3s ease-in-out;
 }
