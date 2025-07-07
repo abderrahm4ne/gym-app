@@ -11,6 +11,7 @@ import EditMember from './Admin/EditMember';
 import RenewMemberships from './Admin/RenewMemberships';
 import ViewAllMembers from './Admin/ViewAllMembers';
 import Notes from './Admin/Notes';
+import MemberInfo from './Admin/MemberInfo'
 
 function App() {
 
@@ -20,7 +21,8 @@ function App() {
             
               <Route path='' element={<NavBar />}>
                   <Route path='/' element={<Dashboard />}>
-                    <Route index path='view-all-members' element={<ViewAllMembers />} />
+                    <Route path='view-all-members' element={<ViewAllMembers />} />
+                      <Route path='view-all-members/:id' element={<MemberInfo />} />
                     <Route path='add-member' element={<AddMember />} />
                     <Route path='edit-member' element={<EditMember />} />
                     <Route path='renew-membership' element={<RenewMemberships />} />
