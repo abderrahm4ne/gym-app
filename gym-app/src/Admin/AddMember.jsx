@@ -82,19 +82,19 @@ export default function AddMember(){
       isEmpty(endDate)
     ) {
       setFieldsErr(true);
-      return;
+      return false;
     }
 
     const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(phonenumber)) {
       setPhoneNum(true);
-      return;
+      return false;
     }
 
     const months = parseInt(monthsOfMemberShips);
     if (isNaN(months) || months < 1) {
       setMonthsField(true);
-      return;
+      return false;
     }
 
     return true
@@ -257,7 +257,11 @@ export default function AddMember(){
         <div className="px-5 py-4">
 
           <button
-           onClick={handleClickOpen}
+           onClick={() => {
+            if(validation()){
+              handleClickOpen();
+            }
+           }}
             className="bg-[#00C4FF] text-black py-2 px-6 text-xl rounded-md hover:bg-[#0099cc] transition hover:cursor-pointer btn"
           >
             Add Member
@@ -298,14 +302,14 @@ export default function AddMember(){
                 <button className='bg-[#FF6B6B] text-[white] py-3 px-4.5 rounded-md text-xl btn' onClick={handleClose}>CANCEL</button>
                 <button
                   className="bg-[#4CAF50] text-[white] py-3 px-4.5 rounded-md text-xl btn"
-                  onClick={() => {
-                    if (validation()) {
-                      handleAddMember();
-                      setTimeout(() => {
-                        handleClose();
-                      }, 200);
-                    }
+                  onClick={() =>{
+                    
+                    handleAddMember();
+                    setTimeout(() => {
+                      handleClose();
+                    }, 200)
                   }}
+                    
                 >
                   CONFIRM
                 </button>
