@@ -154,11 +154,11 @@ export default function AddMember(){
 
         {/* First Name */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="firstname" className="w-[20%] text-2xl text-[#FFFFFF]">First Name</label>
+          <label htmlFor="firstname" className="w-[20%] text-xl text-[#FFFFFF]">First Name</label>
           <input
             type="text"
             id="firstname"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-2xl text-[#FFFFFF] outline-none bg-transparent"
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent"
             value={infos.firstname}
             onChange={handleChange}
           />
@@ -168,11 +168,11 @@ export default function AddMember(){
 
         {/* Last Name */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="lastname" className="w-[20%] text-2xl text-[#FFFFFF]">Last Name</label>
+          <label htmlFor="lastname" className="w-[20%] text-xl text-[#FFFFFF]">Last Name</label>
           <input
             type="text"
             id="lastname"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-2xl text-[#FFFFFF] outline-none bg-transparent"
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent"
             value={infos.lastname}
             onChange={handleChange}
           />
@@ -182,10 +182,10 @@ export default function AddMember(){
 
         {/* Membership */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="membership" className="w-[20%] text-2xl text-[#FFFFFF]">Membership</label>
+          <label htmlFor="membership" className="w-[20%] text-xl text-[#FFFFFF]">Membership</label>
           <select
             id="membership"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-2xl text-[#FFFFFF] outline-none bg-transparent field"
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent field"
             value={infos.membership}
             onChange={handleChange}
           >
@@ -197,11 +197,11 @@ export default function AddMember(){
 
         {/* Phone Number */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="phonenumber" className="w-[20%] text-2xl text-[#FFFFFF]">Phone Number</label>
+          <label htmlFor="phonenumber" className="w-[20%] text-xl text-[#FFFFFF]">Phone Number</label>
           <input
             type="text"
             id="phonenumber"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-2xl text-[#FFFFFF] outline-none bg-transparent "
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
             value={infos.phonenumber}
             onChange={handleChange}
           />
@@ -211,7 +211,7 @@ export default function AddMember(){
         {/*Months Of memberShip*/}
 
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="monthsOfMemberShips" className="w-[20%] text-2xl text-[#FFFFFF]">Months Of Memberships</label>
+          <label htmlFor="monthsOfMemberShips" className="w-[20%] text-xl text-[#FFFFFF]">Months Of Memberships</label>
           <input
             type="number"
             id="monthsOfMemberShips"
@@ -225,7 +225,7 @@ export default function AddMember(){
 
         {/* Start Date */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="startDate" className="w-[20%] text-2xl text-[#FFFFFF]">Start Date</label>
+          <label htmlFor="startDate" className="w-[20%] text-xl text-[#FFFFFF]">Start Date</label>
           <input
             type="date"
             id="startDate"
@@ -239,7 +239,7 @@ export default function AddMember(){
         
         {/* End Date */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="endDate" className="w-[20%] text-2xl text-[#FFFFFF]">End Date</label>
+          <label htmlFor="endDate" className="w-[20%] text-xl text-[#FFFFFF]">End Date</label>
           <input
             type="date"
             id="endDate"
