@@ -45,6 +45,7 @@ export default function ViewAllMembers() {
               <th className="px-4 py-3">Membership</th>
               <th className="px-4 py-3">Start Date</th>
               <th className="px-4 py-3">End Date</th>
+              <th className="px-4 py-3">Days Left</th>
             </tr>
           </thead>
           <tbody>
@@ -52,14 +53,18 @@ export default function ViewAllMembers() {
                 <tr
                     key={index}
                     className="border-t text-center border-[#00C4FF] hover:cursor-pointer"
-                    onClick={() => navigate(`/view-all-members/${m._id}`)}
+                    onClick={() =>  
+                      navigate(`/view-all-members/${m._id}`)}
+                  
                 >
+                  {console.log(m._id)}
                     <td className="px-4 py-3">{m.firstname}</td>
                     <td className="px-4 py-3">{m.lastname}</td>
                     <td className="px-4 py-3">{m.phonenumber}</td>
                     <td className="px-4 py-3">{m.membership}</td>
                     <td className="px-4 py-3">{formatDate(m.startDate)}</td>
                     <td className="px-4 py-3">{formatDate(m.endDate)}</td>
+                    <td className={`px-4 py-3 ${m.daysLeft < 5 && 'text-red-900 font-bold'}`}>{m.daysLeft}</td>
                 </tr>
                 )
             )}
