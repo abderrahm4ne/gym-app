@@ -7,8 +7,6 @@ import MembershipsEndsToday from './Admin/MembershipsEndsToday';
 import BasicStatistics from './Admin/BasicStatistics';
 import MembershipsEnded from './Admin/MembershipsEnded';
 import AddMember from './Admin/AddMember';
-import EditMember from './Admin/EditMember';
-import RenewMemberships from './Admin/RenewMemberships';
 import ViewAllMembers from './Admin/ViewAllMembers';
 import Notes from './Admin/Notes';
 import MemberInfo from './Admin/MemberInfo'
@@ -24,9 +22,6 @@ function App() {
                     <Route path='view-all-members' element={<ViewAllMembers />} />
                       <Route path='view-all-members/:id' element={<MemberInfo />} />
                     <Route path='add-member' element={<AddMember />} />
-                    <Route path='edit-member' element={<EditMember />} />
-                    <Route path='renew-membership' element={<RenewMemberships />} />
-                    <Route path='remove-member' element={<EditMember />} />
                     <Route path='memberships-ends-today' element={<MembershipsEndsToday />} />
                     <Route path='memberships-ended' element={<MembershipsEnded />} />
                     <Route path='basic-statistics' element={<BasicStatistics />} />

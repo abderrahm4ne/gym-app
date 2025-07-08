@@ -57,7 +57,6 @@ export default function ViewAllMembers() {
                       navigate(`/view-all-members/${m._id}`)}
                   
                 >
-                  {console.log(m._id)}
                     <td className="px-4 py-3">{m.firstname}</td>
                     <td className="px-4 py-3">{m.lastname}</td>
                     <td className="px-4 py-3">{m.phonenumber}</td>
