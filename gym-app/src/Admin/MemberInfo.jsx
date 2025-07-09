@@ -11,6 +11,10 @@ export default function MemberPage(){
     const [error, setError] = useState("");
     const [isDisabled, setIsDisabled] = useState(true);
 
+    const [fieldsErr, setFieldsErr ] = useState(false);
+    const [phoneNum, setPhoneNum] = useState(false);
+    const [monthsField, setMonthsField] = useState(false);
+
     const [editedMember, setEditedMember] = useState(null);
 
 
@@ -56,13 +60,63 @@ export default function MemberPage(){
     return updatedFields;
     };
 
+    
+
+    const validation = () =>{
+      const {
+      firstname,
+      lastname,
+      monthsOfMemberShips,
+      membership,
+      phonenumber
+    } = editedMember;
+
+    const isEmpty = (str) => String(str).trim() === "";
+
+    setFieldsErr(false);
+    setPhoneNum(false);
+    setMonthsField(false);
+
+    if (
+      isEmpty(firstname) ||
+      isEmpty(lastname) ||
+      isEmpty(monthsOfMemberShips) ||
+      isEmpty(membership) ||
+      isEmpty(phonenumber) ||
+      isEmpty(startDate) ||
+      isEmpty(endDate)
+    ) {
+      setFieldsErr(true);
+      return false;
+    }
+
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phonenumber)) {
+      setPhoneNum(true);
+      return false;
+    }
+
+    const months = parseInt(monthsOfMemberShips);
+    if (isNaN(months) || months < 1) {
+      setMonthsField(true);
+      return false;
+    }
+
+    return true
+    }
+
 
     const handleSaveInformations = async () => {
 
     const updatedFields = getUpdatedFields(member, editedMember);
 
+    if(!validation){
+        return
+    }
+
     if (Object.keys(updatedFields).length === 0) {
         alert("No changes made.");
+        setIsDisabled(true);
         return;
     }
     try {
@@ -206,6 +260,24 @@ export default function MemberPage(){
 
                         </div>
 
+                        {fieldsErr && (
+          <div className="text-red-500 text-lg font-semibold mt-2 px-4">
+            You must fill all the fields
+          </div>
+        )}
+
+        {phoneNum && (
+          <div className="text-red-500 text-lg font-semibold mt-2 px-4">
+            You must enter a valid phone number
+          </div>
+        )}
+
+        {monthsField && (
+          <div className="text-red-500 text-lg font-semibold mt-2 px-4">
+            Months of membership can't be zero
+          </div>
+        )}
+
                         <div className="flex flex-row gap-3 py-5">
                             <button className="px-4 py-2 text-xl text-[#000000] bg-[#00C4FF] rounded-md btn" 
                             onClick={() => { 
@@ -228,4 +300,4 @@ export default function MemberPage(){
 
             </div>
     )
-}
+}5
