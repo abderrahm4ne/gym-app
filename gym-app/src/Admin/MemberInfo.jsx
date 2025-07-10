@@ -20,7 +20,7 @@ export default function MemberPage() {
             const result = await window.electron.ipcRenderer.invoke("get-member", id);
             if (result.success) {
                 setMember(result.member);
-                setEditedMember({ ...result.member });
+                setEditedMember(result.member);
             } else {
                 setError(result.error || "Failed to load member");
             }
@@ -43,7 +43,8 @@ export default function MemberPage() {
     }
 
     const handleEditInformations = () => {
-    setEditedMember({ ...member });
+    const freshCopy = JSON.parse(JSON.stringify(member));
+    setEditedMember(freshCopy);
     setIsDisabled(false);
     };
 
@@ -119,8 +120,8 @@ export default function MemberPage() {
             if (result.success) {
             alert("Member updated.");
             const updated = { ...member, ...updatedFields };
-            setMember(updated);
-            setEditedMember(updated);
+            setMember({ ...updated });
+            setEditedMember({ ...updated });
             setIsDisabled(true);
             } else {
                 alert("Update failed: " + result.error);
@@ -172,7 +173,10 @@ export default function MemberPage() {
                                         type="text"
                                         id={field.id}
                                         value={editedMember[field.id] ?? ""}
-                                        onChange={(e) => setEditedMember({ ...editedMember, [field.id]: e.target.value })}
+                                        onChange={(e) => setEditedMember(prev => ({ 
+                                        ...prev, 
+                                        [field.id]: e.target.value 
+                                        }))}
                                         disabled={isDisabled}
                                         className="border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl text-[#FFFFFF] outline-none bg-transparent w-full"
                                     />
@@ -184,7 +188,9 @@ export default function MemberPage() {
                                 <select
                                     id="membership"
                                     value={editedMember.membership ?? ""}
-                                    onChange={(e) => setEditedMember({ ...editedMember, membership: e.target.value })}
+                                    onChange={(e) => setEditedMember(prev => ({...prev, 
+                                    membership: e.target.value
+                                    }))}
                                     disabled={isDisabled}
                                     className="border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl text-[#FFFFFF] outline-none bg-transparent w-full hover:cursor-pointer"
                                 >
@@ -226,7 +232,7 @@ export default function MemberPage() {
 
                 {monthsField && (
                     <div className="text-red-500 text-lg font-semibold mt-2 px-4">
-                        Months of membership can't be zero
+                        Months of membership must be a number higher than 0
                     </div>
                 )}
 
