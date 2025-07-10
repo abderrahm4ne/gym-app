@@ -38,21 +38,6 @@ export default function Dashboard(){
                     <p className="text-lg">Add Member</p>
                 </NavLink>
 
-                <NavLink to="/edit-member" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
-                    <CreateIcon style={{fontSize:"1.5rem"}} />
-                    <p className="text-lg">Edit Member Informations</p>
-                </NavLink>
-
-                <NavLink to="/renew-membership" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
-                    <AutorenewIcon style={{fontSize:"1.5rem"}} />
-                    <p className="text-lg">Renew Membership</p>
-                </NavLink>
-
-                <NavLink to="/remove-member" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
-                    <GroupRemoveIcon style={{fontSize:"1.5rem"}} />
-                    <p className="text-lg">Ends Membership</p>
-                </NavLink>
-
                 <NavLink to="/memberships-ends-today" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
                     <BlockIcon style={{fontSize:"1.5rem"}} />
                     <p className="text-lg">Memberships Ends Today</p>
