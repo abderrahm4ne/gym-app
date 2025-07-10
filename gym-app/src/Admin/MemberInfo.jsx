@@ -1,6 +1,7 @@
 import { NavLink, useParams } from "react-router-dom"
 import { useEffect, useState } from 'react';
-import EditIcon from '@mui/icons-material/Edit';
+import Modal from "@mui/material/Modal";
+
 
 export default function MemberPage() {
     const { id } = useParams();
@@ -13,6 +14,9 @@ export default function MemberPage() {
     const [fieldsErr, setFieldsErr] = useState(false);
     const [phoneNum, setPhoneNum] = useState(false);
     const [monthsField, setMonthsField] = useState(false);
+
+    const [renew, setRenew] = useState(false);
+    const [open, setOpen] = useState(false)
 
 
     const fetchMember = async () => {
@@ -43,6 +47,7 @@ export default function MemberPage() {
     }
 
     const handleEditInformations = () => {
+        setRenew(false);
     const freshCopy = JSON.parse(JSON.stringify(member));
     setEditedMember(freshCopy);
     setIsDisabled(false);
@@ -102,6 +107,8 @@ export default function MemberPage() {
     };
 
     const handleSaveInformations = async () => {
+        
+
         if(!validation()){
             return
         }
@@ -131,6 +138,20 @@ export default function MemberPage() {
         console.error(err);
         alert("An error occurred while saving.");
         }
+
+    }
+
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    const handleRenewMember = async () => {
+        
+        if(member.daysLeft >= 1){
+            setRenew(true);
+            return
+        }
+        setOpen(true);
 
     }
 
@@ -164,8 +185,7 @@ export default function MemberPage() {
                             {[
                                 { id: "firstname", label: "First Name" },
                                 { id: "lastname", label: "Last Name" },
-                                { id: "phonenumber", label: "Phone Number" },
-                                { id: "monthsOfMemberShips", label: "Months Of MemberShips" }
+                                { id: "phonenumber", label: "Phone Number" }
                             ].map(field => (
                                 <div className="flex flex-row items-center p-1" key={field.id}>
                                     <label htmlFor={field.id} className="text-2xl w-[25%] text-[#FFFFFF]">{field.label}</label>
@@ -182,6 +202,21 @@ export default function MemberPage() {
                                     />
                                 </div>
                             ))}
+
+                            <div className="flex flex-row items-center p-1" key="monthsofmembership">
+                                    <label htmlFor="monthsofmembership" className="text-2xl w-[25%] text-[#FFFFFF]">Months Of Membership</label>
+                                    <input
+                                        type="number"
+                                        id="monthsofmembership"
+                                        value={editedMember.monthsOfMemberShips}
+                                        onChange={(e) => setEditedMember(prev => ({ 
+                                        ...prev, 
+                                        monthsOfMemberShips : e.target.value 
+                                        }))}
+                                        disabled={isDisabled}
+                                        className="border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl text-[#FFFFFF] outline-none bg-transparent w-full"
+                                    />
+                                </div>
 
                             <div className="flex flex-row items-center p-1">
                                 <label htmlFor="membership" className="text-2xl w-[25%] text-[#FFFFFF]">Membership</label>
@@ -236,6 +271,13 @@ export default function MemberPage() {
                     </div>
                 )}
 
+                {renew && (
+                    <div className="text-red-500 text-lg font-semibold mt-2 px-4">
+                        Memberships hasn't end yet wait for {member.daysLeft} Day{member.daysLeft === 1 ? '' : 's'}
+                    </div>
+                )}
+
+
                 <div className="flex flex-row gap-3 py-5">
                     <button
                         className="px-4 py-2 text-xl text-[#000000] bg-[#00C4FF] rounded-md btn"
@@ -249,9 +291,24 @@ export default function MemberPage() {
                         >
                         {isDisabled ? 'EDIT' : 'SAVE'} INFORMATIONS
                     </button>
-                    <button className="px-4 py-2 text-xl text-[#000000] bg-[#4CAF50] rounded-md btn">
+
+                    <button className="px-4 py-2 text-xl text-[#000000] bg-[#4CAF50] rounded-md btn"
+                    onClick={() => handleRenewMember()}>
                         RENEW MEMBERSHIP
                     </button>
+
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                        sx={{justifySelf:"center", alignSelf:"center"}}>
+                            
+                            <div>
+                                
+                            </div>
+                    </Modal>
+
                     <button className="px-4 py-2 text-xl text-[#000000] bg-[#FF6B6B] rounded-md btn">
                         ENDS MEMBERSHIP
                     </button>
