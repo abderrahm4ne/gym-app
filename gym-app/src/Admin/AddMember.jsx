@@ -15,23 +15,25 @@ export default function AddMember(){
           endDate:""
         });
 
-      function generateMembershipDates(monthsToAdd) {
-        const now = new Date();
-        const startdate = now.toISOString().split("T")[0];
+      function generateMembershipDates(monthsToAdd, customStartDate) {
 
-        const months = parseInt(monthsToAdd);
-        let enddate;
+      const start = customStartDate ? new Date(customStartDate) : new Date();
+      const startdate = start.toISOString().split("T")[0];
 
-        if (!isNaN(months) && months > 0) {
-          const end = new Date(now);
-          end.setMonth(end.getMonth() + months);
-          enddate = end.toISOString().split("T")[0];
-        } else {
-          enddate = startdate;
-        }
+      const months = parseInt(monthsToAdd);
+      let enddate;
 
-        return { startdate, enddate };
+      if (!isNaN(months) && months > 0) {
+        const end = new Date(start);
+        end.setMonth(end.getMonth() + months);
+        enddate = end.toISOString().split("T")[0];
+      } else {
+        enddate = startdate;
       }
+
+      return { startdate, enddate };
+    }
+
 
 
     
@@ -42,7 +44,7 @@ export default function AddMember(){
 
     useEffect(()=> {
 
-      const {startdate, enddate} = generateMembershipDates(infos.monthsOfMemberShips);
+      const {startdate, enddate} = generateMembershipDates(infos.monthsOfMemberShips, infos.startDate);
       
       setInfos(prev => ({
         ...prev, 
