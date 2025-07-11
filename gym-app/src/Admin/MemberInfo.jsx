@@ -11,6 +11,10 @@ export default function MemberPage() {
 
     const [editedMember, setEditedMember] = useState(null);
 
+    const [editButton, setEditButton] = useState(false);
+    const [renewButton, setRenewButton] = useState(false);
+    const [deleteButton, setDeleteButton] = useState(false);
+
     const [fieldsErr, setFieldsErr] = useState(false);
     const [phoneNum, setPhoneNum] = useState(false);
     const [monthsField, setMonthsField] = useState(false);
@@ -47,6 +51,7 @@ export default function MemberPage() {
     }
 
     const handleEditInformations = () => {
+        setEditButton(true);
         setRenew(false);
     const freshCopy = JSON.parse(JSON.stringify(member));
     setEditedMember(freshCopy);
@@ -108,6 +113,7 @@ export default function MemberPage() {
 
     const handleSaveInformations = async () => {
         
+            setEditButton(false);
 
         if(!validation()){
             return
@@ -146,7 +152,10 @@ export default function MemberPage() {
     }
 
     const handleRenewMember = async () => {
-        
+        if(editButton){
+            alert('complete editing informations');
+            return
+        }
         if(member.daysLeft >= 1){
             setRenew(true);
             return
@@ -280,7 +289,7 @@ export default function MemberPage() {
 
                 <div className="flex flex-row gap-3 py-5">
                     <button
-                        className="px-4 py-2 text-xl text-[#000000] bg-[#00C4FF] rounded-md btn"
+                        className={`px-4 py-2 text-xl text-[#000000] bg-[#00C4FF] rounded-md btn ${!isDisabled && 'bg-[#7e7d7d]'}`}
                         onClick={() => {
                             if(isDisabled){
                                 handleEditInformations();
@@ -304,7 +313,7 @@ export default function MemberPage() {
                         aria-describedby="modal-modal-description"
                         sx={{justifySelf:"center", alignSelf:"center"}}>
                             
-                            <div>
+                            <div className='flex flex-col rounded-xl h-[35vh] w-[33vw] py-7 px-5 gap-3 justify-between' style={{backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)'}}>
                                 
                             </div>
                     </Modal>
