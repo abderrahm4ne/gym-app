@@ -247,7 +247,6 @@ export default function AddMember(){
             className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent field"
             value={infos.endDate}
             onChange={handleChange}
-            disabled={true}
 
           />
         </div>
