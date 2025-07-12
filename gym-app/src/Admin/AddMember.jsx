@@ -232,7 +232,7 @@ export default function AddMember(){
           <input
             type="date"
             id="startDate"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-3 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-1"
             value={infos.startDate}
             onChange={handleChange}
 
@@ -246,7 +246,7 @@ export default function AddMember(){
           <input
             type="date"
             id="endDate"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent field"
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-1"
             value={infos.endDate}
             onChange={handleChange}
 
