@@ -301,7 +301,7 @@ export default function AddMember(){
             </div>
 
             <div className='flex flex-row gap-2' style={{alignSelf:"end"}}>
-                <button className='bg-[#FF6B6B] text-[white] py-3 px-4.5 rounded-md text-xl btn' onClick={handleClose}>CANCEL</button>
+                <button className='bg-red-500 text-[white] py-3 px-4.5 rounded-md text-xl btn' onClick={handleClose}>CANCEL</button>
                 <button
                   className="bg-[#4CAF50] text-[white] py-3 px-4.5 rounded-md text-xl btn"
                   onClick={() =>{

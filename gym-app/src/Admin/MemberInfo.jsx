@@ -23,10 +23,10 @@ export default function MemberPage() {
     const [open, setOpen] = useState(false)
 
     const [renewalData, setRenewalData] = useState({
-  startDate: "",
-  endDate: "",
-  months: 1
-});
+    startDate: "",
+    endDate: "",
+    months: 1
+    });
 
 
 
@@ -36,6 +36,7 @@ export default function MemberPage() {
             if (result.success) {
                 setMember(result.member);
                 setEditedMember(result.member);
+                console.log(member)
             } else {
                 setError(result.error || "Failed to load member");
             }
@@ -181,8 +182,38 @@ export default function MemberPage() {
             return
         }
         setOpen(true);
-
     }
+
+    const handleRenewMemberConfirmation = async () => {
+        try {
+            const { startDate, endDate, months } = renewalData;
+            console.log( renewalData )
+            if (!startDate || !endDate || months < 1) {
+            alert("Invalid renewal data.");
+            return;
+            }
+
+            const result = await window.electron.ipcRenderer.invoke("renew-member", member._id, {
+            startDate,
+            endDate,
+            months: parseInt(months)
+            });
+
+            if (result.success) {
+            alert("Membership renewed.");
+            setMember(result.member);
+            setEditedMember(result.member);
+            setRenew(false);
+            setOpen(false);
+            } else {
+            alert("Renewal failed: " + result.error);
+            }
+        } catch (err) {
+            console.error("Renewal error:", err);
+            alert("An unexpected error occurred during renewal.");
+        }
+        };
+
 
     return (
         <div className="flex flex-col px-4 py-1 gap-3">
@@ -233,7 +264,7 @@ export default function MemberPage() {
                             ))}
 
                             <div className="flex flex-row items-center p-1" key="monthsofmembership">
-                                    <label htmlFor="monthsofmembership" className="text-2xl w-[25%] text-[#FFFFFF]">Months Of Membership</label>
+                                <label htmlFor="monthsofmembership" className="text-2xl w-[25%] text-[#FFFFFF]">Months Of Membership</label>
                                     <input
                                         type="number"
                                         id="monthsofmembership"
@@ -244,8 +275,23 @@ export default function MemberPage() {
                                         }))}
                                         disabled={isDisabled}
                                         className="border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl text-[#FFFFFF] outline-none bg-transparent w-full"
-                                    />
-                                </div>
+                                />
+                            </div>
+
+                            <div className="flex flex-row items-center p-1" key="startdate">
+                                <label htmlFor="startdate" className="text-2xl w-[25%] text-[#FFFFFF]"></label>
+                                    <input
+                                        type="date"
+                                        id="enddate"
+                                        value={member.startdate}
+                                        onChange={(e) => setEditedMember(prev => ({ 
+                                        ...prev, 
+                                        startdate : e.target.value 
+                                        }))}
+                                        disabled={isDisabled}
+                                        className="border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl text-[#FFFFFF] outline-none bg-transparent w-full"
+                                />
+                            </div>
 
                             <div className="flex flex-row items-center p-1">
                                 <label htmlFor="membership" className="text-2xl w-[25%] text-[#FFFFFF]">Membership</label>
@@ -374,13 +420,11 @@ export default function MemberPage() {
                         </div>
 
                         <div className="flex flex-row justify-end gap-3 mt-3">
-                            <button className="px-4 py-2 bg-red-500 text-white rounded-md btn" onClick={handleClose}>CANCEL</button>
+                            <button className="bg-red-500 text-[white] py-3 px-4.5 rounded-md text-xl btn" onClick={handleClose}>CANCEL</button>
                             <button
-                            className="px-4 py-2 bg-green-500 text-white rounded-md btn"
+                            className="bg-[#4CAF50] text-[white] py-3 px-4.5 rounded-md text-xl btn"
                             onClick={() => {
-                                // 🔧 Put your logic to save renewal here
-                                console.log("Renewing with: ", renewalData);
-                                handleClose();
+                                handleRenewMemberConfirmation();
                             }}
                             >
                             CONFIRM
