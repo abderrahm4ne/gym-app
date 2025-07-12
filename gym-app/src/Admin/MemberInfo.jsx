@@ -22,6 +22,13 @@ export default function MemberPage() {
     const [renew, setRenew] = useState(false);
     const [open, setOpen] = useState(false)
 
+    const [renewalData, setRenewalData] = useState({
+  startDate: "",
+  endDate: "",
+  months: 1
+});
+
+
 
     const fetchMember = async () => {
         try {
@@ -40,7 +47,20 @@ export default function MemberPage() {
 
     useEffect(() => {
         fetchMember();
-    }, [id]);
+        
+        if (!renewalData.startDate) return;
+
+        const start = new Date(renewalData.startDate);
+        const months = parseInt(renewalData.months);
+
+        if (!isNaN(months) && months > 0) {
+            const end = new Date(start);
+            end.setMonth(end.getMonth() + months);
+            const endDate = end.toISOString().split("T")[0];
+
+    setRenewalData(prev => ({ ...prev, endDate }));
+        }
+    }, [id, renewalData.startDate, renewalData.months]);
 
     if (error) {
         return <div className="text-red-700 font-bold">{error}</div>;
@@ -313,9 +333,63 @@ export default function MemberPage() {
                         aria-describedby="modal-modal-description"
                         sx={{justifySelf:"center", alignSelf:"center"}}>
                             
-                            <div className='flex flex-col rounded-xl h-[35vh] w-[33vw] py-7 px-5 gap-3 justify-between' style={{backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)'}}>
-                                
+                            <div className='flex flex-col rounded-xl h-[40vh] w-[33vw] py-7 px-5 gap-5 justify-between' style={{ backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)' }}>
+  
+                        <div className="flex flex-col gap-3 text-white">
+                            <h2 className="text-2xl font-bold">Renew Membership</h2>
+
+                            <div className="px-5 py-2 flex flex-row gap-4 items-center">
+                            <label htmlFor="startDate" className="w-[20%] text-xl text-[#FFFFFF]">Start Date</label>
+                            <input
+                                type="date"
+                                id="startDate"
+                                value={renewalData.startDate}
+                                onChange={(e) => setRenewalData(prev => ({ ...prev, startDate: e.target.value }))}
+                                className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent hover:cursor-pointer"
+                            />
                             </div>
+
+                            <div className="px-5 py-2 flex flex-row gap-4 items-center">
+                            <label htmlFor="months" className="w-[20%] text-xl text-[#FFFFFF]">Number of Months</label>
+                            <input
+                                type="number"
+                                id="months"
+                                value={renewalData.months}
+                                min={1}
+                                onChange={(e) => setRenewalData(prev => ({ ...prev, months: e.target.value }))}
+                                className="border-1 border-[#00C4FF] rounded-md w-[75%] text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-1 "
+                            />
+                            </div>
+
+                            <div className="px-5 py-2 flex flex-row gap-4 items-center">
+                            <label htmlFor="endDate" className="w-[20%] text-xl text-[#FFFFFF]">End Date</label>
+                            <input
+                                type="date"
+                                id="endDate"
+                                value={renewalData.endDate}
+                                disabled
+                                className="border-1 border-[#00C4FF] rounded-md w-[75%] text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-1 hover:cursor-pointer"
+                            />
+                            </div>
+                        </div>
+
+                        <div className="flex flex-row justify-end gap-3 mt-3">
+                            <button className="px-4 py-2 bg-red-500 text-white rounded-md btn" onClick={handleClose}>CANCEL</button>
+                            <button
+                            className="px-4 py-2 bg-green-500 text-white rounded-md btn"
+                            onClick={() => {
+                                // 🔧 Put your logic to save renewal here
+                                console.log("Renewing with: ", renewalData);
+                                handleClose();
+                            }}
+                            >
+                            CONFIRM
+                            </button>
+                        </div>
+
+                        </div>
+
+
                     </Modal>
 
                     <button className="px-4 py-2 text-xl text-[#000000] bg-[#FF6B6B] rounded-md btn">
