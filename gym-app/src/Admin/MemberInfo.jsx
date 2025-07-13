@@ -20,7 +20,6 @@ export default function MemberPage() {
     const [monthsField, setMonthsField] = useState(false);
 
     const [renew, setRenew] = useState(false);
-    const [open, setOpen] = useState(false)
 
     const [renewalData, setRenewalData] = useState({
     startDate: "",
@@ -47,21 +46,65 @@ export default function MemberPage() {
     };
 
     useEffect(() => {
-        fetchMember();
-        
-        if (!renewalData.startDate) return;
+    fetchMember();
+    }, [id]);
 
-        const start = new Date(renewalData.startDate);
-        const months = parseInt(renewalData.months);
 
-        if (!isNaN(months) && months > 0) {
-            const end = new Date(start);
-            end.setMonth(end.getMonth() + months);
-            const endDate = end.toISOString().split("T")[0];
 
-    setRenewalData(prev => ({ ...prev, endDate }));
-        }
-    }, [id, renewalData.startDate, renewalData.months]);
+    function generateMembershipDates(monthsToAdd, customStartDate) {
+
+      const start = customStartDate ? new Date(customStartDate) : new Date();
+      const startdate = start.toISOString().split("T")[0];
+
+      const months = parseInt(monthsToAdd);
+      let enddate;
+
+      if (!isNaN(months) && months > 0) {
+        const end = new Date(start);
+        end.setMonth(end.getMonth() + months);
+        enddate = end.toISOString().split("T")[0];
+      } else {
+        enddate = startdate;
+      }
+
+      return { startdate, enddate };
+    }
+
+    useEffect(() => {
+    if (!editedMember) return;
+
+    const { monthsOfMemberShips, startDate } = editedMember;
+
+    const { startdate, enddate } = generateMembershipDates(monthsOfMemberShips, startDate);
+
+    setEditedMember(prev => ({
+            ...prev,
+            startDate: startdate,
+            endDate: enddate,
+        }));
+
+    }, [editedMember?.startDate, editedMember?.monthsOfMemberShips]);
+
+
+
+    useEffect(() => {
+
+    if (!renewalData.startDate) return;
+
+    const start = new Date(renewalData.startDate);
+    const months = parseInt(renewalData.months);
+
+    if (!isNaN(months) && months > 0) {
+        const end = new Date(start);
+        end.setMonth(end.getMonth() + months);
+        const endDate = end.toISOString().split("T")[0];
+
+        setRenewalData(prev => ({ ...prev, endDate }));
+    }
+    }, [renewalData.startDate, renewalData.months]);
+
+
+
 
     if (error) {
         return <div className="text-red-700 font-bold">{error}</div>;
@@ -169,7 +212,7 @@ export default function MemberPage() {
     }
 
     const handleClose = () => {
-        setOpen(false)
+        setRenewButton(false)
     }
 
     const handleRenewMember = async () => {
@@ -181,13 +224,12 @@ export default function MemberPage() {
             setRenew(true);
             return
         }
-        setOpen(true);
+        setRenewButton(true);
     }
 
     const handleRenewMemberConfirmation = async () => {
         try {
             const { startDate, endDate, months } = renewalData;
-            console.log( renewalData )
             if (!startDate || !endDate || months < 1) {
             alert("Invalid renewal data.");
             return;
@@ -204,7 +246,7 @@ export default function MemberPage() {
             setMember(result.member);
             setEditedMember(result.member);
             setRenew(false);
-            setOpen(false);
+            setRenewButton(false);
             } else {
             alert("Renewal failed: " + result.error);
             }
@@ -278,21 +320,6 @@ export default function MemberPage() {
                                 />
                             </div>
 
-                            <div className="flex flex-row items-center p-1" key="startdate">
-                                <label htmlFor="startdate" className="text-2xl w-[25%] text-[#FFFFFF]"></label>
-                                    <input
-                                        type="date"
-                                        id="enddate"
-                                        value={member.startdate}
-                                        onChange={(e) => setEditedMember(prev => ({ 
-                                        ...prev, 
-                                        startdate : e.target.value 
-                                        }))}
-                                        disabled={isDisabled}
-                                        className="border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl text-[#FFFFFF] outline-none bg-transparent w-full"
-                                />
-                            </div>
-
                             <div className="flex flex-row items-center p-1">
                                 <label htmlFor="membership" className="text-2xl w-[25%] text-[#FFFFFF]">Membership</label>
                                 <select
@@ -308,6 +335,37 @@ export default function MemberPage() {
                                     <option className='bg-[#2A3042]' value="Normal">Normal</option>
                                     <option className='bg-[#2A3042]' value="Premium">Premium</option>
                                 </select>
+                            </div>
+
+                            
+                            <div className="flex flex-row items-center p-1" key="startdate">
+                                <label htmlFor="startdate" className="text-2xl w-[25%] text-[#FFFFFF]">Start Date</label>
+                                    <input
+                                        type="date"
+                                        id="startdate"
+                                        value={editedMember.startDate ? new Date(editedMember.startDate).toISOString().split('T')[0] : ""}
+                                        onChange={(e) => setEditedMember(prev => ({ 
+                                        ...prev, 
+                                        startDate : e.target.value 
+                                        }))}
+                                        disabled={isDisabled}
+                                        className="border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl text-[#FFFFFF] outline-none bg-transparent w-full"
+                                />
+                            </div>
+
+                            <div className="flex flex-row items-center p-1" key="enddate">
+                                <label htmlFor="enddate" className="text-2xl w-[25%] text-[#FFFFFF]">End Date</label>
+                                    <input
+                                        type="date"
+                                        id="enddate"
+                                        value={editedMember.endDate}
+                                        onChange={(e) => setEditedMember(prev => ({ 
+                                        ...prev, 
+                                        endDate : e.target.value 
+                                        }))}
+                                        disabled={true}
+                                        className="border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl text-[#FFFFFF] outline-none bg-transparent w-full"
+                                />
                             </div>
 
                             <div className="flex flex-row items-center p-1">
@@ -373,7 +431,7 @@ export default function MemberPage() {
                     </button>
 
                     <Modal
-                        open={open}
+                        open={renewButton}
                         onClose={handleClose}
                         aria-labelledby="modal-modal-title"
                         aria-describedby="modal-modal-description"
