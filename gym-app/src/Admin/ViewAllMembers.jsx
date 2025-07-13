@@ -26,7 +26,7 @@ export default function ViewAllMembers() {
     const formatDate = (d) => new Date(d).toISOString().split('T')[0];
     
     return (
-        <div className="p-6 text-white ">
+        <div className="p-6 text-white h-full ">
       <h1 className="text-3xl mb-4">All Members</h1>
 
       {error && (
@@ -35,8 +35,8 @@ export default function ViewAllMembers() {
         </div>
       )}
 
-      <div className="overflow-auto">
-        <table className="min-w-full text-xl text-white border border-[#00C4FF] ">
+      <div className="h-[90%] overflow-y-scroll p-3">
+        <table className="min-w-full text-xl text-white border border-[#00C4FF]">
           <thead className="bg-[#2b2a2a] text-[#00C4FF] ">
             <tr className=''>
               <th className="px-4 py-3 ">First Name</th>

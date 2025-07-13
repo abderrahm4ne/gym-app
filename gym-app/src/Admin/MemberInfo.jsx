@@ -21,8 +21,11 @@ export default function MemberPage() {
 
     const [renew, setRenew] = useState(false);
 
+    const today = new Date();
+    const todayDate = today.toISOString().split("T")[0];
+
     const [renewalData, setRenewalData] = useState({
-    startDate: "",
+    startDate: todayDate,
     endDate: "",
     months: 1
     });
@@ -35,7 +38,6 @@ export default function MemberPage() {
             if (result.success) {
                 setMember(result.member);
                 setEditedMember(result.member);
-                console.log(member)
             } else {
                 setError(result.error || "Failed to load member");
             }
@@ -71,19 +73,20 @@ export default function MemberPage() {
     }
 
     useEffect(() => {
-    if (!editedMember) return;
+  if (!editedMember) return;
 
-    const { monthsOfMemberShips, startDate } = editedMember;
+  const { monthsOfMemberShips, startDate } = editedMember;
+  const { startdate, enddate } = generateMembershipDates(monthsOfMemberShips, startDate);
 
-    const { startdate, enddate } = generateMembershipDates(monthsOfMemberShips, startDate);
-
+  if (editedMember.startDate !== startdate || editedMember.endDate !== enddate) {
     setEditedMember(prev => ({
-            ...prev,
-            startDate: startdate,
-            endDate: enddate,
-        }));
+      ...prev,
+      startDate: startdate,
+      endDate: enddate,
+    }));
+  }
+}, [editedMember?.startDate, editedMember?.monthsOfMemberShips]);
 
-    }, [editedMember?.startDate, editedMember?.monthsOfMemberShips]);
 
 
 
@@ -257,6 +260,11 @@ export default function MemberPage() {
         };
 
 
+    const handleCloseEnd = () => {
+        setDeleteButton(false);
+    }
+
+
     return (
         <div className="flex flex-col px-4 py-1 gap-3">
             <div className="flex flex-row gap-1 items-baseline text-[#FFFFFF]">
@@ -375,7 +383,7 @@ export default function MemberPage() {
                                     id="daysLeft"
                                     value={editedMember.daysLeft ?? ""}
                                     disabled={true}
-                                    className="border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl text-[#FFFFFF] outline-none bg-transparent w-full"
+                                    className={`border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl ${!renewalData.endDate ? 'text-red-800' : 'text-white'} outline-none bg-transparent w-full`}
                                 />
                             </div>
 
@@ -449,7 +457,7 @@ export default function MemberPage() {
                                 id="startDate"
                                 value={renewalData.startDate}
                                 onChange={(e) => setRenewalData(prev => ({ ...prev, startDate: e.target.value }))}
-                                className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent hover:cursor-pointer"
+                                className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
                             />
                             </div>
 
@@ -472,7 +480,7 @@ export default function MemberPage() {
                                 id="endDate"
                                 value={renewalData.endDate}
                                 disabled
-                                className="border-1 border-[#00C4FF] rounded-md w-[75%] text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-1 hover:cursor-pointer"
+                                className="border-1 border-[#00C4FF] rounded-md w-[75%] text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-1 "
                             />
                             </div>
                         </div>
@@ -494,9 +502,22 @@ export default function MemberPage() {
 
                     </Modal>
 
-                    <button className="px-4 py-2 text-xl text-[#000000] bg-[#FF6B6B] rounded-md btn">
+                    <button className="px-4 py-2 text-xl text-[#000000] bg-[#FF6B6B] rounded-md btn"
+                    onClick={() => {
+                        setDeleteButton(true);
+                    }}>
                         ENDS MEMBERSHIP
                     </button>
+
+                    <Modal
+                        open={deleteButton}
+                        onClose={handleCloseEnd}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                        >
+                            
+                        </Modal>
+                    
                 </div>
             </div>
         </div>
