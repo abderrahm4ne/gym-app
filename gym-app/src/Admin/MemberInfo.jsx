@@ -1,9 +1,11 @@
 import { NavLink, useParams } from "react-router-dom"
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 
 
 export default function MemberPage() {
+    const navigate = useNavigate();
     const { id } = useParams();
     const [member, setMember] = useState(null);
     const [error, setError] = useState("");
@@ -23,6 +25,7 @@ export default function MemberPage() {
 
     const today = new Date();
     const todayDate = today.toISOString().split("T")[0];
+    const [isReqSent, setIsReqSent] = useState(false);
 
     const [renewalData, setRenewalData] = useState({
     startDate: todayDate,
@@ -262,6 +265,29 @@ export default function MemberPage() {
 
     const handleCloseEnd = () => {
         setDeleteButton(false);
+    }
+
+    const handleEndsMemberShip = async () => {
+        if(editButton){
+            alert('complete editing informations');
+            return
+        }
+        try {
+            setIsReqSent(true);
+        const result = await window.electron.ipcRenderer.invoke("delete-member", member._id);
+
+        if (result.success) {
+            alert('Member has been removed successfully');
+            setDeleteButton(false);
+            navigate('/view-all-members');
+        } else {
+            alert('Failed to delete: ' + result.error);
+        }
+        } catch (err) {
+            console.error("Delete error:", err);
+            alert("An error occurred while trying to delete the member.");
+        }
+            setIsReqSent(false)
     }
 
 
@@ -510,13 +536,30 @@ export default function MemberPage() {
                     </button>
 
                     <Modal
-                        open={deleteButton}
-                        onClose={handleCloseEnd}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
+                    open={deleteButton}
+                    onClose={handleCloseEnd}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                    sx={{justifySelf:"center", alignSelf:"center"}}>
+                    
+                    <div className='flex flex-col rounded-xl w-[33vw] py-7 px-5 gap-5 justify-between' style={{ backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)' }}>
+                        <h2 className="text-2xl font-bold text text-white">Confirm End Membership</h2>
+                        <p className="text-white text-xl">Are you sure you want to end this membership?</p>
+                        <div className="flex justify-end gap-3">
+                        <button onClick={handleCloseEnd} className="bg-gray-500 rounded-md text-white btn py-4 px-5.5 text-xl ">Cancel</button>
+                        <button
+                            onClick={() => {
+                                handleEndsMemberShip()
+                            }}
+                            disabled={isReqSent}
+                            className="bg-red-600 py-4 px-5.5 text-xl rounded-md text-white btn "
                         >
-                            
-                        </Modal>
+                            Confirm
+                        </button>
+                        </div>
+                    </div>
+                    </Modal>
+
                     
                 </div>
             </div>
