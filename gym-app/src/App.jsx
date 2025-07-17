@@ -12,7 +12,6 @@ import Notes from './Admin/Notes';
 import MemberInfo from './Admin/MemberInfo'
 
 function App() {
-
   {/*==== ROUTER ====*/} 
           const router = createBrowserRouter(
             createRoutesFromElements(
@@ -20,7 +19,7 @@ function App() {
               <Route path='' element={<NavBar />}>
                   <Route path='/' element={<Dashboard />}>
                     <Route path='view-all-members' element={<ViewAllMembers />} />
-                      <Route path='view-all-members/:id' element={<MemberInfo />} />
+                    <Route path='view-all-members/:id' element={<MemberInfo />} />
                     <Route path='add-member' element={<AddMember />} />
                     <Route path='memberships-ends-today' element={<MembershipsEndsToday />} />
                     <Route path='memberships-ended' element={<MembershipsEnded />} />

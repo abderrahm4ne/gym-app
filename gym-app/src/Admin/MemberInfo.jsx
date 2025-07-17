@@ -17,9 +17,9 @@ export default function MemberPage() {
     const [renewButton, setRenewButton] = useState(false);
     const [deleteButton, setDeleteButton] = useState(false);
 
-    const [fieldsErr, setFieldsErr] = useState(false);
-    const [phoneNum, setPhoneNum] = useState(false);
-    const [monthsField, setMonthsField] = useState(false);
+    const [isFieldsErr, setisFieldsErr] = useState(false);
+    const [isPhoneNum, isSetPhoneNum] = useState(false);
+    const [isMonthsField, isSetMonthsField] = useState(false);
 
     const [renew, setRenew] = useState(false);
 
@@ -76,49 +76,41 @@ export default function MemberPage() {
     }
 
     useEffect(() => {
-  if (!editedMember) return;
 
-  const { monthsOfMemberShips, startDate } = editedMember;
-  const { startdate, enddate } = generateMembershipDates(monthsOfMemberShips, startDate);
+        if (!editedMember) return;
 
-  if (editedMember.startDate !== startdate || editedMember.endDate !== enddate) {
-    setEditedMember(prev => ({
-      ...prev,
-      startDate: startdate,
-      endDate: enddate,
-    }));
-  }
-}, [editedMember?.startDate, editedMember?.monthsOfMemberShips]);
+        const { monthsOfMemberShips, startDate } = editedMember;
+        const { startdate, enddate } = generateMembershipDates(monthsOfMemberShips, startDate);
+
+        if (editedMember.startDate !== startdate || editedMember.endDate !== enddate) {
+            setEditedMember(prev => ({
+            ...prev,
+            startDate: startdate,
+            endDate: enddate,
+            }));
+        }
+
+    }, [editedMember?.startDate, editedMember?.monthsOfMemberShips]);
 
 
 
 
     useEffect(() => {
 
-    if (!renewalData.startDate) return;
+        if (!renewalData.startDate) return;
 
-    const start = new Date(renewalData.startDate);
-    const months = parseInt(renewalData.months);
+        const start = new Date(renewalData.startDate);
+        const months = parseInt(renewalData.months);
 
-    if (!isNaN(months) && months > 0) {
-        const end = new Date(start);
-        end.setMonth(end.getMonth() + months);
-        const endDate = end.toISOString().split("T")[0];
+        if (!isNaN(months) && months > 0) {
+            const end = new Date(start);
+            end.setMonth(end.getMonth() + months);
+            const endDate = end.toISOString().split("T")[0];
 
-        setRenewalData(prev => ({ ...prev, endDate }));
-    }
+            setRenewalData(prev => ({ ...prev, endDate }));
+        }
+
     }, [renewalData.startDate, renewalData.months]);
-
-
-
-
-    if (error) {
-        return <div className="text-red-700 font-bold">{error}</div>;
-    }
-
-    if (!member) {
-        return <div className="text-xl text-[#00C4FF]">Wait..</div>;
-    }
 
     const handleEditInformations = () => {
         setEditButton(true);
@@ -138,11 +130,11 @@ export default function MemberPage() {
       phonenumber
     } = editedMember;
 
-    const isEmpty = (str) => String(str).trim() === "";
+    const isEmpty = str => String(str).trim() === "";
 
-    setFieldsErr(false);
-    setPhoneNum(false);
-    setMonthsField(false);
+    setisFieldsErr(false);
+    isSetPhoneNum(false);
+    isSetMonthsField(false);
 
     if (
       isEmpty(firstname) ||
@@ -151,19 +143,19 @@ export default function MemberPage() {
       isEmpty(membership) ||
       isEmpty(phonenumber)
     ) {
-      setFieldsErr(true);
+      setisFieldsErr(true);
       return false;
     }
 
     const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(phonenumber)) {
-      setPhoneNum(true);
+      isSetPhoneNum(true);
       return false;
     }
 
     const months = parseInt(monthsOfMemberShips);
     if (isNaN(months) || months < 1) {
-      setMonthsField(true);
+      isSetMonthsField(true);
       return false;
     }
 
@@ -290,6 +282,13 @@ export default function MemberPage() {
             setIsReqSent(false)
     }
 
+    if (error) {
+        return <div className="text-red-700 font-bold">{error}</div>;
+    }
+
+    if (!member) {
+        return <div className="text-xl text-[#00C4FF]">Wait..</div>;
+    }
 
     return (
         <div className="flex flex-col px-4 py-1 gap-3">
@@ -420,19 +419,19 @@ export default function MemberPage() {
 
                 </div>
 
-                {fieldsErr && (
+                {isFieldsErr && (
                     <div className="text-red-500 text-lg font-semibold mt-2 px-4">
                         You must fill all the fields
                     </div>
                 )}
 
-                {phoneNum && (
+                {isPhoneNum && (
                     <div className="text-red-500 text-lg font-semibold mt-2 px-4">
                         You must enter a valid phone number
                     </div>
                 )}
 
-                {monthsField && (
+                {isMonthsField && (
                     <div className="text-red-500 text-lg font-semibold mt-2 px-4">
                         Months of membership must be a number higher than 0
                     </div>
@@ -530,6 +529,11 @@ export default function MemberPage() {
 
                     <button className="px-4 py-2 text-xl text-[#000000] bg-[#FF6B6B] rounded-md btn"
                     onClick={() => {
+                        if(editButton){
+                            alert('complete editing informations');
+                            return
+                        }
+                        setRenew(false)
                         setDeleteButton(true);
                     }}>
                         ENDS MEMBERSHIP
