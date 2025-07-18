@@ -34,7 +34,7 @@ export default function ViewAllMembers() {
           Error: {error}
         </div>
       )}
-
+      <h2 className="text-xl mb-4"> Number Of Members : {members.length} {members.length <= 1 ? 'Member' : 'Members'}</h2>
       <div className="h-[90%] overflow-y-scroll p-3">
         <table className="min-w-full text-xl text-white border border-[#00C4FF]">
           <thead className="bg-[#2b2a2a] text-[#00C4FF] ">
