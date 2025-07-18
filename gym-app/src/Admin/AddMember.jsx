@@ -5,38 +5,40 @@ import Modal from '@mui/material/Modal';
 
 export default function AddMember(){
 
-      const [infos, setInfos] = useState({
-          lastname:"",
-          firstname:"",
-          membership:"",
-          phonenumber:"",
-          monthsOfMemberShips:1,
-          startDate:"",
-          endDate:""
-        });
+    const [infos, setInfos] = useState({
+        lastname:"",
+        firstname:"",
+        membership:"",
+        phonenumber:"",
+        monthsOfMemberShips:1,
+        startDate:"",
+        endDate:""
+      });
 
-      function generateMembershipDates(monthsToAdd, customStartDate) {
+    const [fieldsErr, setFieldsErr ] = useState(false);
+    const [phoneNum, setPhoneNum] = useState(false);
+    const [monthsField, setMonthsField] = useState(false);
 
-      const start = customStartDate ? new Date(customStartDate) : new Date();
-      const startdate = start.toISOString().split("T")[0];
 
-      const months = parseInt(monthsToAdd);
-      let enddate;
+    function generateMembershipDates(monthsToAdd, customStartDate) {
 
-      if (!isNaN(months) && months > 0) {
-        const end = new Date(start);
-        end.setMonth(end.getMonth() + months);
-        enddate = end.toISOString().split("T")[0];
-      } else {
-        enddate = startdate;
-      }
+        const start = customStartDate ? new Date(customStartDate) : new Date();
+        const startdate = start.toISOString().split("T")[0];
+
+        const months = parseInt(monthsToAdd);
+        let enddate;
+
+        if (!isNaN(months) && months > 0) {
+          const end = new Date(start);
+          end.setMonth(end.getMonth() + months);
+          enddate = end.toISOString().split("T")[0];
+        } else {
+          enddate = startdate;
+        }
 
       return { startdate, enddate };
     }
 
-
-
-    
     const handleChange = (e) => {
       const { id, value} = e.target;
       setInfos( prev => ({...prev, [id]: value}));
@@ -53,10 +55,6 @@ export default function AddMember(){
       }))
 
     },[infos.monthsOfMemberShips]);
-
-    const [fieldsErr, setFieldsErr ] = useState(false);
-    const [phoneNum, setPhoneNum] = useState(false);
-    const [monthsField, setMonthsField] = useState(false);
 
     const validation = () =>{
       const {
@@ -135,6 +133,7 @@ export default function AddMember(){
 
     const [open, setOpen] = useState(false);
 
+
     const handleClickOpen = () => {
       setFieldsErr(false);
       setPhoneNum(false);
@@ -149,6 +148,7 @@ export default function AddMember(){
    ///==== dialog logic ====///
 
     return(
+
         <div className="p-4">
       <h1 className="text-4xl text-[#FFFFFF] mb-4 px-4">Add New Member</h1>
 
@@ -345,6 +345,7 @@ export default function AddMember(){
 
 
       </div>
-    </div>
+      </div>
+      
     )
 }
