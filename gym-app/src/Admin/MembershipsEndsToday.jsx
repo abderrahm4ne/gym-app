@@ -14,7 +14,6 @@ export default function MembershipsEndsToday() {
 
             if (result.success) {
                     setMembers(result.members);
-                    console.log(result.members)
                     const today = new Date().toISOString().split("T")[0];
                     const filtered = result.members.filter(member => {
                         const endDate = new Date(member.endDate).toISOString().split("T")[0];
@@ -26,7 +25,7 @@ export default function MembershipsEndsToday() {
                 console.error("Error fetching members:", error);
             }
         }
-        catch(err){
+        catch(err){ 
              setError(err);
             console.error("Error fetching members:", err);
         }
@@ -37,20 +36,62 @@ export default function MembershipsEndsToday() {
         fetchMembers();
     }, []);
 
+    const formatDate = (d) => new Date(d).toISOString().split('T')[0];
+
+    if(error){
+        return <h1>error occured</h1>
+    }
+
     return (
-        <div>
-            <h2>Memberships Ending Today</h2>
+        <div className="p-6 text-white h-full ">
+            <h2 className="text-3xl mb-4 px-4">Memberships Ending Today</h2>
+
             {error && <p style={{ color: "red" }}>Error: {error}</p>}
+
             {filteredMembers.length === 0 ? (
-                <p>No memberships ending today.</p>
-            ) : (
-                <ul>
-                    {filteredMembers.map((member, index) => (
-                        <li key={index}>
-                            {member.firstname} - Ends:
-                        </li>
-                    ))}
-                </ul>
+                <p className="text-3xl mb-4">No memberships ending today.</p>
+            ) : (       
+                <div className="h-[90%] overflow-y-scroll p-3">
+
+                    <table className="min-w-full text-xl text-white border border-[#00C4FF]">
+
+                        <thead className="bg-[#2b2a2a] text-[#00C4FF] ">
+                            <tr className=''>
+                                <th className="px-4 py-3 ">First Name</th>
+                                <th className="px-4 py-3">Last Name</th>
+                                <th className="px-4 py-3">Phone</th>
+                                <th className="px-4 py-3">Membership</th>
+                                <th className="px-4 py-3">Start Date</th>
+                                <th className="px-4 py-3">End Date</th>
+                                <th className="px-4 py-3">Days Left</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {filteredMembers.map((m, index) => (
+                                <tr
+                                    key={index}
+                                    className="border-t text-center border-[#00C4FF] hover:cursor-pointer"
+                                    onClick={() =>  
+                                    navigate(`/view-all-members/${m._id}`)}
+                                
+                                >
+                                
+                                    <td className="px-4 py-3">{m.firstname}</td>
+                                    <td className="px-4 py-3">{m.lastname}</td>
+                                    <td className="px-4 py-3">{m.phonenumber}</td>
+                                    <td className="px-4 py-3">{m.membership}</td>
+                                    <td className="px-4 py-3">{formatDate(m.startDate)}</td>
+                                    <td className="px-4 py-3">{formatDate(m.endDate)}</td>
+                                    <td className={`px-4 py-3 ${m.daysLeft < 5 && 'text-red-900 font-bold'}`}>{m.daysLeft}</td>
+                                </tr>
+                                )
+                            )}
+                        </tbody>
+
+                    </table>
+                </div>
             )}
         </div>
     )

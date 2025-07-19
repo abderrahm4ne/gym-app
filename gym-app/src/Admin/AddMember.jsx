@@ -149,8 +149,8 @@ export default function AddMember(){
 
     return(
 
-        <div className="p-4">
-      <h1 className="text-4xl text-[#FFFFFF] mb-4 px-4">Add New Member</h1>
+        <div className="p-6">
+      <h1 className="text-3xl text-[#FFFFFF] mb-4 px-4">Add New Member</h1>
 
       <div className="flex flex-col w-full space-y-4 mt-6">
 
