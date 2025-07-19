@@ -127,7 +127,8 @@ export default function MemberPage() {
       lastname,
       monthsOfMemberShips,
       membership,
-      phonenumber
+      phonenumber,
+      paidAmount
     } = editedMember;
 
     const isEmpty = str => String(str).trim() === "";
@@ -156,6 +157,12 @@ export default function MemberPage() {
     const months = parseInt(monthsOfMemberShips);
     if (isNaN(months) || months < 1) {
       isSetMonthsField(true);
+      return false;
+    }
+
+    const paid = parseFloat(paidAmount);
+    if (isNaN(paid) || paid < 0) {
+      alert("Invalid paid amount.");
       return false;
     }
 
@@ -406,6 +413,21 @@ export default function MemberPage() {
                                     value={editedMember.daysLeft ?? ""}
                                     disabled={true}
                                     className={`border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl ${!renewalData.endDate ? 'text-red-800' : 'text-white'} outline-none bg-transparent w-full`}
+                                />
+                            </div>
+
+                            <div className="flex flex-row items-center p-1">
+                                <label htmlFor="daysLeft" className="text-2xl w-[25%] text-[#FFFFFF]">Paid Amount</label>
+                                <input
+                                    type="text"
+                                    id="daysLeft"
+                                    value={editedMember.paidAmount + ".00   DZD" ?? ""}
+                                    disabled={isDisabled}
+                                    onChange={(e) => setEditedMember(prev => ({ 
+                                        ...prev, 
+                                        paidAmount : e.target.value 
+                                    }))}
+                                    className={`border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl ${renewalData.paidAmount < 2500 ? 'text-red-800' : 'text-white'} outline-none bg-transparent w-full`}
                                 />
                             </div>
 

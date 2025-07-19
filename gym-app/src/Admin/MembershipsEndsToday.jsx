@@ -64,6 +64,7 @@ export default function MembershipsEndsToday() {
                                 <th className="px-4 py-3">Start Date</th>
                                 <th className="px-4 py-3">End Date</th>
                                 <th className="px-4 py-3">Days Left</th>
+                                <th className="px-4 py-3">Paid Amount</th>
                             </tr>
                         </thead>
 
@@ -85,6 +86,7 @@ export default function MembershipsEndsToday() {
                                     <td className="px-4 py-3">{formatDate(m.startDate)}</td>
                                     <td className="px-4 py-3">{formatDate(m.endDate)}</td>
                                     <td className={`px-4 py-3 ${m.daysLeft < 5 && 'text-red-900 font-bold'}`}>{m.daysLeft}</td>
+                                    <td className={`px-4 py-3 ${m.paidAmount < 2500 && 'text-red-900 font-bold'}`}>{m.paidAmount}</td>
                                 </tr>
                                 )
                             )}

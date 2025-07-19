@@ -15,7 +15,7 @@ import NotesIcon from '@mui/icons-material/Notes';
 import { NavLink, Outlet } from 'react-router';
 
 export default function Dashboard(){
-
+ 
     return(
         <div className="p-4 w-[100%] h-[90vh] flex flex-row gap-3">
 
@@ -65,7 +65,7 @@ export default function Dashboard(){
             </div>
 
 
-            <div className='w-[75%] h-[100%] px-4 py-5 rounded-2xl flex flex-col gap-1' style={{backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)', boxShadow:"1px 4px 5px rgba(0, 0, 0, 0.3)"}}>
+            <div className='w-full h-[100%] px-4 py-5 rounded-2xl flex flex-col gap-1' style={{backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)', boxShadow:"1px 4px 5px rgba(0, 0, 0, 0.3)"}}>
                 <Outlet />
             </div>
 

@@ -10,7 +10,6 @@ export default function ViewAllMembers() {
 
     const fetchMembers = async () => {
         const result = await window.electron.ipcRenderer.invoke("get-members");
-        console.log(' fetched data : ', result)
         if (result.success) {
             setMembers(result.members);
         } else {
@@ -34,7 +33,9 @@ export default function ViewAllMembers() {
           Error: {error}
         </div>
       )}
-      <h2 className="text-xl mb-4"> Number Of Members : {members.length} {members.length <= 1 ? 'Member' : 'Members'}</h2>
+      <h2 className="text-xl mb-2 px-4"> Number Of Members : {members.length} {members.length <= 1 ? 'Member' : 'Members'}</h2>
+
+      <input className='outline-none border-[#00C4FF] border-1 rounded-md px-3 py-1 text-xl w-[37%] mx-4' type="text" name="search" id="search" placeholder='SEARCH MEMBER BY LASTNAME'/>
       <div className="h-[90%] overflow-y-scroll p-3">
         <table className="min-w-full text-xl text-white border border-[#00C4FF]">
           <thead className="bg-[#2b2a2a] text-[#00C4FF] ">
@@ -46,6 +47,7 @@ export default function ViewAllMembers() {
               <th className="px-4 py-3">Start Date</th>
               <th className="px-4 py-3">End Date</th>
               <th className="px-4 py-3">Days Left</th>
+              <th className="px-4 py-3">Paid Amount</th>
             </tr>
           </thead>
           <tbody>
@@ -65,6 +67,7 @@ export default function ViewAllMembers() {
                     <td className="px-4 py-3">{formatDate(m.startDate)}</td>
                     <td className="px-4 py-3">{formatDate(m.endDate)}</td>
                     <td className={`px-4 py-3 ${m.daysLeft < 5 && 'text-red-900 font-bold'}`}>{m.daysLeft}</td>
+                    <td className={`px-4 py-3 ${m.paidAmount < 2500 && 'text-red-900 font-bold'}`}>{m.paidAmount}</td>
                 </tr>
                 )
             )}
