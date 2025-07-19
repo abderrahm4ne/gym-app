@@ -1,10 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
+
+
 export default function ViewAllMembers() {
 
     const [members, setMembers] = useState([]);
     const [error, setError] = useState("");
+
+    const [searchVal, setSearchVal] = useState('')
+    const [filteredMembers, setFilteredMembers] = useState([])
+
+
+    useEffect(() => {
+      const filtered = members.filter((member) =>
+          member.lastname.toLowerCase().includes(searchVal.toLowerCase())
+        );
+        setFilteredMembers(filtered);
+    }, [searchVal, members]);
 
     const navigate = useNavigate();
 
@@ -12,6 +25,7 @@ export default function ViewAllMembers() {
         const result = await window.electron.ipcRenderer.invoke("get-members");
         if (result.success) {
             setMembers(result.members);
+            setFilterdMembers(result.members)
         } else {
             setError(result.error);
             console.error("Error fetching members:", result.error);
@@ -35,7 +49,20 @@ export default function ViewAllMembers() {
       )}
       <h2 className="text-xl mb-2 px-4"> Number Of Members : {members.length} {members.length <= 1 ? 'Member' : 'Members'}</h2>
 
-      <input className='outline-none border-[#00C4FF] border-1 rounded-md px-3 py-1 text-xl w-[37%] mx-4' type="text" name="search" id="search" placeholder='SEARCH MEMBER BY LASTNAME'/>
+
+          <input className='outline-none border-[#00C4FF] border-1 rounded-md px-3 py-1 text-xl w-[37%] mx-4' 
+        type="text" 
+        name="search" 
+        id="search" 
+        placeholder='SEARCH MEMBER BY LASTNAME'
+        value={searchVal}
+        onChange={ (e) => {
+          setSearchVal(e.target.value);
+        }}
+        
+        />
+      
+
       <div className="h-[90%] overflow-y-scroll p-3">
         <table className="min-w-full text-xl text-white border border-[#00C4FF]">
           <thead className="bg-[#2b2a2a] text-[#00C4FF] ">
@@ -51,7 +78,7 @@ export default function ViewAllMembers() {
             </tr>
           </thead>
           <tbody>
-            {members.map((m, index) => (
+            {filteredMembers.map((m, index) => (
                 <tr
                     key={index}
                     className="border-t text-center border-[#00C4FF] hover:cursor-pointer"
