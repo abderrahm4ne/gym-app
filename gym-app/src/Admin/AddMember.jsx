@@ -12,7 +12,8 @@ export default function AddMember(){
         phonenumber:"",
         monthsOfMemberShips:1,
         startDate:"",
-        endDate:""
+        endDate:"",
+        paidAmount:""
       });
 
     const [fieldsErr, setFieldsErr ] = useState(false);
@@ -65,6 +66,7 @@ export default function AddMember(){
       phonenumber,
       startDate,
       endDate,
+      paidAmount
     } = infos;
 
     const isEmpty = (str) => String(str).trim() === "";
@@ -80,7 +82,8 @@ export default function AddMember(){
       isEmpty(membership) ||
       isEmpty(phonenumber) ||
       isEmpty(startDate) ||
-      isEmpty(endDate)
+      isEmpty(endDate) || 
+      isEmpty(paidAmount)
     ) {
       setFieldsErr(true);
       return false;
@@ -95,6 +98,12 @@ export default function AddMember(){
     const months = parseInt(monthsOfMemberShips);
     if (isNaN(months) || months < 1) {
       setMonthsField(true);
+      return false;
+    }
+
+    const paid = parseFloat(paidAmount);
+    if (isNaN(paid) || paid < 0) {
+      alert("Invalid paid amount.");
       return false;
     }
 
@@ -121,6 +130,7 @@ export default function AddMember(){
         monthsOfMemberShips: "",
         startDate: "",
         endDate: "",
+        paidAmount: ""
       });
     } else {
       console.error("Failed to add member:", result.error);
@@ -211,21 +221,6 @@ export default function AddMember(){
         </div>
 
 
-        {/*Months Of memberShip*/}
-
-        <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="monthsOfMemberShips" className="w-[20%] text-xl text-[#FFFFFF]">Months Of Memberships</label>
-          <input
-            type="number"
-            id="monthsOfMemberShips"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
-            value={infos.monthsOfMemberShips}
-            onChange={handleChange}
-            min={1}
-          />
-        </div>
-
-
         {/* Start Date */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
           <label htmlFor="startDate" className="w-[20%] text-xl text-[#FFFFFF]">Start Date</label>
@@ -239,7 +234,21 @@ export default function AddMember(){
           />
         </div>
 
-        
+
+        {/*Months Of memberShip*/}
+
+        <div className="px-5 py-2 flex flex-row gap-4 items-center">
+          <label htmlFor="monthsOfMemberShips" className="w-[20%] text-xl text-[#FFFFFF]">Months Of Memberships</label>
+          <input
+            type="number"
+            id="monthsOfMemberShips"
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
+            value={infos.monthsOfMemberShips}
+            onChange={handleChange}
+            min={1}
+          />
+        </div>
+     
         {/* End Date */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
           <label htmlFor="endDate" className="w-[20%] text-xl text-[#FFFFFF]">End Date</label>
@@ -252,6 +261,20 @@ export default function AddMember(){
             disabled={true}
           />
         </div>
+
+        {/* Paid Amount */}
+        <div className="px-5 py-2 flex flex-row gap-4 items-center">
+          <label htmlFor="paidAmount" className="w-[20%] text-xl text-[#FFFFFF]">Paid Amount</label>
+          <input
+            type="number"
+            id="paidAmount"
+            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent"
+            value={infos.paidAmount}
+            onChange={handleChange}
+            min={0}
+          />
+        </div>
+
 
 
 
@@ -296,6 +319,7 @@ export default function AddMember(){
                           END BY {infos.endDate}
                         </div>
                       </div>
+                      <div className='text-xl'>Paid: {infos.paidAmount} DZD</div>
                 </div>
                 
             </div>
