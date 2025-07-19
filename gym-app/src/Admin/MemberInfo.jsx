@@ -306,10 +306,7 @@ export default function MemberPage() {
 
                 <div className="w-full flex flex-row items-center gap-5">
 
-                    <div className="border-2 border-[#00C4FF] px-2 w-[13%] h-[160px] self-start rounded-sm bg-[#B0B7C4]">
-                        {/* Placeholder for profile image */}
-
-                    </div>
+                    <div className="border-2 border-[#00C4FF] px-2 w-[13%] h-[160px] self-start rounded-sm bg-[]" ></div>
 
                     <div className="flex flex-col h-full w-full gap-1">
 

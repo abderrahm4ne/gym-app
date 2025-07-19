@@ -27,7 +27,7 @@ export default function ViewAllMembers() {
     
     return (
         <div className="p-6 text-white h-full ">
-      <h1 className="text-3xl mb-4">All Members</h1>
+      <h1 className="text-3xl mb-4 px-4">All Members</h1>
 
       {error && (
         <div className="text-red-500 font-semibold mb-2">
