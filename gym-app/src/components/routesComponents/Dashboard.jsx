@@ -1,14 +1,7 @@
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import GroupIcon from '@mui/icons-material/Group';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
-import PersonIcon from '@mui/icons-material/Person';
-import PlusOneIcon from '@mui/icons-material/PlusOne';
-import AddIcon from '@mui/icons-material/Add';
 import BlockIcon from '@mui/icons-material/Block';
-import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
-import CreateIcon from '@mui/icons-material/Create';
-import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import NotesIcon from '@mui/icons-material/Notes';
 
 
@@ -48,9 +41,9 @@ export default function Dashboard(){
                     <p className="text-lg">Memberships Ended</p>
                 </NavLink>
 
-                <NavLink to="/basic-statistics" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
-                    <SignalCellularAltIcon style={{fontSize:"1.5rem"}} />
-                    <p className="text-lg">Basic Statistics</p>
+                <NavLink to="/uncompleted-paiment" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
+                    <BlockIcon style={{fontSize:"1.5rem"}} />
+                    <p className="text-lg">Uncompleted Payment</p>
                 </NavLink>
 
                 <NavLink to="/take-note" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
