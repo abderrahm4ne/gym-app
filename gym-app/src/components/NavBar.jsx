@@ -24,6 +24,7 @@ export default function NavBar(){
                         </div>
 
                         <div className="flex flex-row gap-3 items-center pr-4">
+                            <div className="text-white text-xl pr-4 hover:cursor-pointer">EN/AR</div>
                             <FitnessCenterIcon className="text-[#B0B7C4]" style={{fontSize:"2.5rem"}} />
                             <div className="felx flex-col items-start">
                                 <p className="text-[#FFFFFF] text-2xl" >GYM </p>
