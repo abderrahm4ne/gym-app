@@ -4,19 +4,26 @@ import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import BlockIcon from '@mui/icons-material/Block';
 import NotesIcon from '@mui/icons-material/Notes';
 
-
+import { useTranslation } from 'react-i18next';
 import { NavLink, Outlet } from 'react-router';
+import { useEffect } from 'react';
 
 export default function Dashboard(){
+
+    const { t, i18n } = useTranslation(); 
+
+    useEffect(() => {
+        i18n.changeLanguage("ar");
+    }, [])
  
     return(
-        <div className="p-4 w-[100%] h-[90vh] flex flex-row gap-3">
+        <div className="p-4 w-[100%] h-[90vh] flex flex-row gap-3" >
 
             <div className='w-[25%] h-[100%] px-4 py-5 rounded-2xl flex flex-col gap-1' style={{backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)', boxShadow:"1px 4px 5px rgba(0, 0, 0, 0.3)"}}>
 
                 <div className='text-xl flex flex-row items-center rounded-2xl px-3 py-2.5 bg-[#4CAF50] text-white w-fit hover:cursor-pointer'>
                     <DashboardIcon style={{fontSize:"1.5rem"}} />
-                    <p className='ml-2'>Dashboard</p>
+                    <p className='ml-2'>{t("Dashboard")}</p>
                 </div>
 
                 <div className='flex flex-col gap-2 mt-4'>
