@@ -1,6 +1,7 @@
 import { NavLink } from "react-router"
 import { Outlet } from "react-router"
 import Dashboard from "./routesComponents/Dashboard";
+import { useTranslation } from "react-i18next";
 
 // mui imports
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -11,11 +12,18 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 
 export default function NavBar(){
 
+    const { i18n } = useTranslation();
+
+    const toggleLanguage = () => {
+        const newLang = i18n.language === 'en' ? 'ar' : 'en';
+        i18n.changeLanguage(newLang);
+    };
+
     return(
         <div className="h-[100vh] w-[100vw] p-4 overflow-x-hidden">
             
             
-            <div className="flex flex-row justify-between items-center px-5">
+            <div className={`flex flex-row justify-between items-center px-5 `} >
 
                         <div className="flex flex-row gap-3 items-center ">
                             <AdminPanelSettingsIcon className="text-[#B0B7C4]" style={{fontSize:"2.5rem"}} />
@@ -24,7 +32,13 @@ export default function NavBar(){
                         </div>
 
                         <div className="flex flex-row gap-3 items-center pr-4">
-                            <div className="text-white text-xl pr-4 hover:cursor-pointer">EN/AR</div>
+                            <div className="text-white text-xl pr-4 hover:cursor-pointer"
+                            onClick={toggleLanguage}
+                            >
+
+                                {i18n.language === 'en' ? 'AR' : 'EN'}
+
+                            </div>
                             <FitnessCenterIcon className="text-[#B0B7C4]" style={{fontSize:"2.5rem"}} />
                             <div className="felx flex-col items-start">
                                 <p className="text-[#FFFFFF] text-2xl" >GYM </p>

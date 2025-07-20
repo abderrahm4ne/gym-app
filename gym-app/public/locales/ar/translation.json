@@ -1,3 +1,9 @@
 {
-    "Dashboard": "لوحة التحكم"
+    "Dashboard": "لوحة التحكم",
+    "View All Members": "رؤية جميع الأعضاء",
+    "Add Member": "إضافة عضو",
+    "Memberships Ends Today": "عضويات تنتهي اليوم",
+    "Memberships Ended": "عضويات إنتهت",
+    "Uncompleted Payment": "دفع غير مكتمل ",
+    "Take Note": "ملاحظات"
 }
