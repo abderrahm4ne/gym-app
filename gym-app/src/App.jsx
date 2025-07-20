@@ -10,6 +10,7 @@ import AddMember from './Admin/AddMember';
   import ViewAllMembers from './Admin/ViewAllMembers';
 import Notes from './Admin/Notes';
 import MemberInfo from './Admin/MemberInfo'
+import UnCompletedPayment from './Admin/UnCompletedPayment';
 
 function App() {
   {/*==== ROUTER ====*/} 
@@ -23,7 +24,7 @@ function App() {
                     <Route path='add-member' element={<AddMember />} />
                     <Route path='memberships-ends-today' element={<MembershipsEndsToday />} />
                     <Route path='memberships-ended' element={<MembershipsEnded />} />
-                    <Route path='basic-statistics' element={<BasicStatistics />} />
+                    <Route path='uncompleted-paiment' element={<UnCompletedPayment />} />
                     <Route path='take-note' element={<Notes />} />
                   </Route>
                 </Route>

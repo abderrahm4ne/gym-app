@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 export default function MembershipsEnded(){
 
-    const [members, setMembers] = useState([]);
         const [error, setError] = useState(null);
     
         const [filteredMembers, setFilteredMembers] = useState([]);
@@ -13,7 +12,6 @@ export default function MembershipsEnded(){
                 const result = await window.electron.ipcRenderer.invoke("get-members");
     
                 if (result.success) {
-                        setMembers(result.members);
                         const today = new Date().toISOString().split("T")[0];
                         const filtered = result.members.filter(member => {
                             const endDate = new Date(member.endDate).toISOString().split("T")[0];
@@ -45,12 +43,12 @@ export default function MembershipsEnded(){
 
     return(
         <div className="p-6 text-white h-full ">
-            <h2 className="text-3xl mb-4 px-4">Memberships Ending Today</h2>
+            <h2 className="text-3xl mb-4 px-4">Memberships has Ended</h2>
 
             {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
             {filteredMembers.length === 0 ? (
-                <p className="text-3xl mb-4">No memberships ending today.</p>
+                <p className="text-3xl mb-4">No memberships has ended.</p>
             ) : (       
                 <div className="h-[90%] overflow-y-scroll p-3">
 

@@ -420,8 +420,8 @@ export default function MemberPage() {
                                 <label htmlFor="daysLeft" className="text-2xl w-[25%] text-[#FFFFFF]">Paid Amount</label>
                                 <input
                                     type="text"
-                                    id="daysLeft"
-                                    value={editedMember.paidAmount + ".00   DZD" ?? ""}
+                                    id="paidAmmount"
+                                    value={editedMember.paidAmount}
                                     disabled={isDisabled}
                                     onChange={(e) => setEditedMember(prev => ({ 
                                         ...prev, 

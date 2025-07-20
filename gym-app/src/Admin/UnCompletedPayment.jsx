@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
-export default function MembershipsEndsToday() {
+export default function UnCompletedPayment(){
+
+    const navigate = useNavigate()
 
     const [error, setError] = useState(null);
-
     const [filteredMembers, setFilteredMembers] = useState([]);
 
     const fetchMembers = async () => {
@@ -12,10 +14,8 @@ export default function MembershipsEndsToday() {
             const result = await window.electron.ipcRenderer.invoke("get-members");
 
             if (result.success) {
-                    const today = new Date().toISOString().split("T")[0];
                     const filtered = result.members.filter(member => {
-                        const endDate = new Date(member.endDate).toISOString().split("T")[0];
-                        return endDate === today;
+                        return member.paidAmount < 2500
                     });
                     setFilteredMembers(filtered);
             } else {
@@ -29,7 +29,6 @@ export default function MembershipsEndsToday() {
         }
     }
         
-
     useEffect(() => {
         fetchMembers();
     }, []);
@@ -40,14 +39,15 @@ export default function MembershipsEndsToday() {
         return <h1>error occured</h1>
     }
 
-    return (
+
+    return(
         <div className="p-6 text-white h-full ">
-            <h2 className="text-3xl mb-4 px-4">Memberships Ending Today</h2>
+            <h2 className="text-3xl mb-4 px-4">Uncompleted Payment</h2>
 
             {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
             {filteredMembers.length === 0 ? (
-                <p className="text-3xl mb-4">No memberships ending today.</p>
+                <p className="text-3xl mb-4">All Members has Completed Payment</p>
             ) : (       
                 <div className="h-[90%] overflow-y-scroll p-3">
 

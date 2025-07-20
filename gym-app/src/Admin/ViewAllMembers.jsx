@@ -25,7 +25,7 @@ export default function ViewAllMembers() {
         const result = await window.electron.ipcRenderer.invoke("get-members");
         if (result.success) {
             setMembers(result.members);
-            setFilterdMembers(result.members)
+            setFilteredMembers(result.members)
         } else {
             setError(result.error);
             console.error("Error fetching members:", result.error);
