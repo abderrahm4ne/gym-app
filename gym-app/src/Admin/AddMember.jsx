@@ -160,7 +160,7 @@ export default function AddMember(){
     
    ///==== dialog logic ====///
 
-  const fontClass = i18n.language === 'ar' ? 'text-3xl' : 'text-xl';
+  const fontClass = i18n.language === 'ar' ? 'text-2xl' : 'text-xl';
 
   const direction = i18n.language === 'ar' ? 'rtl' : 'ltr';
     return(
@@ -233,18 +233,16 @@ export default function AddMember(){
 
         {/* Start Date */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="startDate" className={`w-[15%] text-[#FFFFFF] ${fontClass}`}>
-            {t('Start Date')}
-          </label>
-          <input
-            type="date"
-            id="startDate"
-            className="border-1 border-[#00C4FF] rounded-md w-full text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-2"
-            value={infos.startDate}
-            onChange={handleChange}
-
-          />
-        </div>
+            <label htmlFor="startDate" className={`w-[15%] text-[#FFFFFF] ${fontClass}`}>{t('Start Date')}</label>
+            <input
+              type="date"
+              id="startDate"
+              className={`border-1 border-[#00C4FF] rounded-md w-full text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-2 ${i18n.language === 'ar' ? 'text-right' : 'text-left'}`}
+              value={infos.startDate}
+              onChange={handleChange}
+              disabled={true}
+            />
+          </div>
 
 
         {/*Months Of memberShip*/}
@@ -269,7 +267,7 @@ export default function AddMember(){
           <input
             type="date"
             id="endDate"
-            className="border-1 border-[#00C4FF] rounded-md w-full text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-2"
+             className={`border-1 border-[#00C4FF] rounded-md w-full text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-2 ${i18n.language === 'ar' ? 'text-right' : 'text-left'}`}
             value={infos.endDate}
             onChange={handleChange}
             disabled={true}
@@ -301,7 +299,7 @@ export default function AddMember(){
               handleClickOpen();
             }
            }}
-            className="bg-[#00C4FF] text-black py-2 px-6 text-xl rounded-md hover:bg-[#0099cc] transition hover:cursor-pointer btn"
+            className={`bg-[#00C4FF] text-black py-2 px-6 ${i18n.language === 'ar' ? 'text-2xl' : 'text-xl'} rounded-md hover:bg-[#0099cc] transition hover:cursor-pointer btn`}
           >
             {t('Add Member')}
           </button>
@@ -316,33 +314,74 @@ export default function AddMember(){
               sx={{ justifySelf: "center", alignSelf: "center", direction:direction}}
             >
               <div
-                className="flex flex-col rounded-xl h-[35vh] w-[33vw] py-7 px-5 gap-3 justify-between"
+                className="flex flex-col rounded-xl w-[33vw] py-7 px-5 gap-3 justify-between"
                 style={{ backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)' }}
               >
                 <div className="flex flex-col gap-1 text-white">
-                  <div className={`text-white ${i18n.language === 'ar' ? 'text-3xl' : 'text-xl'}`}>{t('Confirm Adding this member')}</div>
+
+                  <div className={`text-[#00C4FF] ${i18n.language === 'ar' ? 'text-3xl' : 'text-xl'}`}>
+                    
+                    {t('Confirm Adding this member')}
+
+                  </div>
+
+
                   <div className="flex flex-col gap-0.5 mt-2">
-                    <div className="text-xl">
-                      {infos.lastname} {infos.firstname}
+
+                    <div className={`text-white ${i18n.language === 'ar' ? 'text-2xl' : 'text-xl'} flex flex-row gap-3 items-center`}>
+
+                     {t('Full Name')} : <p className='text-xl'>{infos.lastname} {infos.firstname}</p>
+
                     </div>
-                    <div className={`text-white ${i18n.language === 'ar' ? 'text-3xl' : 'text-xl'} `}>
-                      {t('Membership type and period')} : {infos.membership}, {infos.monthsOfMemberShips}{" "}
+
+                    <div className={`text-white ${i18n.language === 'ar' ? 'text-2xl' : 'text-xl'} flex flex-row gap-3 items-center`} >
+
+                      {t('Membership period')} : 
+
+                      <p className='text-xl'>
+
+                        {infos.monthsOfMemberShips}{" "} 
+
+                      </p>
+
                       {infos.monthsOfMemberShips == 1 ? t('Month') : t('Months')}
+
                     </div>
-                    <div className={`text-white ${i18n.language === 'ar' ? 'text-3xl' : 'text-xl'}`}>
-                      {t('Phone number')} : {infos.phonenumber}
+
+                    <div className={`text-white ${i18n.language === 'ar' ? 'text-2xl' : 'text-xl'} flex flex-row gap-3 items-center`} >
+
+                      {t('Phone number')} : <p className='text-xl'>
+
+                        {infos.phonenumber}{" "} 
+
+                      </p>
+
                     </div>
-                    <div className={`text-white ${i18n.language === 'ar' ? 'text-3xl' : 'text-xl'}`}>
-                      <div>
-                        {t('START AT')} : {infos.startDate},
+
+                    <div className={`text-white ${i18n.language === 'ar' ? 'text-2xl' : 'text-xl'} flex flex-col `}>
+
+                      <div className='flex flex-row gap-3 items-center'>
+                        {t('START AT')} : <p className='text-xl'>
+
+                        {infos.startDate}{" "} 
+
+                      </p>
                       </div>
-                      <div>
-                        {t('END BY')} {infos.endDate}
+
+                      <div className={`text-white ${i18n.language === 'ar' ? 'text-2xl' : 'text-xl'} flex flex-row gap-3 items-center`}>
+
+                        {t('END BY')} : <p className='text-xl'>
+                         {infos.endDate}{" "} 
+                        </p>
                       </div>
                     </div>
-                    <div className={`text-white ${i18n.language === 'ar' ? 'text-3xl' : 'text-xl'}`}>
-                      {t('Paid')}: {infos.paidAmount} DZD
+
+                    <div className={`text-white ${i18n.language === 'ar' ? 'text-2xl' : 'text-xl'} mt-4 flex flex-row gap-3`}>
+                      {t('Paid')}: <p className='text-xl'>
+                         {infos.paidAmount} {t('DZD')}{" "} 
+                        </p>
                     </div>
+
                   </div>
                 </div>
 

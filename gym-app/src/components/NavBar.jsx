@@ -19,11 +19,12 @@ export default function NavBar(){
         i18n.changeLanguage(newLang);
     };
 
+
     return(
-        <div className="h-[100vh] w-[100vw] p-4 overflow-x-hidden">
+        <div className={` p-4 overflow-x-hidden `}>
             
             
-            <div className={`flex flex-row justify-between items-center px-5 `} >
+            <div className={`flex flex-row justify-between items-center px-5`} >
 
                         <div className="flex flex-row gap-3 items-center ">
                             <AdminPanelSettingsIcon className="text-[#B0B7C4]" style={{fontSize:"2.5rem"}} />
@@ -48,7 +49,7 @@ export default function NavBar(){
                         </div>
             </div>
 
-            <div className="">
+            <div className="h-full">
                 
 
                     <Outlet />
