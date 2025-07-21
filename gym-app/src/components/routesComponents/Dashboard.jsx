@@ -15,9 +15,9 @@ export default function Dashboard(){
     const currentDirection = i18n.language === 'ar' ? 'rtl' : 'ltr';
  
     return(
-        <div className="p-4 w-[100%] h-[90vh] flex flex-row gap-3" style={{direction:currentDirection}}>
+        <div className="p-4 w-[100%] h-full flex flex-row gap-3  " style={{direction:currentDirection}}>
 
-            <div className='w-[25%] h-[100%] px-4 py-5 rounded-2xl flex flex-col gap-1' style={{backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)', boxShadow:"1px 4px 5px rgba(0, 0, 0, 0.3)"}}>
+            <div className='w-[25%]  px-4 py-5  rounded-2xl flex flex-col gap-1' style={{backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)', boxShadow:"1px 4px 5px rgba(0, 0, 0, 0.3)"}}>
 
                 <div className='text-xl gap-3.5 flex flex-row items-center rounded-2xl px-3 py-2.5 bg-[#4CAF50] text-white w-fit hover:cursor-pointer'>
                     <DashboardIcon style={{fontSize:"2rem"}} />
@@ -63,7 +63,7 @@ export default function Dashboard(){
             </div>
 
 
-            <div className='w-full h-[100%] px-4 py-5 rounded-2xl flex flex-col gap-1' style={{backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)', boxShadow:"1px 4px 5px rgba(0, 0, 0, 0.3)"}}>
+            <div className='w-full min-h-[90vh] px-4 py-5 rounded-2xl flex flex-col gap-1' style={{backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)', boxShadow:"1px 4px 5px rgba(0, 0, 0, 0.3)"}}>
                 <Outlet />
             </div>
 

@@ -5,6 +5,12 @@
     word-spacing: -1px;
 }
 
+.rtl-calendar {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Tajawal', sans-serif;
+}
+
 body{
     background-image: linear-gradient(to bottom, #1a1f2e, #111624);
 }
