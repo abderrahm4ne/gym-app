@@ -4,7 +4,12 @@ export default {
     './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        arabic: ['"Noto Naskh Arabic"', 'serif'], // or any Arabic font you prefer
+        sans: ['Inter', 'sans-serif'], // your default font
+      },
+    },
   },
   plugins: [],
 }
