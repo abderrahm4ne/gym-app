@@ -1,9 +1,12 @@
-
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
 
 import Modal from '@mui/material/Modal';
 
 export default function AddMember(){
+
+    const { t, i18n } = useTranslation(); 
 
     const [infos, setInfos] = useState({
         lastname:"",
@@ -157,21 +160,26 @@ export default function AddMember(){
     
    ///==== dialog logic ====///
 
+  const fontClass = i18n.language === 'ar' ? 'text-3xl' : 'text-xl';
+
+  const direction = i18n.language === 'ar' ? 'rtl' : 'ltr';
     return(
 
         <div className="p-6">
-      <h1 className="text-3xl text-[#FFFFFF] mb-4 px-4">Add New Member</h1>
+      <h1 className={`${i18n.language === 'ar' ? 'text-4xl' : 'text-3xl'} text-[#FFFFFF] mb-4 px-4`}>{t('Add New Member')}</h1>
 
       <div className="flex flex-col w-full space-y-4 mt-6">
 
 
         {/* First Name */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="firstname" className="w-[20%] text-xl text-[#FFFFFF]">First Name</label>
+          <label htmlFor="firstname" className={`w-[15%] text-[#FFFFFF] ${fontClass}`}>
+            {t('First Name')}
+            </label>
           <input
             type="text"
             id="firstname"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent"
+            className="border-1 border-[#00C4FF] rounded-md w-full px-2 py-2 text-xl text-[#FFFFFF] outline-none bg-transparent"
             value={infos.firstname}
             onChange={handleChange}
           />
@@ -181,11 +189,11 @@ export default function AddMember(){
 
         {/* Last Name */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="lastname" className="w-[20%] text-xl text-[#FFFFFF]">Last Name</label>
+          <label htmlFor="lastname" className={`w-[15%] text-[#FFFFFF] ${fontClass}`}>{t('Last Name')}</label>
           <input
             type="text"
             id="lastname"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent"
+            className="border-1 border-[#00C4FF] rounded-md w-full px-2 py-2 text-xl text-[#FFFFFF] outline-none bg-transparent"
             value={infos.lastname}
             onChange={handleChange}
           />
@@ -195,26 +203,28 @@ export default function AddMember(){
 
         {/* Membership */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="membership" className="w-[20%] text-xl text-[#FFFFFF]">Membership</label>
+          <label htmlFor="membership" className={`w-[15%] text-[#FFFFFF] ${fontClass}`}>{t('Membership')}</label>
           <select
             id="membership"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent field"
+            className="border-1 border-[#00C4FF] rounded-md w-full px-2 py-2 text-xl text-[#FFFFFF] outline-none bg-transparent field"
             value={infos.membership}
             onChange={handleChange}
           >
-            <option className='bg-[#2A3042] px-4 outline-none rounded-md border-none' value="">Select a type</option>
-            <option className='bg-[#2A3042] px-4 outline-none rounded-md border-none' value="Normal">Normal</option>
-            <option className='bg-[#2A3042] px-4 outline-none rounded-md border-none' value="Premium">Premium</option>
+            <option className='bg-[#2A3042] px-4 outline-none rounded-md border-none' value="">{t('Select a type')}</option>
+            <option className='bg-[#2A3042] px-4 outline-none rounded-md border-none' value="Normal">{t('Normal')}</option>
+            <option className='bg-[#2A3042] px-4 outline-none rounded-md border-none' value="Premium">{t('Premium')}</option>
           </select>
         </div>
 
         {/* Phone Number */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="phonenumber" className="w-[20%] text-xl text-[#FFFFFF]">Phone Number</label>
+          <label htmlFor="phonenumber" className={`w-[15%] text-[#FFFFFF] ${fontClass}`}>
+            {t('Phone Number')}
+          </label>
           <input
             type="text"
             id="phonenumber"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
+            className="border-1 border-[#00C4FF] rounded-md w-full px-2 py-2 text-xl text-[#FFFFFF] outline-none bg-transparent "
             value={infos.phonenumber}
             onChange={handleChange}
           />
@@ -223,11 +233,13 @@ export default function AddMember(){
 
         {/* Start Date */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="startDate" className="w-[20%] text-xl text-[#FFFFFF]">Start Date</label>
+          <label htmlFor="startDate" className={`w-[15%] text-[#FFFFFF] ${fontClass}`}>
+            {t('Start Date')}
+          </label>
           <input
             type="date"
             id="startDate"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-1"
+            className="border-1 border-[#00C4FF] rounded-md w-full text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-2"
             value={infos.startDate}
             onChange={handleChange}
 
@@ -238,11 +250,13 @@ export default function AddMember(){
         {/*Months Of memberShip*/}
 
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="monthsOfMemberShips" className="w-[20%] text-xl text-[#FFFFFF]">Months Of Memberships</label>
+          <label htmlFor="monthsOfMemberShips" className={`w-[15%] text-[#FFFFFF] ${fontClass}`}>
+            {t('Months Of memberShip')}
+          </label>
           <input
             type="number"
             id="monthsOfMemberShips"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent "
+            className="border-1 border-[#00C4FF] rounded-md w-full px-2 py-2 text-xl text-[#FFFFFF] outline-none bg-transparent "
             value={infos.monthsOfMemberShips}
             onChange={handleChange}
             min={1}
@@ -251,11 +265,11 @@ export default function AddMember(){
      
         {/* End Date */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="endDate" className="w-[20%] text-xl text-[#FFFFFF]">End Date</label>
+          <label htmlFor="endDate" className={`w-[15%] text-[#FFFFFF] ${fontClass}`}>{t('End Date')}</label>
           <input
             type="date"
             id="endDate"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-1"
+            className="border-1 border-[#00C4FF] rounded-md w-full text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-2"
             value={infos.endDate}
             onChange={handleChange}
             disabled={true}
@@ -264,11 +278,11 @@ export default function AddMember(){
 
         {/* Paid Amount */}
         <div className="px-5 py-2 flex flex-row gap-4 items-center">
-          <label htmlFor="paidAmount" className="w-[20%] text-xl text-[#FFFFFF]">Paid Amount</label>
+          <label htmlFor="paidAmount" className={`w-[15%] text-[#FFFFFF] ${fontClass}`}>{t('Paid Amount')}</label>
           <input
             type="number"
             id="paidAmount"
-            className="border-1 border-[#00C4FF] rounded-md w-[75%] px-2 py-1 text-xl text-[#FFFFFF] outline-none bg-transparent"
+            className="border-1 border-[#00C4FF] rounded-md w-full px-2 py-2 text-xl text-[#FFFFFF] outline-none bg-transparent"
             value={infos.paidAmount}
             onChange={handleChange}
             min={0}
@@ -279,7 +293,7 @@ export default function AddMember(){
 
 
         {/* Submit Button */}
-        <div className="px-5 py-4">
+        <div className={`px-5 py-4 self-end`}>
 
           <button
            onClick={() => {
@@ -289,81 +303,89 @@ export default function AddMember(){
            }}
             className="bg-[#00C4FF] text-black py-2 px-6 text-xl rounded-md hover:bg-[#0099cc] transition hover:cursor-pointer btn"
           >
-            Add Member
+            {t('Add Member')}
           </button>
 
           
         
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-            sx={{justifySelf:"center", alignSelf:"center"}}
-            
-          >
-
-          <div className='flex flex-col rounded-xl h-[35vh] w-[33vw] py-7 px-5 gap-3 justify-between' style={{backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)'}}>
-            
-            <div className='flex flex-col gap-1 text-white item'>
-                <div className='text-3xl text-white'>Confirm Adding this member</div>
-                <div className='flex flex-col gap-0.5 mt-2'>
-                      <div className='text-xl'>{infos.lastname} {infos.firstname}</div>
-                      <div className='text-xl'>Membership type and period : {infos.membership}, {infos.monthsOfMemberShips} {infos.monthsOfMemberShips == 1 ? 'Month' : 'Months'}</div>
-                      <div className='text-xl'>Phone number : {infos.phonenumber}</div>
-                      <div className='text-xl flex flex-row gap-4'>
-                        <div>
-                          START AT :{infos.startDate},
-                        </div>
-                        <div>
-                          END BY {infos.endDate}
-                        </div>
+          <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+              sx={{ justifySelf: "center", alignSelf: "center", direction:direction}}
+            >
+              <div
+                className="flex flex-col rounded-xl h-[35vh] w-[33vw] py-7 px-5 gap-3 justify-between"
+                style={{ backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)' }}
+              >
+                <div className="flex flex-col gap-1 text-white">
+                  <div className={`text-white ${i18n.language === 'ar' ? 'text-3xl' : 'text-xl'}`}>{t('Confirm Adding this member')}</div>
+                  <div className="flex flex-col gap-0.5 mt-2">
+                    <div className="text-xl">
+                      {infos.lastname} {infos.firstname}
+                    </div>
+                    <div className={`text-white ${i18n.language === 'ar' ? 'text-3xl' : 'text-xl'} `}>
+                      {t('Membership type and period')} : {infos.membership}, {infos.monthsOfMemberShips}{" "}
+                      {infos.monthsOfMemberShips == 1 ? t('Month') : t('Months')}
+                    </div>
+                    <div className={`text-white ${i18n.language === 'ar' ? 'text-3xl' : 'text-xl'}`}>
+                      {t('Phone number')} : {infos.phonenumber}
+                    </div>
+                    <div className={`text-white ${i18n.language === 'ar' ? 'text-3xl' : 'text-xl'}`}>
+                      <div>
+                        {t('START AT')} : {infos.startDate},
                       </div>
-                      <div className='text-xl'>Paid: {infos.paidAmount} DZD</div>
+                      <div>
+                        {t('END BY')} {infos.endDate}
+                      </div>
+                    </div>
+                    <div className={`text-white ${i18n.language === 'ar' ? 'text-3xl' : 'text-xl'}`}>
+                      {t('Paid')}: {infos.paidAmount} DZD
+                    </div>
+                  </div>
                 </div>
-                
-            </div>
 
-            <div className='flex flex-row gap-2' style={{alignSelf:"end"}}>
-                <button className='bg-red-500 text-[white] py-3 px-4.5 rounded-md text-xl btn' onClick={handleClose}>CANCEL</button>
-                <button
-                  className="bg-[#4CAF50] text-[white] py-3 px-4.5 rounded-md text-xl btn"
-                  onClick={() =>{
-                    
-                    handleAddMember();
-                    setTimeout(() => {
-                      handleClose();
-                    }, 200)
-                  }}
-                    
-                >
-                  CONFIRM
-                </button>
+                <div className="flex flex-row gap-2" style={{ alignSelf: "end" }}>
+                  <button
+                    className="bg-red-500 text-white py-3 px-4.5 rounded-md text-xl btn"
+                    onClick={handleClose}
+                  >
+                    {t('CANCEL')}
+                  </button>
+                  <button
+                    className="bg-[#4CAF50] text-white py-3 px-4.5 rounded-md text-xl btn"
+                    onClick={() => {
+                      handleAddMember();
+                      setTimeout(() => {
+                        handleClose();
+                      }, 200);
+                    }}
+                  >
+                    {t('CONFIRM')}
+                  </button>
+                </div>
+              </div>
+            </Modal>
 
-            </div>
-           
-
-          </div>
-
-          </Modal>
 
         </div>
 
         {fieldsErr && (
           <div className="text-red-500 text-lg font-semibold mt-2 px-4">
-            You must fill all the fields
+            {i18n.language === 'ar' ? 'يجب عليك ملئ جميع البيانات' : 'You must fill all the fields'}
           </div>
         )}
 
         {phoneNum && (
           <div className="text-red-500 text-lg font-semibold mt-2 px-4">
-            You must enter a valid phone number
+            {i18n.language === 'ar' ? 'يجب عليك ٳدخال رقم هاتف صحيح ' : 'You must enter a valid phone number'}
           </div>
         )}
 
         {monthsField && (
           <div className="text-red-500 text-lg font-semibold mt-2 px-4">
-            Months of membership can't be zero
+            {i18n.language === 'ar' ? 'مدة الٳشتراك لا يجب ان تكون 0': 'Months of membership cant be zero'}
           </div>
         )}
 
