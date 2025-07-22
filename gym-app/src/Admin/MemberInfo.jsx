@@ -2,6 +2,7 @@ import { NavLink, useParams } from "react-router-dom"
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Modal from "@mui/material/Modal";
+import { useTranslation } from 'react-i18next';
 
 
 export default function MemberPage() {
@@ -41,6 +42,7 @@ export default function MemberPage() {
             if (result.success) {
                 setMember(result.member);
                 setEditedMember(result.member);
+                console.log(result.member)
             } else {
                 setError(result.error || "Failed to load member");
             }
@@ -52,6 +54,7 @@ export default function MemberPage() {
 
     useEffect(() => {
     fetchMember();
+
     }, [id]);
 
 
@@ -89,6 +92,7 @@ export default function MemberPage() {
             endDate: enddate,
             }));
         }
+
 
     }, [editedMember?.startDate, editedMember?.monthsOfMemberShips]);
 
@@ -191,7 +195,8 @@ export default function MemberPage() {
         const updatedFields = getUpdatedFields(member, editedMember);
 
         if (Object.keys(updatedFields).length === 0) {
-        alert("No changes made.");
+        const alertMessage = i18n.language === 'ar' ? 'لم يتم إجراء أي تغييرات' : 'No changes made.'
+        alert(alertMessage);
         setIsDisabled(true);
         return;
         }
@@ -200,7 +205,8 @@ export default function MemberPage() {
             const result = await window.electron.ipcRenderer.invoke("update-member", member._id, updatedFields);
             
             if (result.success) {
-            alert("Member updated.");
+            const alertMessage = i18n.language === 'ar' ? 'تم تحديث العضو.' : 'Member updated.'
+            alert(alertMessage);
             const updated = { ...member, ...updatedFields };
             setMember({ ...updated });
             setEditedMember({ ...updated });
@@ -222,6 +228,7 @@ export default function MemberPage() {
 
     const handleRenewMember = async () => {
         if(editButton){
+            const alertMessage = i18n.language === 'ar' ? 'معلومات التحرير كاملة' : 'complete editing informations'
             alert('complete editing informations');
             return
         }
@@ -236,7 +243,8 @@ export default function MemberPage() {
         try {
             const { startDate, endDate, months } = renewalData;
             if (!startDate || !endDate || months < 1) {
-            alert("Invalid renewal data.");
+            const alertMessage = i18n.language === 'ar' ? 'بيانات التجديد غير صالحة' : 'Invalid renewal data.'
+            alert(alertMessage);
             return;
             }
 
@@ -247,7 +255,8 @@ export default function MemberPage() {
             });
 
             if (result.success) {
-            alert("Membership renewed.");
+            const alertMessage = i18n.language === 'ar' ? 'تم تجديد العضوية .' : 'Membership renewed.'
+            alert(alertMessage);
             setMember(result.member);
             setEditedMember(result.member);
             setRenew(false);
@@ -276,7 +285,8 @@ export default function MemberPage() {
         const result = await window.electron.ipcRenderer.invoke("delete-member", member._id);
 
         if (result.success) {
-            alert('Member has been removed successfully');
+            const alertMessage = i18n.language === 'ar' ? 'تم إزالة العضو بنجاح' : 'Member has been removed successfully'
+            alert(alertMessage);
             setDeleteButton(false);
             navigate('/view-all-members');
         } else {
@@ -289,6 +299,10 @@ export default function MemberPage() {
             setIsReqSent(false)
     }
 
+    const { t, i18n } = useTranslation();
+
+    const dirLan = i18n.language === 'ar' ? 'rtl' : 'ltr';
+
     if (error) {
         return <div className="text-red-700 font-bold">{error}</div>;
     }
@@ -299,14 +313,15 @@ export default function MemberPage() {
 
     return (
         <div className="flex flex-col px-4 py-1 gap-3">
-            <div className="flex flex-row gap-1 items-baseline text-[#FFFFFF]">
-                <NavLink to={'/view-all-members'}>ALL MEMBERS</NavLink>
+
+            <div className={`flex flex-row gap-1 items-baseline text-[#FFFFFF] ${i18n.language === 'ar' ? 'text-xl' : 'text-md'}`}>
+                <NavLink to={'/view-all-members'}>{t('ALL MEMBERS')}</NavLink>
                 <p className="text-xl px-2">{'>'}</p>
                 <NavLink to={`/view-all-members/${member._id}`}>{(member.firstname).toUpperCase()} {(member.lastname).toUpperCase()}</NavLink>
             </div>
 
             <div>
-                <p className="text-2xl mt-3 text-[#00C4FF]">MEMBER CARD</p>
+                <p className="text-2xl mt-3 text-[#00C4FF]">{t('MEMBER CARD')}</p>
             </div>
 
             <div className="w-full border-1 border-[#00C4FF] py-4 px-8 rounded-md flex flex-col gap-5">
@@ -322,12 +337,12 @@ export default function MemberPage() {
 
 
                             {[
-                                { id: "firstname", label: "First Name" },
-                                { id: "lastname", label: "Last Name" },
-                                { id: "phonenumber", label: "Phone Number" }
+                                { id: "firstname", label: t("First Name") },
+                                { id: "lastname", label: t("Last Name") },
+                                { id: "phonenumber", label: t("Phone Number") }
                             ].map(field => (
-                                <div className="flex flex-row items-center p-1" key={field.id}>
-                                    <label htmlFor={field.id} className="text-2xl w-[25%] text-[#FFFFFF]">{field.label}</label>
+                                <div className="flex flex-row items-center p-1 gap-4 " key={field.id}>
+                                    <label htmlFor={field.id} className="text-2xl w-[18%] text-[#FFFFFF]">{field.label}</label>
                                     <input
                                         type="text"
                                         id={field.id}
@@ -342,8 +357,8 @@ export default function MemberPage() {
                                 </div>
                             ))}
 
-                            <div className="flex flex-row items-center p-1" key="monthsofmembership">
-                                <label htmlFor="monthsofmembership" className="text-2xl w-[25%] text-[#FFFFFF]">Months Of Membership</label>
+                            <div className="flex flex-row items-center p-1 gap-4 " key="monthsofmembership">
+                                <label htmlFor="monthsofmembership" className="text-2xl w-[18%] text-[#FFFFFF]">{t('Months Of Membership')}</label>
                                     <input
                                         type="number"
                                         id="monthsofmembership"
@@ -357,8 +372,8 @@ export default function MemberPage() {
                                 />
                             </div>
 
-                            <div className="flex flex-row items-center p-1">
-                                <label htmlFor="membership" className="text-2xl w-[25%] text-[#FFFFFF]">Membership</label>
+                            <div className="flex flex-row items-center p-1 gap-4 ">
+                                <label htmlFor="membership" className="text-2xl w-[18%] text-[#FFFFFF]">{t('Membership')}</label>
                                 <select
                                     id="membership"
                                     value={editedMember.membership ?? ""}
@@ -368,15 +383,15 @@ export default function MemberPage() {
                                     disabled={isDisabled}
                                     className="border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl text-[#FFFFFF] outline-none bg-transparent w-full hover:cursor-pointer"
                                 >
-                                    <option className='bg-[#2A3042]' value="">Select a type</option>
-                                    <option className='bg-[#2A3042]' value="Normal">Normal</option>
-                                    <option className='bg-[#2A3042]' value="Premium">Premium</option>
+                                    <option className='bg-[#2A3042]' value="">{t('Select a type')}</option>
+                                    <option className='bg-[#2A3042]' value="Normal">{t('Normal')}</option>
+                                    <option className='bg-[#2A3042]' value="Premium">{t('Premium')}</option>
                                 </select>
                             </div>
 
                             
-                            <div className="flex flex-row items-center p-1" key="startdate">
-                                <label htmlFor="startdate" className="text-2xl w-[25%] text-[#FFFFFF]">Start Date</label>
+                            <div className="flex flex-row items-center p-1 gap-4 " key="startdate">
+                                <label htmlFor="startdate" className="text-2xl w-[18%] text-[#FFFFFF]">{t('Start Date')}</label>
                                     <input
                                         type="date"
                                         id="startdate"
@@ -390,8 +405,8 @@ export default function MemberPage() {
                                 />
                             </div>
 
-                            <div className="flex flex-row items-center p-1" key="enddate">
-                                <label htmlFor="enddate" className="text-2xl w-[25%] text-[#FFFFFF]">End Date</label>
+                            <div className="flex flex-row items-center p-1 gap-4 " key="enddate">
+                                <label htmlFor="enddate" className="text-2xl w-[18%] text-[#FFFFFF]">{t('End Date')}</label>
                                     <input
                                         type="date"
                                         id="enddate"
@@ -405,19 +420,23 @@ export default function MemberPage() {
                                 />
                             </div>
 
-                            <div className="flex flex-row items-center p-1">
-                                <label htmlFor="daysLeft" className="text-2xl w-[25%] text-[#FFFFFF]">Days Left</label>
+                            <div className="flex flex-row items-center p-1 gap-4 ">
+                                <label htmlFor="daysLeft" className="text-2xl w-[18%] text-[#FFFFFF]">{t('Days Left')}</label>
                                 <input
                                     type="text"
                                     id="daysLeft"
                                     value={editedMember.daysLeft ?? ""}
                                     disabled={true}
+                                    onChange={(e) => setEditedMember(prev => ({ 
+                                        ...prev, 
+                                        daysLeft : e.target.value 
+                                    }))}
                                     className={`border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl ${!renewalData.endDate ? 'text-red-800' : 'text-white'} outline-none bg-transparent w-full`}
                                 />
                             </div>
 
-                            <div className="flex flex-row items-center p-1">
-                                <label htmlFor="daysLeft" className="text-2xl w-[25%] text-[#FFFFFF]">Paid Amount</label>
+                            <div className="flex flex-row items-center p-1 gap-4 ">
+                                <label htmlFor="daysLeft" className="text-2xl w-[18%] text-[#FFFFFF]">{t('Paid Amount')}</label>
                                 <input
                                     type="text"
                                     id="paidAmmount"
@@ -440,25 +459,25 @@ export default function MemberPage() {
 
                 {isFieldsErr && (
                     <div className="text-red-500 text-lg font-semibold mt-2 px-4">
-                        You must fill all the fields
+                        {t('You must fill all the fields')}
                     </div>
                 )}
 
                 {isPhoneNum && (
                     <div className="text-red-500 text-lg font-semibold mt-2 px-4">
-                        You must enter a valid phone number
+                       {t('You must enter a valid phone number')}
                     </div>
                 )}
 
                 {isMonthsField && (
                     <div className="text-red-500 text-lg font-semibold mt-2 px-4">
-                        Months of membership must be a number higher than 0
+                        {t('Months of membership must be a number higher than 0')}
                     </div>
                 )}
 
                 {renew && (
                     <div className="text-red-500 text-lg font-semibold mt-2 px-4">
-                        Memberships hasn't end yet wait for {member.daysLeft} Day{member.daysLeft === 1 ? '' : 's'}
+                        {t('Memberships hasnt end yet wait for ')} {member.daysLeft != 1 && member.daysLeft} {i18n.language === 'ar' ? member.daysLeft === 1 ? 'يوم' : member.daysLeft >= 3 && member.daysLeft < 10 ? 'أيام' : 'يوم' : member.daysLeft === 1 ?  'Day' : "Days" }
                     </div>
                 )}
 
@@ -474,12 +493,12 @@ export default function MemberPage() {
                             }
                         }}
                         >
-                        {isDisabled ? 'EDIT' : 'SAVE'} INFORMATIONS
+                        {isDisabled ? i18n.language === 'ar' ? 'تعديل' : "EDIT" : i18n.language === 'ar' ? 'حفظ' : 'SAVE'} {t('INFORMATIONS')}
                     </button>
 
                     <button className="px-4 py-2 text-xl text-[#000000] bg-[#4CAF50] rounded-md btn"
                     onClick={() => handleRenewMember()}>
-                        RENEW MEMBERSHIP
+                        {t('RENEW MEMBERSHIP')}
                     </button>
 
                     <Modal
@@ -492,10 +511,11 @@ export default function MemberPage() {
                             <div className='flex flex-col rounded-xl h-[40vh] w-[33vw] py-7 px-5 gap-5 justify-between' style={{ backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)' }}>
   
                         <div className="flex flex-col gap-3 text-white">
-                            <h2 className="text-2xl font-bold">Renew Membership</h2>
+
+                            <h2 className="text-2xl font-bold">{t('Renew Membership')}</h2>
 
                             <div className="px-5 py-2 flex flex-row gap-4 items-center">
-                            <label htmlFor="startDate" className="w-[20%] text-xl text-[#FFFFFF]">Start Date</label>
+                            <label htmlFor="startDate" className="w-[20%] text-xl text-[#FFFFFF]">{t('Start Date')}</label>
                             <input
                                 type="date"
                                 id="startDate"
@@ -506,38 +526,42 @@ export default function MemberPage() {
                             </div>
 
                             <div className="px-5 py-2 flex flex-row gap-4 items-center">
-                            <label htmlFor="months" className="w-[20%] text-xl text-[#FFFFFF]">Number of Months</label>
-                            <input
-                                type="number"
-                                id="months"
-                                value={renewalData.months}
-                                min={1}
-                                onChange={(e) => setRenewalData(prev => ({ ...prev, months: e.target.value }))}
-                                className="border-1 border-[#00C4FF] rounded-md w-[75%] text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-1 "
-                            />
+                                
+                                <label htmlFor="months" className="w-[20%] text-xl text-[#FFFFFF]">{t('Number of Months')}</label>
+                                <input
+                                    type="number"
+                                    id="months"
+                                    value={renewalData.months}
+                                    min={1}
+                                    onChange={(e) => setRenewalData(prev => ({ ...prev, months: e.target.value }))}
+                                    className="border-1 border-[#00C4FF] rounded-md w-[75%] text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-1 "
+                                />
+
                             </div>
 
                             <div className="px-5 py-2 flex flex-row gap-4 items-center">
-                            <label htmlFor="endDate" className="w-[20%] text-xl text-[#FFFFFF]">End Date</label>
-                            <input
-                                type="date"
-                                id="endDate"
-                                value={renewalData.endDate}
-                                disabled
-                                className="border-1 border-[#00C4FF] rounded-md w-[75%] text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-1 "
-                            />
+
+                                <label htmlFor="endDate" className="w-[20%] text-xl text-[#FFFFFF]">{t('End Date')}</label>
+                                <input
+                                    type="date"
+                                    id="endDate"
+                                    value={renewalData.endDate}
+                                    disabled
+                                    className="border-1 border-[#00C4FF] rounded-md w-[75%] text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-1 "
+                                />
                             </div>
+
                         </div>
 
                         <div className="flex flex-row justify-end gap-3 mt-3">
-                            <button className="bg-red-500 text-[white] py-3 px-4.5 rounded-md text-xl btn" onClick={handleClose}>CANCEL</button>
+                            <button className="bg-red-500 text-[white] py-3 px-4.5 rounded-md text-xl btn" onClick={handleClose}>{t('CANCEL')}</button>
                             <button
                             className="bg-[#4CAF50] text-[white] py-3 px-4.5 rounded-md text-xl btn"
                             onClick={() => {
                                 handleRenewMemberConfirmation();
                             }}
                             >
-                            CONFIRM
+                            {t('CONFIRM')}
                             </button>
                         </div>
 
@@ -555,7 +579,7 @@ export default function MemberPage() {
                         setRenew(false)
                         setDeleteButton(true);
                     }}>
-                        ENDS MEMBERSHIP
+                        {t('ENDS MEMBERSHIP')}
                     </button>
 
                     <Modal
@@ -565,11 +589,11 @@ export default function MemberPage() {
                     aria-describedby="modal-modal-description"
                     sx={{justifySelf:"center", alignSelf:"center"}}>
                     
-                    <div className='flex flex-col rounded-xl w-[33vw] py-7 px-5 gap-5 justify-between' style={{ backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)' }}>
-                        <h2 className="text-2xl font-bold text text-white">Confirm End Membership</h2>
-                        <p className="text-white text-xl">Are you sure you want to end this membership?</p>
+                    <div className='flex flex-col rounded-xl w-[33vw] py-7 px-5 gap-5 justify-between' style={{ backgroundImage: 'linear-gradient(to bottom, #33334a, #1a1f2e)', direction:dirLan}}>
+                        <h2 className="text-2xl font-bold text text-white">{t('Confirm End Membership')}</h2>
+                        <p className="text-white text-xl">{t('Are you sure you want to end this membership?')}</p>
                         <div className="flex justify-end gap-3">
-                        <button onClick={handleCloseEnd} className="bg-gray-500 rounded-md text-white btn py-4 px-5.5 text-xl ">Cancel</button>
+                        <button onClick={handleCloseEnd} className="bg-gray-500 rounded-md text-white btn py-4 px-5.5 text-xl ">{t('Cancel')}</button>
                         <button
                             onClick={() => {
                                 handleEndsMemberShip()
@@ -577,7 +601,7 @@ export default function MemberPage() {
                             disabled={isReqSent}
                             className="bg-red-600 py-4 px-5.5 text-xl rounded-md text-white btn "
                         >
-                            Confirm
+                            {t('Confirm')}
                         </button>
                         </div>
                     </div>
@@ -586,6 +610,7 @@ export default function MemberPage() {
                     
                 </div>
             </div>
+
         </div>
     );
 }
