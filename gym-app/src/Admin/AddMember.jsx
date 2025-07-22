@@ -240,7 +240,6 @@ export default function AddMember(){
               className={`border-1 border-[#00C4FF] rounded-md w-full text-xl text-[#FFFFFF] outline-none bg-transparent px-2 py-2 ${i18n.language === 'ar' ? 'text-right' : 'text-left'}`}
               value={infos.startDate}
               onChange={handleChange}
-              disabled={true}
             />
           </div>
 

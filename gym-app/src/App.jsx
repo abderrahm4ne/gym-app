@@ -34,8 +34,7 @@ function App() {
    {/*==== ROUTER ====*/}   
 
   return (
-    <RouterProvider  router={router}>
-    
+    <RouterProvider router={router}>
     </RouterProvider>
   )
 }
