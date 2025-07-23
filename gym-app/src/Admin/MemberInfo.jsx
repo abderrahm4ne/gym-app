@@ -42,7 +42,6 @@ export default function MemberPage() {
             if (result.success) {
                 setMember(result.member);
                 setEditedMember(result.member);
-                console.log(result.member)
             } else {
                 setError(result.error || "Failed to load member");
             }
@@ -427,11 +426,7 @@ export default function MemberPage() {
                                     id="daysLeft"
                                     value={editedMember.daysLeft ?? ""}
                                     disabled={true}
-                                    onChange={(e) => setEditedMember(prev => ({ 
-                                        ...prev, 
-                                        daysLeft : e.target.value 
-                                    }))}
-                                    className={`border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl ${!renewalData.endDate ? 'text-red-800' : 'text-white'} outline-none bg-transparent w-full`}
+                                    className={`border-1 border-[#00C4FF] rounded-md px-2 py-0.5 text-xl ${editedMember.daysLeft <= 0 ? 'text-red-800' : 'text-white'} outline-none bg-transparent w-full`}
                                 />
                             </div>
 
