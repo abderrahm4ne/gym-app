@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from "react-router";
 
 export default function MembershipsEndsToday() {
+    
+    const navigate = useNavigate()
 
     const [error, setError] = useState(null);
 
     const [filteredMembers, setFilteredMembers] = useState([]);
+
+    const { t, i18n } = useTranslation();       
 
     const fetchMembers = async () => {
 
@@ -29,12 +35,14 @@ export default function MembershipsEndsToday() {
         }
     }
         
-
     useEffect(() => {
         fetchMembers();
     }, []);
 
     const formatDate = (d) => new Date(d).toISOString().split('T')[0];
+
+    const fontCon = i18n.language === 'ar' ? '2.5rem' : '2rem'
+    
 
     if(error){
         return <h1>error occured</h1>
@@ -42,27 +50,27 @@ export default function MembershipsEndsToday() {
 
     return (
         <div className="p-6 text-white h-full ">
-            <h2 className="text-3xl mb-4 px-4">Memberships Ending Today</h2>
+            <h2 className="mb-4 px-4" style={{fontSize:fontCon}}>{t('Memberships Ending Today')}</h2>
 
             {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
             {filteredMembers.length === 0 ? (
-                <p className="text-3xl mb-4">No memberships ending today.</p>
+                <p className="mb-4" style={{fontSize:fontCon}}>{t('No memberships ending today.')}</p>
             ) : (       
                 <div className="h-[90%] overflow-y-scroll p-3">
 
                     <table className="min-w-full text-xl text-white border border-[#00C4FF]">
 
                         <thead className="bg-[#2b2a2a] text-[#00C4FF] ">
-                            <tr className=''>
-                                <th className="px-4 py-3 ">First Name</th>
-                                <th className="px-4 py-3">Last Name</th>
-                                <th className="px-4 py-3">Phone</th>
-                                <th className="px-4 py-3">Membership</th>
-                                <th className="px-4 py-3">Start Date</th>
-                                <th className="px-4 py-3">End Date</th>
-                                <th className="px-4 py-3">Days Left</th>
-                                <th className="px-4 py-3">Paid Amount</th>
+                            <tr>
+                                <th className="px-4 py-3">{t('First Name')}</th>
+                                <th className="px-4 py-3">{t('Last Name')}</th>
+                                <th className="px-4 py-3">{t('Phone')}</th>
+                                <th className="px-4 py-3">{t('Membership')}</th>
+                                <th className="px-4 py-3">{t('Start Date')}</th>
+                                <th className="px-4 py-3">{t('End Date')}</th>
+                                <th className="px-4 py-3">{t('Days Left')}</th>
+                                <th className="px-4 py-3">{t('Paid Amount')}</th>
                             </tr>
                         </thead>
 

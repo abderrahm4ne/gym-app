@@ -124,7 +124,8 @@ export default function AddMember(){
     const result = await window.electron.ipcRenderer.invoke("add-member", infos);
 
     if (result.success) {
-      alert(result.message);
+      const alertMessage = i18n.language === 'ar' ? 'تمت إضافة العضو بنجاح' : 'Member Added Successfully'
+      alert(alertMessage);
       setInfos({
         firstname: "",
         lastname: "",

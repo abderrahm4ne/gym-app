@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 export default function ViewAllMembers() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [members, setMembers] = useState([]);
   const [error, setError] = useState('');
   const [searchVal, setSearchVal] = useState('');
@@ -46,8 +46,12 @@ export default function ViewAllMembers() {
       )}
 
       <h2 className="text-xl mb-2 px-4">
-        {t('Number Of Members')}: {members.length}{' '}
-        {members.length <= 1 ? t('Member') : t('Members')}
+        {t('Number Of Members')}: {(members.length != 1) && members.length}{' '}
+        {members.length === 1 ? t('One Member') :
+        i18n.language === 'ar' && members.length <= 10 ? (
+          'أعضاء'
+        ) : i18n.language === 'ar' ? 'عضو' : 'Members'
+        }
       </h2>
 
       <input
@@ -89,7 +93,7 @@ export default function ViewAllMembers() {
                 <td className="px-4 py-3">{formatDate(m.endDate)}</td>
                 <td
                   className={`px-4 py-3 ${
-                    m.daysLeft < 5 && 'text-red-900 font-bold'
+                    m.daysLeft < 3 && 'text-red-900 font-bold'
                   }`}
                 >
                   {m.daysLeft}
