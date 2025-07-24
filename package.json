@@ -1,12 +1,15 @@
 {
   "name": "gym-app",
   "version": "1.0.0",
+  "description": "",
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron .",
-    "dev:watch": "npx electronmon --trace-warnings ."
+    "start": "electron-forge start",
+    "dev:watch": "npx electronmon --trace-warnings .",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "electron",
@@ -15,11 +18,41 @@
   ],
   "author": "",
   "license": "MIT",
-  "description": "",
   "dependencies": {
-    "dotenv": "^17.0.1",
-    "electron": "^37.0.0",
+    "electron-squirrel-startup": "^1.0.1",
     "mongoose": "^8.16.1",
     "nedb": "^1.8.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.8.1",
+    "@electron-forge/maker-deb": "^7.8.1",
+    "@electron-forge/maker-rpm": "^7.8.1",
+    "@electron-forge/maker-squirrel": "^7.8.1",
+    "@electron-forge/maker-zip": "^7.8.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.8.1",
+    "@electron-forge/plugin-fuses": "^7.8.1",
+    "@electron/fuses": "^1.8.0",
+    "electron": "^37.2.4"
+  },
+  "config": {
+    "forge": {
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "gym_app",
+            "setupIcon": "ico.ico",
+            "authors": "abderrahmane seghouani",
+            "description": "gym system app management for desktop windows"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        }
+      ]
+    }
   }
 }

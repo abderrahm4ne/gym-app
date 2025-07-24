@@ -18,6 +18,7 @@ export default function AddMember(){
         endDate:"",
         paidAmount:""
       });
+    const [error, setError] = useState("");
 
     const [fieldsErr, setFieldsErr ] = useState(false);
     const [phoneNum, setPhoneNum] = useState(false);
@@ -120,25 +121,30 @@ export default function AddMember(){
       if(!validated){
         return
       }
-
-    const result = await window.electron.ipcRenderer.invoke("add-member", infos);
-
-    if (result.success) {
-      const alertMessage = i18n.language === 'ar' ? 'تمت إضافة العضو بنجاح' : 'Member Added Successfully'
-      alert(alertMessage);
-      setInfos({
-        firstname: "",
-        lastname: "",
-        membership: "",
-        phonenumber: "",
-        monthsOfMemberShips: "",
-        startDate: "",
-        endDate: "",
-        paidAmount: ""
-      });
-    } else {
-      console.error("Failed to add member:", result.error);
-    }
+      try{
+          const result = await window.electron.ipcRenderer.invoke("add-member", infos);
+          if (result.success) {
+                const alertMessage = i18n.language === 'ar' ? 'تمت إضافة العضو بنجاح' : 'Member Added Successfully'
+                alert(alertMessage);
+                setInfos({
+                  firstname: "",
+                  lastname: "",
+                  membership: "",
+                  phonenumber: "",
+                  monthsOfMemberShips: "",
+                  startDate: "",
+                  endDate: "",
+                  paidAmount: ""
+                });
+              } else {
+                console.error("Failed to add member:", result.error);
+              }
+        }
+        catch(err){
+          setError('Error adding member', err)
+          console.error(err);
+        }
+    
   };
 
 
@@ -164,6 +170,12 @@ export default function AddMember(){
   const fontClass = i18n.language === 'ar' ? 'text-2xl' : 'text-xl';
 
   const direction = i18n.language === 'ar' ? 'rtl' : 'ltr';
+
+
+  if(error){
+    return <div className="text-red-700 font-bold">{error}</div>;
+  }
+
     return(
 
         <div className="p-6">

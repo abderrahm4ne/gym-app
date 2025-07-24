@@ -4,7 +4,6 @@ import Dashboard from './components/routesComponents/Dashboard';
 
 // icons 
 import MembershipsEndsToday from './Admin/MembershipsEndsToday';
-import BasicStatistics from './Admin/BasicStatistics';
 import MembershipsEnded from './Admin/MembershipsEnded';
 import AddMember from './Admin/AddMember';
   import ViewAllMembers from './Admin/ViewAllMembers';

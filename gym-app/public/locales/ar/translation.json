@@ -33,7 +33,7 @@
     "Membership period": "مدة الاشتراك",
     "All Members": "جميع الأعضاء",
     "Error": "خطأ",
-    "Number Of Members": "عدد الأعضاء",
+    "Number Of Members ": "عدد الأعضاء",
     "Member": "عضو",
     "Members": "الأعضاء",
     "Search member by lastname": "ابحث عن عضو بواسطة اللقب",
@@ -63,6 +63,8 @@
     ">Memberships Ending Today": "إشتراكات تنتهي اليوم",
     "All Members has Completed Payment": "جميع الأعضاء أكملوا دفعهم",
     "Notes": "ملاحظات",
-    "CLEAR TEXT": "حذف النص"
-
+    "CLEAR TEXT": "حذف النص",
+    "Number Of Memberships Who Has Ended " : " عدد الإشتراكات المنتهية",
+    "Number Of Memberships Who Ends Today ": " عدد الإشتراكات التي تنتهي اليوم",
+    "Number Of Members Who didnt Completed payement ": " عدد الأعضاء الذين لم يكملوا الدفع"  
 }

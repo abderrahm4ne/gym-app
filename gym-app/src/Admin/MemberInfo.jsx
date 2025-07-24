@@ -5,7 +5,7 @@ import Modal from "@mui/material/Modal";
 import { useTranslation } from 'react-i18next';
 
 
-export default function MemberPage() {
+export default function MemberInfo() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [member, setMember] = useState(null);
@@ -43,10 +43,12 @@ export default function MemberPage() {
                 setMember(result.member);
                 setEditedMember(result.member);
             } else {
-                setError(result.error || "Failed to load member");
+                const alertMessage = i18n.language === 'ar' ? 'فشل تحميل العضو' : 'Failed to load member'
+                setError(alertMessage);
             }
         } catch (err) {
-            setError("Error fetching member data");
+            const alertMessage = i18n.language === 'ar' ? 'خطأ في جلب بيانات العضو' : 'Error fetching member data'
+            setError(alertMessage, err);
             console.error(err);
         }
     };
@@ -211,12 +213,15 @@ export default function MemberPage() {
             setEditedMember({ ...updated });
             setIsDisabled(true);
             } else {
-                alert("Update failed: " + result.error);
+                const alertMessage = i18n.language === 'ar' ? 'فشل التحديث:' : 'Update failed: '
+            alert(alertMessage);
+            alert(alertMessage + result.error);
             }
         }
         catch (err) {
-        console.error(err);
-        alert("An error occurred while saving.");
+            console.error(err);
+            const alertMessage = i18n.language === 'ar' ? 'حدث خطأ أثناء الحفظ.' : 'An error occurred while saving.'
+            alert(alertMessage, err);
         }
 
     }
@@ -261,11 +266,13 @@ export default function MemberPage() {
             setRenew(false);
             setRenewButton(false);
             } else {
-            alert("Renewal failed: " + result.error);
+            const alertMessage = i18n.language === 'ar' ? 'فشل التجديد:' : 'Renewal failed: '
+            alert(alertMessage, result.error);
             }
         } catch (err) {
             console.error("Renewal error:", err);
-            alert("An unexpected error occurred during renewal.");
+            const alertMessage = i18n.language === 'ar' ? 'حدث خطأ غير متوقع أثناء التجديد.' : 'An unexpected error occurred during renewal.'
+            alert(alertMessage, err);
         }
         };
 
@@ -281,19 +288,21 @@ export default function MemberPage() {
         }
         try {
             setIsReqSent(true);
-        const result = await window.electron.ipcRenderer.invoke("delete-member", member._id);
+            const result = await window.electron.ipcRenderer.invoke("delete-member", member._id);
 
-        if (result.success) {
-            const alertMessage = i18n.language === 'ar' ? 'تم إزالة العضو بنجاح' : 'Member has been removed successfully'
-            alert(alertMessage);
-            setDeleteButton(false);
-            navigate('/view-all-members');
-        } else {
-            alert('Failed to delete: ' + result.error);
-        }
+            if (result.success) {
+                const alertMessage = i18n.language === 'ar' ? 'تم إزالة العضو بنجاح' : 'Member has been removed successfully'
+                alert(alertMessage);
+                setDeleteButton(false);
+                navigate('/view-all-members');
+            } else {
+                const alertMessage = i18n.language === 'ar' ? 'فشل في الحذف:' : 'Failed to delete: '
+                alert(alertMessage, result.error);
+            }
         } catch (err) {
             console.error("Delete error:", err);
-            alert("An error occurred while trying to delete the member.");
+            const alertMessage = i18n.language === 'ar' ? 'حدث خطأ أثناء محاولة حذف العضو.' : 'An error occurred while trying to delete the member.'
+            alert(alertMessage, err);
         }
             setIsReqSent(false)
     }
