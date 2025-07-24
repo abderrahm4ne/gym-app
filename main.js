@@ -5,7 +5,6 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { memberHandlers } from './backend/ipc/memberHandlers.js'
 
-// apis
 import connectToDatabase from './backend/mongo.js';
 
 
@@ -31,7 +30,8 @@ function createMainWindow() {
         slashes: true
     });
 
-    mainWindow.loadURL('http://localhost:5173');
+    mainWindow.loadFile(path.join(__dirname, 'gym-app/dist/index.html'));
+
 }
 
 app.whenReady().then(async () => {

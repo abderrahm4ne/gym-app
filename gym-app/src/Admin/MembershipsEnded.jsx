@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router";
 
@@ -9,7 +9,8 @@ export default function MembershipsEnded(){
         const [error, setError] = useState(null);
     
         const [filteredMembers, setFilteredMembers] = useState([]);
-    
+        const [currentPage, setCurrentPage] = useState(1);
+        const membersPerPage = 10;
         const fetchMembers = async () => {
     
             try{
@@ -23,40 +24,88 @@ export default function MembershipsEnded(){
                         });
                         setFilteredMembers(filtered);
                 } else {
-                    setError(result.error);
-                    console.error("Error fetching members:", error);
+                    const alertMessage = i18n.language === 'ar' ? 'خطأ في جلب الأعضاء:خطأ في جلب الأعضاء:' : 'Error fetching members:'
+                    setError(alertMessage, result.error);
+                    console.error(alertMessage, error);
                 }
             }
             catch(err){ 
-                 setError(err);
-                console.error("Error fetching members:", err);
+                const alertMessage = i18n.language === 'ar' ? 'خطأ في جلب الأعضاء:خطأ في جلب الأعضاء:' : 'Error fetching members:'
+                 setError(alertMessage, err);
+                console.error(alertMessage, err);
             }
         }
         
+        const indexOfLast = currentPage * membersPerPage;
+        const indexOfFirst = indexOfLast - membersPerPage;
+        const currentMembers = filteredMembers.slice(indexOfFirst, indexOfLast);
+
         const { t, i18n } = useTranslation();       
     
         useEffect(() => {
             fetchMembers();
         }, []);
-    
+
         const formatDate = (d) => new Date(d).toISOString().split('T')[0];
-    
-        if(error){
-            return <h1>error occured</h1>
-        }
+
+
+        const memberRows = useMemo(() => {
+            return currentMembers.map((m, index) => (
+                    <tr
+                    key={index}
+                    className="border-t text-center border-[#00C4FF] hover:cursor-pointer"
+                    onClick={() => navigate(`/view-all-members/${m._id}`)}
+                    >
+                    <td className="px-4 py-3">{m.firstname}</td>
+                    <td className="px-4 py-3">{m.lastname}</td>
+                    <td className="px-4 py-3">{m.phonenumber}</td>
+                    <td className="px-4 py-3">{m.membership}</td>
+                    <td className="px-4 py-3">{formatDate(m.startDate)}</td>
+                    <td className="px-4 py-3">{formatDate(m.endDate)}</td>
+                    <td
+                        className={`px-4 py-3 ${
+                        m.daysLeft < 3 && 'text-red-900 font-bold'
+                        }`}
+                    >
+                        {m.daysLeft}
+                    </td>
+                    <td
+                        className={`px-4 py-3 ${
+                        m.paidAmount < 2500 && 'text-red-900 font-bold'
+                        }`}
+                    >
+                        {m.paidAmount}
+                    </td>
+                    </tr>
+                ))}
+        , [filteredMembers]);
+
+        const memberCount = useMemo(() => filteredMembers.length, [filteredMembers]);
+
     
         const fontCon = i18n.language === 'ar' ? '2.5rem' : '2rem'
+        const fontSz = i18n.language === 'ar' ? '1.5rem' : '1.2rem'
+    
+    
+    if(error){
+        return <h1>error occured</h1>
+    }
 
     return(
-        <div className="p-6 text-white h-full ">
+        <div className="p-6 text-white h-full flex flex-col ">
             <h2 className="mb-4 px-4" style={{fontSize:fontCon}}>{t('Memberships has Ended')}</h2>
 
             {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
-            {filteredMembers.length === 0 ? (
-                <p className="mb-4" style={{fontSize:fontCon}}>{t('No memberships has ended.')}</p>
+             <h2 className="mb-2 px-4" style={{fontSize:fontSz}}>
+                {t('Number Of Memberships Who Has Ended ')} : {memberCount}
+            </h2>
+
+            {currentMembers.length === 0 ? (
+                 <p className="mb-4" style={{fontSize:fontCon}}>{t('No memberships has ended.')}</p>
             ) : (       
-                <div className="h-[90%] overflow-y-scroll p-3">
+
+                <div className="h-[90%] p-3">
 
                     <table className="min-w-full text-xl text-white border border-[#00C4FF]">
 
@@ -75,31 +124,29 @@ export default function MembershipsEnded(){
 
                         <tbody>
 
-                            {filteredMembers.map((m, index) => (
-                                <tr
-                                    key={index}
-                                    className="border-t text-center border-[#00C4FF] hover:cursor-pointer"
-                                    onClick={() =>  
-                                    navigate(`/view-all-members/${m._id}`)}
-                                
-                                >
-                                
-                                    <td className="px-4 py-3">{m.firstname}</td>
-                                    <td className="px-4 py-3">{m.lastname}</td>
-                                    <td className="px-4 py-3">{m.phonenumber}</td>
-                                    <td className="px-4 py-3">{m.membership}</td>
-                                    <td className="px-4 py-3">{formatDate(m.startDate)}</td>
-                                    <td className="px-4 py-3">{formatDate(m.endDate)}</td>
-                                    <td className={`px-4 py-3 ${m.daysLeft < 5 && 'text-red-900 font-bold'}`}>{m.daysLeft}</td>
-                                    <td className={`px-4 py-3 ${m.paidAmount < 2500 && 'text-red-900 font-bold'}`}>{m.paidAmount}</td>
-                                </tr>
-                                )
-                            )}
+                            {memberRows}
                         </tbody>
 
                     </table>
                 </div>
+
+
             )}
+
+            <div className="flex justify-center mt-4" style={{justifySelf:"end"}}>
+                {Array.from({ length: Math.ceil(filteredMembers.length / membersPerPage) }).map((_, i) => (
+                    <button
+                        key={i}
+                        onClick={() => setCurrentPage(i + 1)}
+                        className={`mx-1 px-3 py-1 rounded btn ${
+                            currentPage === i + 1 ? 'bg-[#00C4FF] text-white' : 'bg-gray-700 text-white'
+                        }`}
+                    >
+                        {i + 1}
+                    </button>
+                ))}
+            </div>
+
         </div>
     )
 }

@@ -6,7 +6,6 @@ import NotesIcon from '@mui/icons-material/Notes';
 
 import { useTranslation } from 'react-i18next';
 import { NavLink, Outlet } from 'react-router';
-import { useEffect } from 'react';
 
 export default function Dashboard(){
 
