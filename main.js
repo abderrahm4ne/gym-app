@@ -29,8 +29,8 @@ function createMainWindow() {
         protocol: 'file:',
         slashes: true
     });
-
-    mainWindow.loadFile(path.join(__dirname, 'gym-app/dist/index.html'));
+    
+    mainWindow.loadURL(startUrl);
 
 }
 

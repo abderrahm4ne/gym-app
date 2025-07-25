@@ -15,21 +15,18 @@ function App() {
   {/*==== ROUTER ====*/} 
           const router = createBrowserRouter(
             createRoutesFromElements(
-            
-              <Route path='' element={<NavBar />}>
-                  <Route path='/' element={<Dashboard />}>
-                    <Route path='view-all-members' element={<ViewAllMembers />} />
-                    <Route path='view-all-members/:id' element={<MemberInfo />} />
-                    <Route path='add-member' element={<AddMember />} />
-                    <Route path='memberships-ends-today' element={<MembershipsEndsToday />} />
-                    <Route path='memberships-ended' element={<MembershipsEnded />} />
-                    <Route path='uncompleted-paiment' element={<UnCompletedPayment />} />
-                    <Route path='take-note' element={<Notes />} />
-                  </Route>
-                </Route>
-
+              <Route path='/' element={<NavBar />}>
+                <Route index element={<Dashboard />} />
+                <Route path='view-all-members' element={<ViewAllMembers />} />
+                <Route path='view-all-members/:id' element={<MemberInfo />} />
+                <Route path='add-member' element={<AddMember />} />
+                <Route path='memberships-ends-today' element={<MembershipsEndsToday />} />
+                <Route path='memberships-ended' element={<MembershipsEnded />} />
+                <Route path='uncompleted-payment' element={<UnCompletedPayment />} />
+                <Route path='take-note' element={<Notes />} />
+              </Route>
             )
-          )
+          );
    {/*==== ROUTER ====*/}   
 
   return (
