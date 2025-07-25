@@ -1,5 +1,5 @@
-import { NavLink } from "react-router"
-import { Outlet } from "react-router"
+import { NavLink } from "react-router-dom"
+import { Outlet } from "react-router-dom"
 import Dashboard from "./routesComponents/Dashboard";
 import { useTranslation } from "react-i18next";
 
