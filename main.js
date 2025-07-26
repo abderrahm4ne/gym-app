@@ -1,15 +1,18 @@
-import { app, BrowserWindow} from 'electron';
+import { app, BrowserWindow } from 'electron';
 import path from 'path';
-import url from 'url';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { memberHandlers } from './backend/ipc/memberHandlers.js'
-
+import { memberHandlers } from './backend/ipc/memberHandlers.js';
 import connectToDatabase from './backend/mongo.js';
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+if (process.argv[1] === '--squirrel-install' || 
+    process.argv[1] === '--squirrel-updated' ||
+    process.argv[1] === '--squirrel-uninstall') {
+  app.quit();
+}
 
 function createMainWindow() {
   const mainWindow = new BrowserWindow({
@@ -19,6 +22,9 @@ function createMainWindow() {
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
+      // Add these for security:
+      nodeIntegration: false,
+      sandbox: true
     }
   });
 
@@ -29,7 +35,10 @@ function createMainWindow() {
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL('http://localhost:3000');
   } else {
-    mainWindow.loadFile(path.join(__dirname, './gym-app/dist/index.html'));
+    // Use app.isPackaged for better detection
+    const indexPath = path.join(__dirname, 'gym-app', 'dist', 'index.html');
+    console.log('Loading index from:', indexPath); // For debugging
+    mainWindow.loadFile(indexPath);
   }
 }
 
@@ -37,5 +46,12 @@ app.whenReady().then(async () => {
   await connectToDatabase();
   memberHandlers();
   createMainWindow();
-  
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });

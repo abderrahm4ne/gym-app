@@ -5,12 +5,13 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-  "start": "electron-forge start",
-  "dev": "NODE_ENV=development electronmon --trace-warnings .",
-  "build-react": "cd gym-app && npm run build",
-  "package": "npm run build-react && electron-forge package",
-  "make": "npm run build-react && electron-forge make"
-},
+    "start": "electron-forge start",
+    "dev": "NODE_ENV=development electronmon --trace-warnings .",
+    "build-react": "cd gym-app && npm run build",
+    "package": "npm run build-react && electron-forge package",
+    "make": "npm run build-react && electron-forge make",
+    "make-win": "npm run build-react && electron-forge make --platform=win32"
+  },
   "keywords": [
     "electron",
     "react",
@@ -19,7 +20,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.1",
     "mongoose": "^8.16.1",
     "nedb": "^1.8.0"
   },
@@ -36,21 +36,24 @@
   },
   "config": {
     "forge": {
+      "packagerConfig": {
+        "icon": "ico.ico",
+        "name": "Gym Management",
+        "executableName": "gym-management",
+        "asar": true
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
             "name": "gym_app",
             "setupIcon": "ico.ico",
-            "authors": "abderrahmane seghouani",
-            "description": "gym system app management for desktop windows"
+            "authors": "Abderrahmane Seghouani",
+            "description": "Gym System App Management for Desktop Windows",
+            "noMsi": true,
+            "setupExe": "GymManagementSetup.exe",
+            "setupMsi": "GymManagementSetup.msi"
           }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
         }
       ]
     }
