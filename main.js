@@ -12,26 +12,25 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 function createMainWindow() {
-    const mainWindow = new BrowserWindow({
-        title: "electron gym",
-        width: 1920,
-        height: 1080,
-        webPreferences: {
-            contextIsolation: true,
-            preload: path.join(__dirname, 'preload.js'),
-        }
-    });
+  const mainWindow = new BrowserWindow({
+    title: "electron gym",
+    width: 1920,
+    height: 1080,
+    webPreferences: {
+      contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js'),
+    }
+  });
 
+  if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.openDevTools();
+  }
 
-    const startUrl = url.format({
-        pathname: path.join(__dirname, './gym-app/dist/index.html'),
-        protocol: 'file:',
-        slashes: true
-    });
-    
-    mainWindow.loadURL(startUrl);
-
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.loadURL('http://localhost:3000');
+  } else {
+    mainWindow.loadFile(path.join(__dirname, './gym-app/dist/index.html'));
+  }
 }
 
 app.whenReady().then(async () => {

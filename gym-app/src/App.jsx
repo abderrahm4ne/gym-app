@@ -1,4 +1,4 @@
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
+import { createHashRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Dashboard from './components/routesComponents/Dashboard';
 
@@ -13,25 +13,32 @@ import UnCompletedPayment from './Admin/UnCompletedPayment';
 
 function App() {
   {/*==== ROUTER ====*/} 
-          const router = createBrowserRouter(
+          const router = createHashRouter(
             createRoutesFromElements(
               <Route path='/' element={<NavBar />}>
                 <Route index element={<Dashboard />} />
-                <Route path='view-all-members' element={<ViewAllMembers />} />
-                <Route path='view-all-members/:id' element={<MemberInfo />} />
-                <Route path='add-member' element={<AddMember />} />
-                <Route path='memberships-ends-today' element={<MembershipsEndsToday />} />
-                <Route path='memberships-ended' element={<MembershipsEnded />} />
-                <Route path='uncompleted-payment' element={<UnCompletedPayment />} />
-                <Route path='take-note' element={<Notes />} />
+
+                <Route element={<Dashboard />} >
+
+                  <Route path='view-all-members' element={<ViewAllMembers />} />
+                  <Route path='view-all-members/:id' element={<MemberInfo />} />
+                  <Route path='add-member' element={<AddMember />} />
+                  <Route path='memberships-ends-today' element={<MembershipsEndsToday />} />
+                  <Route path='memberships-ended' element={<MembershipsEnded />} />
+                  <Route path='uncompleted-payment' element={<UnCompletedPayment />} />
+                  <Route path='take-note' element={<Notes />} />
+                  <Route path='*' element={<MembershipsEnded />} />
+
+                </Route>
+
               </Route>
+              
             )
           );
    {/*==== ROUTER ====*/}   
 
   return (
-    <RouterProvider router={router}>
-    </RouterProvider>
+    <RouterProvider router={router} />
   )
 }
 
