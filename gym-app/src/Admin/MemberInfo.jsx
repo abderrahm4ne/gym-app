@@ -337,7 +337,7 @@ export default function MemberInfo() {
 
                 <div className="w-full flex flex-row items-center gap-5">
 
-                        <img src="../public/pic/ss.jpg" alt="prpic" className="self-start  border-2 border-[#00C4FF] w-[13%] h-[160px] rounded-sm  profilePicture"/>
+                        <img src={`../public/photos/${editedMember.lastname}.png`} alt="profil picture" className="self-start  border-2 border-[#00C4FF] w-[13%] h-[160px] rounded-sm  profilePicture"/>
 
                     <div className="flex flex-col h-full w-full gap-1">
 
