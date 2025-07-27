@@ -232,8 +232,8 @@ export default function MemberInfo() {
 
     const handleRenewMember = async () => {
         if(editButton){
-            const alertMessage = i18n.language === 'ar' ? 'معلومات التحرير كاملة' : 'complete editing informations'
-            alert('complete editing informations');
+            const alertMessage = i18n.language === 'ar' ? ' أكمل تغيير معلومات العضو ': 'complete editing informations'
+            alert(alertMessage);
             return
         }
         if(member.daysLeft >= 1){
@@ -283,7 +283,8 @@ export default function MemberInfo() {
 
     const handleEndsMemberShip = async () => {
         if(editButton){
-            alert('complete editing informations');
+            const alertMessage = i18n.language === 'ar' ? ' أكمل تغيير معلومات العضو ': 'complete editing informations'
+            alert(alertMessage);
             return
         }
         try {
@@ -336,7 +337,7 @@ export default function MemberInfo() {
 
                 <div className="w-full flex flex-row items-center gap-5">
 
-                    <div className="border-2 border-[#00C4FF] px-2 w-[13%] h-[160px] self-start rounded-sm bg-[]" ></div>
+                        <img src="../public/pic/ss.jpg" alt="prpic" className="self-start  border-2 border-[#00C4FF] w-[13%] h-[160px] rounded-sm  profilePicture"/>
 
                     <div className="flex flex-col h-full w-full gap-1">
 

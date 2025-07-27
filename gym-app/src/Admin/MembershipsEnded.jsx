@@ -78,9 +78,98 @@ export default function MembershipsEnded(){
                     </td>
                     </tr>
                 ))}
-        , [filteredMembers]);
+        , [currentMembers]);
 
         const memberCount = useMemo(() => filteredMembers.length, [filteredMembers]);
+        const totalPages = Math.ceil(filteredMembers.length / membersPerPage);
+        
+
+        const paginationButtons = useMemo(() => {
+    const buttons = [];
+    const maxVisiblePages = 5;
+    let startPage = 1;
+    let endPage = totalPages;
+
+    if (totalPages > maxVisiblePages) {
+      const maxPagesBeforeCurrent = Math.floor(maxVisiblePages / 2);
+      const maxPagesAfterCurrent = Math.ceil(maxVisiblePages / 2) - 1;
+      
+      if (currentPage <= maxPagesBeforeCurrent) {
+        endPage = maxVisiblePages;
+      } else if (currentPage >= totalPages - maxPagesAfterCurrent) {
+        startPage = totalPages - maxVisiblePages + 1;
+      } else {
+        startPage = currentPage - maxPagesBeforeCurrent;
+        endPage = currentPage + maxPagesAfterCurrent;
+      }
+    }
+
+    if (startPage > 1) {
+      buttons.push(
+        <button
+          key={1}
+          onClick={() => setCurrentPage(1)}
+          className={`mx-1 btn px-3 py-1 rounded ${
+            currentPage === 1
+              ? 'bg-[#00C4FF] text-white'
+              : 'bg-gray-700 text-white'
+          }`}
+        >
+          1
+        </button>
+      );
+      
+      if (startPage > 2) {
+        buttons.push(
+          <span key="ellipsis-start" className="mx-1 px-1">
+            ...
+          </span>
+        );
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      buttons.push(
+        <button
+          key={i}
+          onClick={() => setCurrentPage(i)}
+          className={`mx-1 btn px-3 py-1 rounded ${
+            currentPage === i
+              ? 'bg-[#00C4FF] text-white'
+              : 'bg-gray-700 text-white'
+          }`}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        buttons.push(
+          <span key="ellipsis-end" className="mx-1 px-1">
+            ...
+          </span>
+        );
+      }
+      
+      buttons.push(
+        <button
+          key={totalPages}
+          onClick={() => setCurrentPage(totalPages)}
+          className={`mx-1 btn px-3 py-1 rounded ${
+            currentPage === totalPages
+              ? 'bg-[#00C4FF] text-white'
+              : 'bg-gray-700 text-white'
+          }`}
+        >
+          {totalPages}
+        </button>
+      );
+    }
+
+    return buttons;
+        }, [currentPage, totalPages]);
 
     
         const fontCon = i18n.language === 'ar' ? '2.5rem' : '2rem'
@@ -134,17 +223,35 @@ export default function MembershipsEnded(){
             )}
 
             <div className="flex justify-center mt-4" style={{justifySelf:"end"}}>
-                {Array.from({ length: Math.ceil(filteredMembers.length / membersPerPage) }).map((_, i) => (
-                    <button
-                        key={i}
-                        onClick={() => setCurrentPage(i + 1)}
-                        className={`mx-1 px-3 py-1 rounded btn ${
-                            currentPage === i + 1 ? 'bg-[#00C4FF] text-white' : 'bg-gray-700 text-white'
+                {totalPages > 0 && (
+                    <div className="flex justify-center items-center">
+                        <button
+                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                        disabled={currentPage === 1}
+                        className={`mx-1 btn px-3 py-1 rounded ${
+                            currentPage === 1
+                            ? 'bg-gray-500 text-gray-300 cursor-not-allowed'
+                            : 'bg-gray-700 text-white hover:bg-gray-600'
                         }`}
-                    >
-                        {i + 1}
-                    </button>
-                ))}
+                        >
+                        {'<-'}
+                        </button>
+                        
+                        {paginationButtons}
+                        
+                        <button
+                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                        className={`mx-1 btn px-3 py-1 rounded ${
+                            currentPage === totalPages
+                            ? 'bg-gray-500 text-gray-300 cursor-not-allowed'
+                            : 'bg-gray-700 text-white hover:bg-gray-600'
+                        }`}
+                        >
+                        {'->'}
+                        </button>
+                    </div>
+                )}
             </div>
 
         </div>

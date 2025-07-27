@@ -22,24 +22,23 @@ function createMainWindow() {
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
-      // Add these for security:
       nodeIntegration: false,
       sandbox: true
     }
   });
+  mainWindow.loadURL('http://localhost:5173');
 
-  if (process.env.NODE_ENV === 'development') {
+  /* if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.openDevTools();
   }
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL('http://localhost:3000');
   } else {
-    // Use app.isPackaged for better detection
     const indexPath = path.join(__dirname, 'gym-app', 'dist', 'index.html');
-    console.log('Loading index from:', indexPath); // For debugging
+    console.log('Loading index from:', indexPath);
     mainWindow.loadFile(indexPath);
-  }
+  } */
 }
 
 app.whenReady().then(async () => {
