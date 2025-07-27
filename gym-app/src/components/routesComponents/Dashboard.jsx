@@ -45,7 +45,7 @@
                         <p className={` ${i18n.language === 'ar' ? 'text-2xl' : 'text-xl'}`}>{t("Memberships Ended")}</p>
                     </NavLink>
 
-                    <NavLink to="/uncompleted-paiment" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
+                    <NavLink to="/uncompleted-payment" className="flex flex-row gap-2 items-center text-[#B0B7C4] hover:text-white hover:bg-[#4CAF50] px-3 py-2 rounded-lg transition duration-300">
                         <BlockIcon style={{fontSize:"1.5rem"}} />
                         <p className={` ${i18n.language === 'ar' ? 'text-2xl' : 'text-xl'}`}>{t("Uncompleted Payment")}</p>
                     </NavLink>
