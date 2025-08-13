@@ -28,7 +28,7 @@ export default function NavBar(){
 
                         <div className="flex flex-row gap-3 items-center ">
                             <AdminPanelSettingsIcon className="text-[#B0B7C4]" style={{fontSize:"2.5rem"}} />
-                            <p className="text-[#FFFFFF] text-xl">ADMIN SALIM</p>
+                            <p className="text-[#FFFFFF] text-xl">ADMIN WHOEVER</p>
                             <div className="bg-[#4CAF50] w-[10px] h-[10px] rounded-2xl"></div>
                         </div>
 
