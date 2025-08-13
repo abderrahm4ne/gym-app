@@ -30,10 +30,10 @@ A desktop application built with **Electron.js** for gym subscription and manage
    cd gym-app
 2. Install dependencies
     ```bash
-    npm install
+    npm i
 3. Run the app in development mode
     ```bash
-    npm run dev
+    npm run start
 4. Build the production version
    ```bash
     npm run build
