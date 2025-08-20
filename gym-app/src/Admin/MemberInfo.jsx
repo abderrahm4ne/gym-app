@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import { useTranslation } from 'react-i18next';
-
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 export default function MemberInfo() {
     const navigate = useNavigate();
@@ -32,9 +32,55 @@ export default function MemberInfo() {
     startDate: todayDate,
     endDate: "",
     months: 1
-    });
+        });
+        
+    const [photoFile, setPhotoFile] = useState(null);
+    const [photoPreview, setPhotoPreview] = useState(null);
+    const [isUploading, setIsUploading] = useState(false);
 
+    const handlePhotoSelect = async () => {
+    try {
+        const filePath = await window.electron.ipcRenderer.openFileDialog();
+        if (!filePath) return;
+        
+        const buffer = await window.electron.ipcRenderer.invoke('read-file', filePath);
+        if (buffer) {
+        const blob = new Blob([buffer]);
+        setPhotoFile(buffer);
+        setPhotoPreview(URL.createObjectURL(blob));
+        }
+    } catch (err) {
+        console.error("File selection error:", err);
+    }
+    };
 
+    const handlePhotoUpload = async () => {
+    if (!photoFile) return;
+    setIsUploading(true);
+    
+    try {
+        const result = await window.electron.ipcRenderer.uploadPhoto(id, photoFile);
+        
+        if (result.success) {
+        setPhotoPreview(result.member.photo);
+        setMember(prev => ({ ...prev, photo: result.member.photo }));
+        setEditedMember(prev => ({ ...prev, photo: result.member.photo }));
+        alert("Photo uploaded successfully!");
+        } else {
+        alert("Photo upload failed: " + result.error);
+        }
+    } catch (err) {
+        console.error("Photo upload error:", err);
+    } finally {
+        setIsUploading(false);
+    }
+    };
+
+    useEffect(() => {
+    return () => {
+        if (photoPreview) URL.revokeObjectURL(photoPreview);
+    };
+    }, [photoPreview]);
 
     const fetchMember = async () => {
         try {
@@ -337,7 +383,53 @@ export default function MemberInfo() {
 
                 <div className="w-full flex flex-row items-center gap-5">
 
-                        <img src={`../public/photos/${editedMember.lastname}.png`} alt="profil picture" className="self-start  border-2 border-[#00C4FF] w-[13%] h-[160px] rounded-sm  profilePicture"/>
+                    <div className="flex flex-col items-center">
+                        
+                        <div className="flex justify-center mb-6">
+                            
+                            <div className="relative w-40 h-40">
+                                <div 
+                                className="w-full h-full rounded-full overflow-hidden border-4 border-[#00C4FF] cursor-pointer"
+                                onClick={handlePhotoSelect}
+                                >
+                                {photoPreview ? (
+                                    <img src={photoPreview} alt="Preview" className="w-full h-full object-cover" />
+                                ) : member?.photo ? (
+                                    <img src={member.photo} alt="Member" className="w-full h-full object-cover" />
+                                ) : (
+                                    <div className="bg-gray-200 border-2 border-dashed rounded-full w-full h-full flex items-center justify-center">
+                                    <PhotoCameraIcon className="text-gray-400 text-3xl" />
+                                    </div>
+                                )}
+                                </div>
+                                <div className="absolute bottom-0 right-0 bg-[#00C4FF] rounded-full p-2">
+                                <PhotoCameraIcon className="text-white" />
+                                </div>
+                            </div>
+                            </div>
+
+                            {photoFile && (
+                            <div className="flex justify-center gap-4 mb-6">
+                                <button
+                                onClick={handlePhotoUpload}
+                                disabled={isUploading}
+                                className="px-4 py-2 bg-green-500 text-white rounded-md disabled:opacity-50"
+                                >
+                                {isUploading ? "Uploading..." : "Upload Photo"}
+                                </button>
+                                <button
+                                onClick={() => {
+                                    setPhotoFile(null);
+                                    setPhotoPreview(member?.photo || null);
+                                }}
+                                className="px-4 py-2 bg-gray-500 text-white rounded-md"
+                                >
+                                Cancel
+                                </button>
+                            </div>
+                            )}
+
+                    </div>
 
                     <div className="flex flex-col h-full w-full gap-1">
 
