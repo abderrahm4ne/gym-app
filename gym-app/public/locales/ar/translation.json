@@ -66,5 +66,9 @@
     "CLEAR TEXT": "حذف النص",
     "Number Of Memberships Who Has Ended " : " عدد الإشتراكات المنتهية",
     "Number Of Memberships Who Ends Today ": " عدد الإشتراكات التي تنتهي اليوم",
-    "Number Of Members Who didnt Completed payement ": " عدد الأعضاء الذين لم يكملوا الدفع"  
+    "Number Of Members Who didnt Completed payement ": " عدد الأعضاء الذين لم يكملوا الدفع",
+    "Uploading...": "جاري الرفع...",
+    "Upload Photo": "رفع الصورة",
+    "Previous": "السابق",
+    "Next": "التالي"
 }

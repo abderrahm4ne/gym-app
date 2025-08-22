@@ -5,3 +5,4 @@ backend/config.json
 backend/ipc/memberHandlers.js
 backend/models/mongoSchema.js
 out/
+backend/ipc/config.json

@@ -1,13 +1,17 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 const allowedInvokeChannels = [
-  'add-member',
   'get-members',
+  'add-member',
   'get-member',
   'update-member',
   'renew-member',
   'delete-member',
-  'load-note'
+  'load-note',
+  'save-note',
+  'update-photo',
+  'open-file-dialog',
+  'read-file'
 ];
 
 const allowedSendChannels = ['save-note'];
@@ -28,6 +32,8 @@ contextBridge.exposeInMainWorld('electron', {
       } else {
         console.warn(`Blocked send on unauthorized channel: ${channel}`);
       }
-    }
+    },
+    uploadPhoto: (memberId, file) => ipcRenderer.invoke('update-photo', memberId, file),
+    openFileDialog: () => ipcRenderer.invoke('open-file-dialog')
   }
 });

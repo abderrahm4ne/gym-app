@@ -5,6 +5,12 @@
     word-spacing: -1px;
 }
 
+.main-content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto; 
+}
+
 .rtl-calendar {
   direction: rtl;
   text-align: right;
@@ -65,4 +71,13 @@ body{
 
 .profilePicture{
     background-size:cover;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+td, th {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
