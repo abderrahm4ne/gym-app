@@ -26,21 +26,10 @@ function createMainWindow() {
       sandbox: true
     }
   });
-    mainWindow.webContents.openDevTools();
 
-  mainWindow.loadURL('http://localhost:5173')
-
-/*  if (process.env.NODE_ENV === 'development') {
-    mainWindow.webContents.openDevTools();
-  }
-
-  if (process.env.NODE_ENV === 'development') {
-    mainWindow.loadURL('http://localhost:5173');
-  } else {
     const indexPath = path.join(__dirname, 'gym-app', 'dist', 'index.html');
     console.log('Loading index from:', indexPath);
     mainWindow.loadFile(indexPath);
-  } */
 }
 
 app.whenReady().then(async () => {
