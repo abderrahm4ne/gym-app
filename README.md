@@ -42,9 +42,13 @@ The app helps manage members, subscriptions, and photos with a modern interface 
 ## 📂 Project Structure
 gym-app/
 ├── gym-app/ # ReactJS 
+
 ├── backend/ # IPC handlers and server logic
+
 ├── public/ # Static assets
+
 ├── electron.js # Electron main process
+
 └── README.md
 
 ---
