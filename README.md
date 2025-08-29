@@ -41,6 +41,7 @@ The app helps manage members, subscriptions, and photos with a modern interface 
 
 ## 📂 Project Structure
 gym-app/
+
 ├── gym-app/ # ReactJS 
 
 ├── backend/ # IPC handlers and server logic
@@ -59,4 +60,60 @@ gym-app/
 ```bash
 git clone https://github.com'/abderrahm4ne/gym-app.git
 cd gym-app
+
+```
+
+### 2. create 2 config.json files
+
+
+first file
+
+```bash
+cd backend
+touch config.json
+```
+
+copy past inside the file
+
+```bash
+{
+  "CLOUDINARY_CLOUD_NAME": "your_cloud_name",
+  "CLOUDINARY_API_KEY": "your_api_key",
+  "CLOUDINARY_API_SECRET": "your_api_secret"
+}
+```
+
+second file 
+
+```bash
+cd ../
+touch config.json
+```
+
+copy past inside
+
+```bash
+{
+  "MONGO_URI": "your_mongo_connection_string",
+}
+```
+
+to run app enter 
+
+```bash
+npm run build
+```
+
+to build desktop app run
+
+```bash
+npm run make
+```
+
+
+
+
+
+
+
 
