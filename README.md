@@ -58,7 +58,7 @@ gym-app/
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com'/abderrahm4ne/gym-app.git
+git clone https://github.com/abderrahm4ne/gym-app.git
 cd gym-app
 
 ```
