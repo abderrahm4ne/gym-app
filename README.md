@@ -104,7 +104,7 @@ to run app enter
 npm run build
 ```
 
-to build desktop app run
+to build desktop app enter
 
 ```bash
 npm run make
