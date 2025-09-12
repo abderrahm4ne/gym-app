@@ -413,7 +413,7 @@ export default function MemberInfo() {
                                 <button
                                 onClick={handlePhotoUpload}
                                 disabled={isUploading}
-                                className="px-4 py-2 bg-green-500 text-white rounded-md disabled:opacity-50"
+                                className="px-4 py-2 btn bg-green-500 text-white rounded-md disabled:opacity-50"
                                 >
                                 {isUploading ? t('Uploading...') : t('Upload Photo')}
                                 </button>
@@ -422,7 +422,7 @@ export default function MemberInfo() {
                                     setPhotoFile(null);
                                     setPhotoPreview(member?.photo || null);
                                 }}
-                                className="px-4 py-2 bg-gray-500 text-white rounded-md"
+                                className="px-4 py-2 btn bg-gray-500 text-white rounded-md"
                                 >
                                 {t('CANCEL')}
                                 </button>
