@@ -171,7 +171,7 @@ export default function ViewAllMembers() {
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className={`mx-1 px-3 py-1 rounded ${
+            className={`mx-1 px-3 py-1 rounded btn ${
               currentPage === 1
                 ? 'bg-gray-500 text-gray-300 cursor-not-allowed'
                 : 'bg-gray-700 text-white hover:bg-gray-600'
@@ -185,7 +185,7 @@ export default function ViewAllMembers() {
           <button
             onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className={`mx-1 px-3 py-1 rounded ${
+            className={`mx-1 px-3 py-1 rounded btn ${
               currentPage === totalPages
                 ? 'bg-gray-500 text-gray-300 cursor-not-allowed'
                 : 'bg-gray-700 text-white hover:bg-gray-600'
