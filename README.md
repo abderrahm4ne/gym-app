@@ -4,8 +4,7 @@ A full desktop application built to manage gym memberships, payments, and member
 Built using Electron, React, MongoDB, and Cloudinary.
 
 # Tech Stack
-## React.js + React Router
-Modern UI with smooth navigation and responsive pages
+React.js + React Router Modern UI with smooth navigation and responsive pages
 
 Electron IPC Handlers Handles database operations and communication between frontend and backend
 
