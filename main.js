@@ -8,11 +8,6 @@ import connectToDatabase from './backend/mongo.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-if (process.argv[1] === '--squirrel-install' || 
-    process.argv[1] === '--squirrel-updated' ||
-    process.argv[1] === '--squirrel-uninstall') {
-  app.quit();
-}
 
 function createMainWindow() {
   const mainWindow = new BrowserWindow({
@@ -22,8 +17,7 @@ function createMainWindow() {
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: false,
-      sandbox: true
+      nodeIntegration: false
     }
   });
 

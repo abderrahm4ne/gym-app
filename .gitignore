@@ -2,6 +2,5 @@ node_modules
 members.db
 color
 backend/config.json
-backend/models/mongoSchema.js
 out/
 backend/ipc/config.json

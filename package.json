@@ -1,65 +1,39 @@
 {
   "name": "gym-app",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.2.0",
+  "description": "A desktop application for gym management built with many technologies",
   "main": "main.js",
   "type": "module",
   "scripts": {
     "start": "electron-forge start",
-    "dev": "NODE_ENV=development electronmon --trace-warnings .",
+    "dev": "electronmon --trace-warnings .",
     "build-react": "cd gym-app && npm run build",
-    "package": "npm run build-react && electron-forge package",
-    "make": "npm run build-react && electron-forge make",
-    "make-win": "npm run build-react && electron-forge make --platform=win32"
+    "make": "electron-forge make"
   },
   "keywords": [
     "electron",
     "react",
     "js"
   ],
-  "author": "",
+  "author": {
+    "name": "Your Name",
+    "email": "your-email@example.com"
+  },
   "license": "MIT",
   "dependencies": {
     "cloudinary": "^2.7.0",
     "dotenv": "^17.2.1",
+    "electron-squirrel-startup": "^1.0.0",
     "express": "^5.1.0",
     "mongoose": "^8.16.1",
     "multer": "^2.0.2",
     "nedb": "^1.8.0"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^7.8.1",
-    "@electron-forge/maker-deb": "^7.8.1",
-    "@electron-forge/maker-rpm": "^7.8.1",
-    "@electron-forge/maker-squirrel": "^7.8.1",
-    "@electron-forge/maker-zip": "^7.8.1",
-    "@electron-forge/plugin-auto-unpack-natives": "^7.8.1",
-    "@electron-forge/plugin-fuses": "^7.8.1",
-    "@electron/fuses": "^1.8.0",
+    "@electron-forge/cli": "^7.10.2",
+    "@electron-forge/maker-deb": "^7.10.2",
+    "@electron-forge/maker-squirrel": "^7.10.2",
+    "@electron-forge/publisher-github": "^7.10.2",
     "electron": "^37.2.4"
-  },
-  "config": {
-    "forge": {
-      "packagerConfig": {
-        "icon": "ico.ico",
-        "name": "Gym Management",
-        "executableName": "gym-management",
-        "asar": true
-      },
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "gym_app",
-            "setupIcon": "ico.ico",
-            "authors": "Abderrahmane Seghouani",
-            "description": "Gym System App Management for Desktop Windows",
-            "noMsi": true,
-            "setupExe": "GymManagementSetup.exe",
-            "setupMsi": "GymManagementSetup.msi"
-          }
-        }
-      ]
-    }
   }
 }
