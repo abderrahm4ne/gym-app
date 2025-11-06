@@ -1,10 +1,8 @@
 node_modules
-members.db
 color
 /out/
 /dist/
 *.exe
 *.deb
 *.dmg
-*.AppImage
 .env
