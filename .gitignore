@@ -1,11 +1,10 @@
 node_modules
 members.db
 color
-backend/config.json
 /out/
 /dist/
 *.exe
 *.deb
 *.dmg
 *.AppImage
-backend/ipc/config.json
+.env

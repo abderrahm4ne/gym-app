@@ -1,19 +1,14 @@
 import mongoose from "mongoose";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import dotenv from 'dotenv';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+dotenv.config();
 
-const configPath = path.join(__dirname, "config.json");
-const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
 
 async function connectToDatabase() {
-  const uri = config.mongoUri;
+  const uri = process.env.MONGO_URI;
 
   if (!uri) {
-    console.error("Mongo URI is missing in config.json");
+    console.error("Mongo URI is missing in .env");
     return;
   }
   try {

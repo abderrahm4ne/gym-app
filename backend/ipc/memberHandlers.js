@@ -2,80 +2,34 @@ import { ipcMain, dialog, app } from 'electron';
 import Member from '../models/mongoSchema.js';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import cloudinary from "cloudinary";
+import dotenv from "dotenv";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const configPath = path.join(__dirname,"config.json");
+dotenv.config();
 
-let config;
 let cloudinaryConfigured = false;
 
-console.log("Looking for config at:", configPath);
 
 try {
-  if (!fs.existsSync(configPath)) {
-    console.error("Config file does not exist at:", configPath);
-    const defaultConfig = {
-      cloudinary: {
-        cloud_name: "",
-        api_key: "",
-        api_secret: ""
-      }
-    };
-    fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 2));
-    console.log("Created default config file at:", configPath);
-    config = defaultConfig;
+  if (
+    process.env.CLOUD_NAME &&
+    process.env.CLOUD_API_KEY &&
+    process.env.CLOUD_API_SECRET
+  ) {
+    cloudinary.v2.config({
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.CLOUD_API_KEY,
+      api_secret: process.env.CLOUD_API_SECRET,
+    });
+    cloudinaryConfigured = true;
+    console.log("Cloudinary configured from .env");
   } else {
-    const configData = fs.readFileSync(configPath, "utf-8");
-    console.log("Raw config data:", configData);
-    
-    config = JSON.parse(configData);
-    console.log("Parsed config:", config);
-    
-    let cloudinaryConfig = config;
-    if (config.cloudinary) {
-      cloudinaryConfig = config.cloudinary;
-      console.log("Using nested cloudinary config");
-    } else {
-      console.log("Using root-level config");
-    }
-    
-    if (cloudinaryConfig.cloud_name && cloudinaryConfig.api_key && cloudinaryConfig.api_secret) {
-      if (cloudinaryConfig.cloud_name !== "" && 
-          cloudinaryConfig.api_key !== "" && 
-          cloudinaryConfig.api_secret !== "") {
-        
-        console.log("Config values are present and not empty");
-        cloudinary.v2.config({
-          cloud_name: cloudinaryConfig.cloud_name,
-          api_key: cloudinaryConfig.api_key,
-          api_secret: cloudinaryConfig.api_secret
-        });
-        
-        cloudinaryConfigured = true;
-        console.log("Cloudinary configured successfully");
-      } else {
-        console.error("Cloudinary config values are empty strings");
-      }
-    } else {
-      console.error("Cloudinary config missing required fields");
-      console.error("Available fields:", Object.keys(cloudinaryConfig));
-    }
+    console.error("Missing Cloudinary credentials in .env");
   }
 } catch (err) {
   console.error("Error loading config:", err);
 }
 
-if (cloudinaryConfigured) {
-  console.log("Testing Cloudinary connection...");
-  cloudinary.v2.api.ping()
-    .then(result => console.log("Cloudinary ping successful:", result))
-    .catch(error => console.error("Cloudinary ping failed:", error));
-} else {
-  console.error("Cloudinary is not configured. Please update your config.json file.");
-}
 
 const noteFilePath = path.join(app.getPath("userData"), "note.txt");
 

@@ -4,6 +4,10 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { memberHandlers } from './backend/ipc/memberHandlers.js';
 import connectToDatabase from './backend/mongo.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
