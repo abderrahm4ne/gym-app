@@ -40,7 +40,7 @@ npm run start
 ## to build the app
   ### the app build matches your os, you just run :
   ```shell
-      npm run make
+  npm run make
  ```
 
 ## to use app 
