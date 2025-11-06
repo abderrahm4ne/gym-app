@@ -15,3 +15,8 @@ Cloudinary Manages and stores member profile images securely
 Electron Wraps the web app into a native Windows desktop application
 
 Windows 10 & 11 Fully compatible (Windows 7 soon)
+
+
+# How To use
+
+You can see .env.example and env needed insert your vars in .env (you create) and use it
