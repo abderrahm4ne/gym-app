@@ -198,3 +198,4 @@ ipcMain.on("save-note", (_event, noteContent) => {
 
 
 }
+

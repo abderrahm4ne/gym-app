@@ -3,6 +3,9 @@ module.exports = {
     name: "gym-app",
     asar: true,
     appCategoryType: "public.app-category.fitness",
+    extraResource: [
+      "./.env"
+    ]
   },
   makers: [
     {
@@ -20,7 +23,7 @@ module.exports = {
       config: {
         repository: {
           owner: 'abdererahm4ne',
-          name: 'gym-app',        
+          name: 'gym-app',
         },
         draft: true,
         prerelease: false,

@@ -6,7 +6,9 @@ import { memberHandlers } from './backend/ipc/memberHandlers.js';
 import connectToDatabase from './backend/mongo.js';
 import dotenv from 'dotenv';
 
-dotenv.config();
+const isDev = !app.isPackaged;
+const envPath = isDev ? '.env' : path.join(process.resourcesPath, '.env');
+dotenv.config({ path: envPath });
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -25,9 +27,9 @@ function createMainWindow() {
     }
   });
 
-    const indexPath = path.join(__dirname, 'gym-app', 'dist', 'index.html');
-    console.log('Loading index from:', indexPath);
-    mainWindow.loadFile(indexPath);
+  const indexPath = path.join(__dirname, 'gym-app', 'dist', 'index.html');
+  console.log('Loading index from:', indexPath);
+  mainWindow.loadFile(indexPath);
 }
 
 app.whenReady().then(async () => {
